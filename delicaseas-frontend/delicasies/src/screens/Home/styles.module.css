@@ -1,0 +1,148 @@
+/* Make sure root elements take full height */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  
+}
+
+/* Page layout */
+.page {
+  display: flex;
+  height: 100vh; /* Full height of screen */
+  width: 100%;   /* Full width */
+  overflow: hidden; /* Prevent scrollbars */
+}
+
+.left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #ece9de;
+  border-radius: 50px 0 50px 0;
+}
+
+.signupForm {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  gap: 15px;
+}
+
+.signupForm input {
+  padding: 10px;
+  width: 300px;
+  border: 1px solid #0a0a0a;
+  border-radius: 5px;
+}
+.signupForm label {
+  font-size: 16px;
+  color: #0a0a0a;
+  font-weight: bold;
+}
+
+.signupForm ::placeholder {
+  color: #b9b9b9;
+
+}
+
+.checkbox {
+  display: flex;
+  border-color: #0a0a0a;
+  gap: 2px; /* small gap between checkbox and text */
+  width: 250px; /* same as inputs/buttons */
+  white-space: nowrap; /* keep text in one line */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-right: 20; /* align with inputs/buttons */
+}
+
+.checkbox input[type="checkbox"] {
+  margin-left: 20px; /* remove extra default space */
+
+}
+
+.checkbox label {
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+  margin-right: 30px;
+}
+
+
+.signupButton button {
+  width: 325px; /* match input width */
+  height: 50px;
+  padding: 10px;
+  background-color: #879e6d;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.signupButton {
+  width: 300px; /* match input width */
+  color: white;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 20px;
+}
+.accountButtons {
+  display: flex;
+  gap: 10px; /* space between buttons */
+  margin-top: 15px;
+}
+
+.accountButtons button {
+  flex: 1; /* make both equal width */
+  min-width: 140px; /* ensure reasonable size */
+  padding: 10px;
+  font-size: 15px;
+  font-weight: bold;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  background-color: #c0daa2;
+  color: #0a0a0a;
+}
+
+.loginLink {
+ text-align: center;
+  font-size: 16px;
+  color: #0a0a0a;
+}
+
+.loginLink  a {
+  color: #2252ac;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: cursive;
+}
+
+
+
+.right {
+  flex: 1;
+  display: flex;
+  background-color: #fafafa;
+
+}
+
+.right img {
+  width: 100%;
+  height: 100%; /* Make it take full column height */
+  
+  border-radius: 0 50px 0 50px;
+}
