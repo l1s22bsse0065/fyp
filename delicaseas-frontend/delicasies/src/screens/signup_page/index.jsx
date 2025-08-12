@@ -39,7 +39,7 @@ export default function Home() {
               </div>
 
               <div className={styles.loginLink}>
-                <p>Already have an account? <a href="/login">Login</a></p>
+                <p>Already have an account? <a href="/signin">Login</a></p>
               </div>
             </form>
           </div>

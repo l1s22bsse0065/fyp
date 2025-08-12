@@ -1,0 +1,95 @@
+/* Full page container */
+.page {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Background image */
+.background {
+  position: absolute;
+  inset: 0;
+  background-image: url('/public/images/signup.jpg'); /* No /public prefix */
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.7);
+  z-index: 0;
+  opacity: 0.9;
+}
+
+/* Centered form container */
+.formContainer {
+  position: relative;
+  z-index: 1;
+  background: #ece9de;
+  padding: 30px;
+  border-radius: 10px;
+
+  /* Remove the fixed margin so vertical centering is correct */
+  margin: 0;
+}
+.logo {
+  text-align: center;
+  font-family: 'Courier New', Courier, monospace;
+  margin-bottom: 10px;
+}
+/* Heading */
+.heading {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+/* Form fields */
+.signinForm {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 10px;
+  
+}
+
+.signinForm input {
+  padding: 10px;
+  border-radius: 5px;
+  color:black;
+}
+
+.signinForm label{
+  font-size: 16px;
+  color: #0a0a0a;
+  font-weight: bold
+   
+
+}
+/* Options row */
+.options {
+  font-size: 14px;
+}
+
+.options a {
+  color: #2252ac;
+  text-decoration: none;
+}
+
+/* Sign in button */
+.signinButton {
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 10px;
+  background-color: #929e84;
+}
+
+/* Sign up link */
+.signupLink {
+  text-align: center;
+  font-size: 14px;
+}
+
+.signupLink a {
+  color: #2252ac;
+  text-decoration: none;
+  font-weight: bold;
+}
