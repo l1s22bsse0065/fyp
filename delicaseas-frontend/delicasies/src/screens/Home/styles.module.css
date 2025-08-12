@@ -21,7 +21,8 @@ html, body {
   justify-content: center;
   align-items: center;
   background-color: #ece9de;
-  border-radius: 50px 0 50px 0;
+  border-radius: 0;
+  padding: 20px;
 }
 
 .signupForm {
@@ -108,8 +109,9 @@ html, body {
   border-radius: 10px;
   border: none;
   cursor: pointer;
-  background-color: #c0daa2;
+  background-color: #cad8b9;
   color: #0a0a0a;
+  margin-bottom: 20px;
 }
 
 .loginLink {
@@ -128,7 +130,9 @@ html, body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-family: cursive;
+  font-family: 'Courier New', Courier, monospace;
+  margin-top: 50px;
+  
 }
 
 
@@ -143,6 +147,7 @@ html, body {
 .right img {
   width: 100%;
   height: 100%; /* Make it take full column height */
-  
-  border-radius: 0 50px 0 50px;
+  opacity: 0.85; /* Slightly transparent */
+  object-fit: cover; /* Cover the area without stretching */
+  border-radius: 0 ;
 }

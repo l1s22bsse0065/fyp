@@ -4,17 +4,19 @@ import styles from './styles.module.css';
 export default function Home() {
   return (
     <div className={styles.page}>
-      {/* Left Column - Signup */}
-      <div className={styles.left}>
-        {/* Logo Section */}
-        <div className={styles.logo}>
-          <h1>Delicacies</h1>
-        </div>
 
-        {/* Heading */}
-        <div className={styles.heading}>
+      {/* Left Column - Signup */}
+    <div className={styles.left}>
+        
+      {/* Logo Section */}
+      <div className={styles.logo}>
+          <h1>Delicacies</h1>
+      </div>
+
+      {/* Heading */}
+      <div className={styles.heading}>
           <h1>Get Started</h1>
-        </div>
+      </div>
 
        
 
