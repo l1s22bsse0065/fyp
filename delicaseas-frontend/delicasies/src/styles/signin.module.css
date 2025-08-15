@@ -62,7 +62,7 @@
 }
 
 .link:hover {
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 /* Sign In button */
