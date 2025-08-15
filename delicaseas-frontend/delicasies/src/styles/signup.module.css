@@ -1,0 +1,44 @@
+.page {
+  background-color: #ffffff; /* Page fallback background */
+}
+
+/* Optional: Custom font for the heading (Delicacies logo style) */
+.page h1 {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 2.5rem;
+  color: #000;
+}
+
+/* Make checkbox label slightly lighter if desired */
+.form-check-label {
+  color: #555;
+}
+
+/* Adjust form input focus color (Bootstrap green) */
+.form-control:focus {
+  border-color: #198754;
+  box-shadow: 0 0 0 0.2rem rgba(25, 135, 84, 0.25);
+}
+
+
+
+
+/* Buttons: tweak font weight globally if desired */
+.btn {
+  font-weight: 600;
+  
+}
+.socialBtn {
+  background-color: #b8cd8d; /* Replace with your brand color */
+  color: white;
+  border: none;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.socialBtn:hover {
+  background-color: #97ab6c; /* Slightly darker shade for hover */
+}
+.formSection {
+  background-color: #ece9de; /* Same as Bootstrap success green */
+  /* or any custom hex color you like */
+}
