@@ -84,11 +84,11 @@ const Home = () => {
       </section>
 
     {/* SMARTLY CURATED SECTION */}
-<section className={`${styles.curatedSection} border border-dark rounded`}>
+    <section className={`${styles.curatedSection} border border-dark rounded`}>
   <Container fluid className="py-5">
     <Row className="align-items-center">
       <Col md={6}>
-        <span className={styles.badge}>Curated</span>
+        <span className={styles.badge}>Explore</span>
         <h2 className="fw-bold mb-3">SMARTLY CURATED,<br/>JUST FOR YOU</h2>
         <p className="mb-4">
           Unique recipes handpicked to match your taste — 
@@ -97,7 +97,7 @@ const Home = () => {
         <Button variant="dark" className={styles.btnDark}>SEE MORE</Button>
       </Col>
       <Col md={6} className="text-center">
-        <img src="/images/robot-chef.jpg" alt="Smart recipe curation" className="img-fluid rounded" />
+        <img src={heroImg} alt="Smart recipe curation" className={ `img-fluid rounded ${styles.curatedimage}`} />
       </Col>
     </Row>
   </Container>
@@ -109,7 +109,7 @@ const Home = () => {
   <Container fluid className="py-5">
     <Row>
       <Col md={6}>
-        <span className={styles.badge}>Curated</span>
+        <span className={styles.badge}>Explore</span>
         <h2 className="fw-bold mb-3">OUR DIVERSE<br/>PALETTE</h2>
         <p className="mb-4">
           Explore an extraordinary blend of flavors crafted to perfection. 
@@ -136,28 +136,32 @@ const Home = () => {
 <section className={`${styles.whatWeHaveSection} border border-dark rounded`}>
   <Container fluid className="py-5">
     <Row>
-      <Col md={4}>
-        <span className={styles.badge}>Curated</span>
-        <h2 className="fw-bold mb-3">WHAT DO WE<br/>HAVE?</h2>
+      {/* LEFT CONTENT */}
+      <Col md={4} className="d-flex flex-column justify-content-center">
+        <span className={styles.badge}>About us</span>
+        <h2 className="fw-bold mb-3">
+          WHAT DO WE<br />HAVE?
+        </h2>
         <p className="mb-4">
           Dive into fresh selections and exciting creations — 
           perfectly balanced recipes, straight from our test kitchen.
         </p>
-        <Button variant="dark" className={styles.btnDark}>READ MORE</Button>
+        <Button variant=" border-dark" className={styles.btnDark}>READ MORE</Button>
       </Col>
+
+      {/* RIGHT IMAGES COLLAGE */}
       <Col md={8}>
-        <Row>
-          <Col xs={4}><img src="/images/img1.jpg" className="img-fluid rounded mb-3" /></Col>
-          <Col xs={4}><img src="/images/img2.jpg" className="img-fluid rounded mb-3" /></Col>
-          <Col xs={4}><img src="/images/img3.jpg" className="img-fluid rounded mb-3" /></Col>
-          <Col xs={4}><img src="/images/img4.jpg" className="img-fluid rounded" /></Col>
-          <Col xs={4}><img src="/images/img5.jpg" className="img-fluid rounded" /></Col>
-          <Col xs={4}><img src="/images/img6.jpg" className="img-fluid rounded" /></Col>
-        </Row>
+        <div className={styles.imageCollage}>
+          <img src={heroImg} alt="" className={`${styles.img} ${styles.img1}`} />
+          <img src={heroImg} alt="" className={`${styles.img} ${styles.img2}`} />
+          <img src={heroImg} alt="" className={`${styles.img} ${styles.img3}`} />
+          <img src={heroImg} alt="" className={`${styles.img} ${styles.img4}`} />
+        </div>
       </Col>
     </Row>
   </Container>
 </section>
+
 
 
 {/* SUBSCRIBE SECTION */}

@@ -101,12 +101,12 @@ export default function Signup() {
         </div>
 
         {/* Right Column */}
-        <div className="col-12 col-md-6">
+        <div className="col-12 col-md-6 ">
           <img 
             src={signupImage} 
             alt="Signup visual" 
             className="img-fluid vh-100 w-100" 
-            style={{ objectFit: 'cover', opacity: 0.85 }} 
+            style={{ objectFit: 'cover', opacity: 0.9 }} 
           />
         </div>
       </div>
