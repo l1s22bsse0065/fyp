@@ -18,7 +18,7 @@ const NavbarComponent = () => {
             <Nav.Link href="/about">About Us</Nav.Link>
           </Nav>
           <div className="d-flex gap-2">
-            <Button variant="outline-dark">Cart</Button>
+            <Button variant="outline-dark">CHEFBOT</Button>
             <Button variant="dark">Subscribe</Button>
           </div>
         </Navbar.Collapse>

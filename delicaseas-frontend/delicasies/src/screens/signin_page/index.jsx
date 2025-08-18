@@ -70,7 +70,7 @@ export default function SignIn() {
 
               {/* Sign Up Link */}
               <p className={`${styles.signupLink} mt-3`}>
-                Don’t have an account? <a href="/" className={styles.link}>Sign Up</a>
+                Don’t have an account? <a href="/home" className={styles.link}>Sign Up</a>
               </p>
             </form>
           </div>
