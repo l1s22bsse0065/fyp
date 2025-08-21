@@ -156,16 +156,18 @@ body {
   margin-top: 10px;
 }
 
-.curatedSection, .paletteSection {
+.curatedSection, .paletteSection , .whatWeHaveSection{
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 30px;
+ 
   background-color: #fdf6e3; /* cream or beige */
   margin: 40px 0;
   padding: 20px;
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
-
+  border-radius: 30px;
+  overflow: hidden; 
+  
 }
 
 
@@ -190,6 +192,7 @@ body {
   border-radius: 20px;
   font-size: 0.8rem;
   margin-bottom: 15px;
+  width: fit-content;
 }
 
 .btnDark {
@@ -199,17 +202,18 @@ body {
 }
 
 .paletteList {
-  list-style: none;
-  padding: 0;
+  list-style: disc;        
+  padding-left: 20px;      
+  text-align: left;        
   font-size: 1.1rem;
 }
 
 .paletteList li {
-  display: flex;
-  align-items: center;
+  display: list-item;      
   margin-bottom: 10px;
   font-weight: 500;
 }
+
 
 .paletteList li i {
   margin-right: 10px;
@@ -230,13 +234,7 @@ body {
 }
 
 
-.whatWeHaveSection {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
-  padding: 60px 20px;
-}
+
 
 .imageCollage {
   display: grid;
@@ -272,4 +270,41 @@ body {
 .img4 {
   grid-column: 1 / span 4;
   grid-row: 2 / span 1;
+}
+
+
+.footerSection {
+  background-color: #1b1a1a; /* dark background */
+  color: white;
+  margin-top: 40px;
+  margin: 40px 0;
+  padding: 20px;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 30px;
+  overflow: hidden; 
+}
+.footerLogo {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #6d6d6d;  /* white border around logo */
+}
+
+.footerLinks a {
+  font-size: 0.95rem;
+  transition: color 0.3s ease;
+}
+
+.footerLinks a:hover {
+  color: #c9be97; /* matches your navbar beige */
+}
+
+.footerIcons a {
+  font-size: 1.2rem;
+  transition: color 0.3s ease;
+}
+
+.footerIcons a:hover {
+  color: #c9be97;
 }
