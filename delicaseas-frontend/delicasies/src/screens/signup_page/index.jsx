@@ -4,6 +4,34 @@ import styles from '../../styles/signup.module.css';
 import signupImage from '../../assets/images/signup.jpg';
 
 export default function Signup() {
+  const handleSubmit = async (e) => {
+  e.preventDefault(); // prevent page reload
+
+  const name = document.getElementById('name').value;
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+
+  try {
+    const response = await fetch('http://localhost:5000/api/users/signup', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, password }),
+    });
+
+    const data = await response.json();
+    if (response.ok) {
+      alert('Signup successful!');
+      // optional: redirect to login page
+      window.location.href = '/signin';
+    } else {
+      alert(data.message || 'Signup failed');
+    }
+  } catch (error) {
+    alert('Error connecting to server');
+    console.error(error);
+  }
+};
+
   return (
     <div className={`container-fluid vh-100 ${styles.page} p-0`}>
       <div className="row g-0 h-100">
@@ -24,7 +52,7 @@ export default function Signup() {
             <h2 className="text-center mb-4 fw-semibold">Get Started</h2>
 
             {/* Form */}
-            <form className="d-flex flex-column gap-3 ">
+            <form className="d-flex flex-column gap-3 " onSubmit={handleSubmit}>
               {/* Name */}
               <div>
                 <label htmlFor="name" className="form-label fw-bold">Name</label>

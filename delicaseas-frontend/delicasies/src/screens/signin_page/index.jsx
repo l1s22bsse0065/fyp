@@ -3,6 +3,35 @@ import styles from '../../styles/signin.module.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function SignIn() {
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    try {
+      const response = await fetch('http://localhost:5000/api/users/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        // Save JWT token
+        localStorage.setItem('token', data.token);
+        alert('Login successful!');
+        // redirect to dashboard/home
+        window.location.href = '/home'; 
+      } else {
+        alert(data.message || 'Login failed');
+      }
+    } catch (error) {
+      alert('Error connecting to server');
+      console.error(error);
+    }
+  };
+
   return (
     <div className={`${styles.page} container-fluid`}>
       {/* Background image */}
@@ -22,7 +51,7 @@ export default function SignIn() {
             <h2 className={styles.heading}>Good to see you back</h2>
 
             {/* Sign In Form */}
-            <form className={styles.signinForm}>
+            <form className={styles.signinForm} onSubmit={handleLogin}>
               
               {/* Email */}
               <div className="mb-3">
@@ -70,7 +99,7 @@ export default function SignIn() {
 
               {/* Sign Up Link */}
               <p className={`${styles.signupLink} mt-3`}>
-                Don’t have an account? <a href="/home" className={styles.link}>Sign Up</a>
+                Don’t have an account? <a href="/" className={styles.link}>Sign Up</a>
               </p>
             </form>
           </div>
