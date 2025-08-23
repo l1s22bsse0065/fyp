@@ -1,0 +1,224 @@
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* prevent scroll */
+}
+
+.chatWrapper {
+  display: flex;
+  height: 100vh;
+  width: 100vw; /* ensure full width */
+  background-color: #f4f2e9;
+  font-family: Arial, sans-serif;
+  overflow: hidden; /* prevent scrollbars */
+}
+
+
+.sidebar {
+  background-color: #c8c1a1;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding: 15px;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.sidebarTop {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Tight, consistent spacing */
+}
+
+.userCard {
+  margin-top: auto; /* Push to bottom */
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+
+.sidebar.closed {
+  width: 60px !important; /* shrink to icons only */
+  padding: 10px 5px;
+}
+
+.sidebar.closed .chatButton,
+.sidebar.closed .recentChats,
+.sidebar.closed .userCard span {
+  display: none; /* hide labels */
+}
+
+.sidebar.closed .userImage {
+  margin: 0 auto;
+}
+
+.menuButton {
+  margin-bottom: 8px;
+  cursor: pointer;
+}
+
+.recentChats {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.chatButton {
+  background-color: #b6ad8e;
+  border: none;
+  padding: 10px;
+  text-align: left;
+  cursor: pointer;
+  color: #fff;
+  font-weight: 500;
+  border-radius: 5px;
+}
+
+.chatButton:hover {
+  background-color: #a89d7d;
+}
+
+.userCard {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.userImage {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.chatSection {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding: 0;
+}
+
+.topBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: transparent;
+}
+
+.backButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;                 /* space between icon and text */
+  background-color: #c8c1a1; /* Netflix-style red */
+  color: #ffffff;            /* white text */
+  text-decoration: none;     /* remove underline */
+  font-weight: 500;
+  font-size: 14px;
+  padding: 8px 16px;
+  border-radius: 6px;
+  transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+  cursor: pointer;
+}
+
+.backButton:hover {
+  background-color: #a89d7d; /* darker red on hover */
+  text-decoration: none;
+  color: #ffffff;
+  transform: translateY(-1px); /* subtle lift effect */
+}
+
+.backButton:active {
+  transform: translateY(0); /* remove lift on click */
+}
+
+
+.topIcons {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.icon {
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.searchBar {
+  border-radius: 20px;
+  padding-left: 15px;
+  height: 35px;
+}
+
+.chatBody {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.chatMessageLeft, .chatMessageRight {
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 20px;
+}
+
+.chatMessageLeft {
+  justify-content: flex-start;
+}
+
+.chatMessageRight {
+  justify-content: flex-end;
+}
+
+.messageBox {
+  background-color: #fff;
+  padding: 12px 15px;
+  border-radius: 10px;
+  max-width: 60%;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.avatar {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.inputBar {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  border-top: 1px solid #ddd;
+  background-color: #fff;
+}
+
+.inputBar input {
+  flex: 1;
+  border-radius: 20px;
+  padding-left: 15px;
+  height: 40px;
+  border: 1px solid #ccc;
+}
+
+.inputIcons {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: 15px;
+}
+
+.inputIcons .icon {
+  cursor: pointer;
+  font-size: 18px;
+}

@@ -24,7 +24,7 @@ const Home = () => {
               <Nav.Link href="/about" className={styles.navLink}>About Us</Nav.Link>
             </Nav>  
             <div className="d-flex gap-2">
-              <Button variant="outline-dark" className={styles.customButton}>CHEFBOT</Button>
+              <Button variant="outline-dark" className={styles.customButton} href="/chatbot">CHEFBOT</Button>
               <Button variant="dark" className={styles.subscribeButton}>Subscribe</Button>
             </div>
           </Navbar.Collapse>

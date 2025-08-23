@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Signup from './screens/signup_page';
 import Signin from './screens/signin_page';
 import HomePage from './screens/home_page';
+import Chatbot from './screens/chatbot_page/chatbot';
 
 // import Cart from './screens/Cart';
 // import Checkout from './screens/Checkout';
@@ -14,6 +15,9 @@ function App() {
         <Route path="/" element={<Signup />} />
         <Route path="/signin" element={<Signin />} />
         <Route path="/home" element={<HomePage />} />
+        <Route path="/chatbot" element={<Chatbot />} />
+  
+       
         {/* <Route path="/menu" element={<Menu />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/checkout" element={<Checkout />} />
