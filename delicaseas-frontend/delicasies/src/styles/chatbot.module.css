@@ -1,23 +1,13 @@
-html, body, #root {
-  height: 100%;
+.chatPage {
+  height: 100vh;
   width: 100%;
   margin: 0;
-  padding: 0;
-  overflow: hidden; /* prevent scroll */
+    /* Ensure horizontal layout */
 }
-
-.chatWrapper {
-  display: flex;
-  height: 100vh;
-  width: 100vw; /* ensure full width */
-  background-color: #f4f2e9;
-  font-family: Arial, sans-serif;
-  overflow: hidden; /* prevent scrollbars */
-}
-
-
+/* Sidebar */
 .sidebar {
   background-color: #c8c1a1;
+  transition: width 0.3s ease, padding 0.3s ease;
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -29,19 +19,12 @@ html, body, #root {
 .sidebarTop {
   display: flex;
   flex-direction: column;
-  gap: 10px; /* Tight, consistent spacing */
-}
-
-.userCard {
-  margin-top: auto; /* Push to bottom */
-  background-color: #fff;
-  border-radius: 10px;
-  padding: 10px;
-  display: flex;
-  align-items: center;
   gap: 10px;
+  margin-top: 20px; /* reduce if needed */
+  flex-grow: 1;  /* <-- this lets it expand and take available space */
+  overflow-y: auto; /* <-- this makes recent chats scroll instead of pushing down user card */
+  scrollbar-width: thin; /* optional: nice thin scrollbar */
 }
-
 
 .sidebar.closed {
   width: 60px !important; /* shrink to icons only */
@@ -71,6 +54,7 @@ html, body, #root {
 
 .chatButton {
   background-color: #b6ad8e;
+   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
   border: none;
   padding: 10px;
   text-align: left;
@@ -85,12 +69,14 @@ html, body, #root {
 }
 
 .userCard {
+  margin-top: auto; /* Push to bottom */
   background-color: #fff;
   border-radius: 10px;
   padding: 10px;
   display: flex;
   align-items: center;
   gap: 10px;
+  flex-shrink: 0;
 }
 
 .userImage {
@@ -99,11 +85,14 @@ html, body, #root {
   border-radius: 50%;
 }
 
+/* Chat section */
 .chatSection {
+  flex: 1;
   display: flex;
   flex-direction: column;
   height: 100vh;
   padding: 0;
+  background-color: #dbd7c2;
 }
 
 .topBar {
@@ -116,11 +105,14 @@ html, body, #root {
 
 .backButton {
   display: inline-flex;
+  width: 20vh;
+  margin-top: 10px;
+  margin-left: 10px;
   align-items: center;
-  gap: 8px;                 /* space between icon and text */
-  background-color: #c8c1a1; /* Netflix-style red */
-  color: #ffffff;            /* white text */
-  text-decoration: none;     /* remove underline */
+  gap: 8px;                 
+  background-color: #c8c1a1;
+  color: #ffffff;
+  text-decoration: none;
   font-weight: 500;
   font-size: 14px;
   padding: 8px 16px;
@@ -130,16 +122,15 @@ html, body, #root {
 }
 
 .backButton:hover {
-  background-color: #a89d7d; /* darker red on hover */
+  background-color: #a89d7d;
   text-decoration: none;
   color: #ffffff;
-  transform: translateY(-1px); /* subtle lift effect */
+  transform: translateY(-1px);
 }
 
 .backButton:active {
-  transform: translateY(0); /* remove lift on click */
+  transform: translateY(0);
 }
-
 
 .topIcons {
   display: flex;
@@ -158,13 +149,15 @@ html, body, #root {
   height: 35px;
 }
 
+/* Chat messages */
 .chatBody {
   flex: 1;
   padding: 20px;
   overflow-y: auto;
 }
 
-.chatMessageLeft, .chatMessageRight {
+.chatMessageLeft,
+.chatMessageRight {
   display: flex;
   align-items: flex-end;
   margin-bottom: 20px;
@@ -176,16 +169,27 @@ html, body, #root {
 
 .chatMessageRight {
   justify-content: flex-end;
+  
 }
 
 .messageBox {
   background-color: #fff;
+   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
   padding: 12px 15px;
   border-radius: 10px;
   max-width: 60%;
   font-size: 14px;
   line-height: 1.5;
+  
 }
+.chatMessageRight .messageBox {
+  background-color: #ece8d9; /* subtle tint */
+}
+
+.chatMessageLeft .messageBox {
+  background-color: #fff; /* clean white for received */
+}
+
 
 .avatar {
   width: 35px;
@@ -195,12 +199,13 @@ html, body, #root {
   margin-right: 10px;
 }
 
+/* Input bar */
 .inputBar {
   display: flex;
   align-items: center;
   padding: 10px 20px;
   border-top: 1px solid #ddd;
-  background-color: #fff;
+   background-color: #f7f5ee;
 }
 
 .inputBar input {
@@ -221,4 +226,14 @@ html, body, #root {
 .inputIcons .icon {
   cursor: pointer;
   font-size: 18px;
+}
+.icon:hover {
+  transform: scale(1.1);
+  transition: transform 0.2s ease;
+}
+
+.inputIcons .icon:hover {
+  background-color: rgba(0,0,0,0.05);
+  border-radius: 50%;
+  padding: 5px;
 }

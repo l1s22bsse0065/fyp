@@ -9,6 +9,7 @@ const Home = () => {
 
   return (
     <>
+    <Container fluid className={styles.pageContainer}>
       {/* Navbar */}
       <Navbar  sticky="top"  expand="lg" className={`py-3 ${styles.navbarWrapper}`} bg="light">
         <Container>
@@ -206,7 +207,7 @@ const Home = () => {
   </div>
 </footer>
 
-
+</Container>
     </>
   );
 };
