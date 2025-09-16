@@ -4,7 +4,7 @@ import Signin from './screens/signin_page';
 import HomePage from './screens/home_page/home';
 import Chatbot from './screens/chatbot_page/chatbot';
 import Recipes from './screens/recipes/Recipes';
-// import Checkout from './screens/Checkout';
+import CookingTips from './screens/Cooking_Tips/cookingtip';
 // import Profile from './screens/Profile';
 
 function App() {
@@ -16,6 +16,7 @@ function App() {
         <Route path="/home" element={<HomePage />} />
         <Route path="/chatbot" element={<Chatbot />} />
         <Route path="/recipes" element={<Recipes />} />
+        <Route path="/cooking-tips" element={<CookingTips />} />
   
        
         {/* <Route path="/menu" element={<Menu />} />

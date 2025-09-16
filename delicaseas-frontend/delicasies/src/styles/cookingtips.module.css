@@ -1,0 +1,83 @@
+.pageContainer {
+  background-color: #ffffff;
+  font-family: 'Poppins', sans-serif;
+  color: #2c2c2c;
+}
+
+/* Header Section */
+.headerSection {
+  background: linear-gradient(135deg, #fff9f3 0%, #ffe8d6 100%);
+  border-radius: 16px;
+  padding: 3rem 1.5rem;
+}
+
+.headerSection h1 {
+  color: #333;
+  font-weight: 700;
+}
+
+.headerSection p {
+  max-width: 750px;
+  margin: 1rem auto;
+  font-size: 1.05rem;
+  color: #555;
+}
+
+/* Info Cards */
+.infoCard {
+  border: none;
+  border-radius: 14px;
+  background: #fff;
+  text-align: center;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.infoCard:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.iconImg {
+  width: 50px;
+  margin-bottom: 10px;
+}
+
+/* Cards */
+.card {
+  border: none;
+  border-radius: 16px;
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
+}
+
+.card img {
+  height: 220px;
+  object-fit: cover;
+}
+
+/* Buttons */
+button, .btn {
+  border-radius: 12px !important;
+  font-weight: 600 !important;
+  padding: 0.6rem 1.2rem !important;
+}
+
+.btn-dark {
+  background-color: #2c2c2c !important;
+  border: none !important;
+}
+
+.btn-outline-dark {
+  border: 2px solid #2c2c2c !important;
+  color: #2c2c2c !important;
+}
+
+.btn-outline-dark:hover {
+  background: #2c2c2c !important;
+  color: #fff !important;
+}
