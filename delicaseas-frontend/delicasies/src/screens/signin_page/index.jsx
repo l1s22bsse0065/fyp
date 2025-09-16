@@ -20,7 +20,6 @@ export default function SignIn() {
       if (response.ok) {
         // Save JWT token
         localStorage.setItem('token', data.token);
-        alert('Login successful!');
         // redirect to dashboard/home
         window.location.href = '/home'; 
       } else {

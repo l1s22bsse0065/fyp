@@ -3,8 +3,7 @@ import Signup from './screens/signup_page';
 import Signin from './screens/signin_page';
 import HomePage from './screens/home_page/home';
 import Chatbot from './screens/chatbot_page/chatbot';
-
-// import Cart from './screens/Cart';
+import Recipes from './screens/recipes/Recipes';
 // import Checkout from './screens/Checkout';
 // import Profile from './screens/Profile';
 
@@ -16,6 +15,7 @@ function App() {
         <Route path="/signin" element={<Signin />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/chatbot" element={<Chatbot />} />
+        <Route path="/recipes" element={<Recipes />} />
   
        
         {/* <Route path="/menu" element={<Menu />} />

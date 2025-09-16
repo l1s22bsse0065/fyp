@@ -1,9 +1,16 @@
 
 import { Navbar, Nav, Container, Button, Row, Col, Card } from "react-bootstrap";
-import styles from "../../styles/homepage.module.css"; // CSS Module
-import heroImg from "../../assets/images/signup.jpg"; // Replace with actual image path
+import styles from "../../styles/homepage.module.css";
+import heroImg from "../../assets/images/signup.jpg"; 
 import { recipes } from "../../data/recipes";
 import 'bootstrap-icons/font/bootstrap-icons.css';
+
+
+// Reusable Components
+import NavbarComponent from "../../components/NavbarComponent";
+import SubscribeSection from "../../components/SubscribeSection";
+import FooterSection from "../../components/FooterSection";
+import RecipeGrid from "../../components/RecipeGrid";
 
 const Home = () => {
 
@@ -11,26 +18,7 @@ const Home = () => {
     <>
     <Container fluid className={styles.pageContainer}>
       {/* Navbar */}
-      <Navbar  sticky="top"  expand="lg" className={`py-3 ${styles.navbarWrapper}`} bg="light">
-        <Container>
-          <Navbar.Brand href="/" className={styles.navbarBrand}>
-            <img src={heroImg} alt="logo" height="40"  className={`${styles.footerLogo} me-2`}/>
-          </Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className={`mx-auto ${styles.navLinks}`}>
-              <Nav.Link href="/" className={styles.navLink}>Home</Nav.Link>
-              <Nav.Link href="/recipes" className={styles.navLink}>Recipes</Nav.Link>
-              <Nav.Link href="/cooking-tips" className={styles.navLink}>Cooking Tips</Nav.Link>
-              <Nav.Link href="/about" className={styles.navLink}>About Us</Nav.Link>
-            </Nav>  
-            <div className="d-flex gap-2">
-              <Button variant="outline-dark" className={styles.customButton} href="/chatbot">CHEFBOT</Button>
-              <Button variant="dark" className={styles.subscribeButton}>Subscribe</Button>
-            </div>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
+      <NavbarComponent/>
 
       {/* Hero Section */}
       <div className={styles.heroSection} style={{ backgroundImage: `url(${heroImg})` }}>
@@ -56,33 +44,7 @@ const Home = () => {
           <h2 className={`${styles.sectionTitle} text-center my-4`}>
             FEATURED RECIPES
           </h2>
-          <Row>
-            {recipes.map((recipe) => (
-              <Col key={recipe.id} xs={12} md={4} className="mb-4 d-flex">
-                <Card className={`flex-fill ${styles.recipeCard}`}>
-                  <Card.Img 
-                    variant="top" 
-                    src={recipe.image} 
-                    alt={`Recipe image for ${recipe.title}`} 
-                    className={styles.cardImg} 
-                  />
-                <Card.Body>
-                  <Card.Title>{recipe.title}</Card.Title>
-                  <Card.Text>{recipe.description}</Card.Text>
-                  <div className={styles.recipeFooter}>
-                    <div className={styles.recipeMeta}>
-                      <span>{recipe.time}</span> | <span>{recipe.servings}</span>
-                    </div>
-                    <Button variant="light" className={styles.viewBtn}>
-                      VIEW RECIPE
-                    </Button>
-                  </div>
-                </Card.Body>
-
-                </Card>
-              </Col>
-            ))}
-          </Row>
+          <RecipeGrid recipes={recipes.slice(0, 8)} />
         </Container>
       </section>
 
@@ -168,44 +130,11 @@ const Home = () => {
 
 
 {/* SUBSCRIBE SECTION */}
-<section className={styles.subscribeSection}>
-  <Container fluid className="text-center py-5">
-    <h5 className="text-white text-uppercase mb-2">Subscribe</h5>
-    <h2 className="fw-bold text-white mb-3">JOIN THE FUN<br/>SUBSCRIBE NOW!</h2>
-    <p className="text-white mb-4">
-      Subscribe today to be part of the ultimate foodie family. 
-    </p>
-    <div className={styles.subscribeForm}>
-      <input type="email" placeholder="Email Address" className={styles.emailInput}/>
-      <Button variant="dark" className={styles.btnDark}>SUBSCRIBE</Button>
-    </div>
-  </Container>
-</section>
+<SubscribeSection/>
 
-<footer className={styles.footerSection}>
-  <Container fluid className="d-flex flex-column flex-md-row justify-content-between align-items-center py-3">
-    <div className="d-flex align-items-center mb-2 mb-md-0">
-      <img src={heroImg} alt="logo" height="40" className={`${styles.footerLogo} me-2`} />
-      <span className="fw-bold text-white">Delicases</span>
-    </div>
+{/* FOOTER SECTION */}
+<FooterSection/>
 
-    <div className={styles.footerLinks}>
-      <a href="/" className="text-white mx-2 text-decoration-none">Home</a>
-      <a href="/recipes" className="text-white mx-2 text-decoration-none">Recipes</a>
-      <a href="/cooking-tips" className="text-white mx-2 text-decoration-none">Cooking Tips</a>
-      <a href="/about" className="text-white mx-2 text-decoration-none">About Us</a>
-    </div>
-
-    <div className={styles.footerIcons}>
-      <a href="#" className="text-white mx-2"><i className="bi bi-facebook"></i></a>
-      <a href="#" className="text-white mx-2"><i className="bi bi-instagram"></i></a>
-      <a href="#" className="text-white mx-2"><i className="bi bi-twitter"></i></a>
-    </div>
-  </Container>
-  <div className="text-center text-white py-2 small">
-    © 2025 Flavory. All Rights Reserved.
-  </div>
-</footer>
 
 </Container>
     </>
