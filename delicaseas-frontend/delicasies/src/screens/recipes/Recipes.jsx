@@ -6,7 +6,7 @@ import FooterSection from "../../components/FooterSection";
 import { recipes } from "../../data/recipes";
 import styles from "../../styles/recipes.module.css";
 
-import RecipeGrid from "../../components/RecipeGrid";
+import RecipeGrid from "../../components/Contentgrid";
 
 const Recipes = () => {
   const [visibleCount, setVisibleCount] = useState(12);

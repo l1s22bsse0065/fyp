@@ -9,11 +9,10 @@
 .navbarWrapper {
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease-in-out;
-  background-color: #c9be97 !important;
+  background-color: #ddcdae !important;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
   border-radius: 30px;
   margin-top: 10px;
-  
 }
 
 .navLinks {
@@ -23,19 +22,26 @@
 .navLink {
   margin: 0 12px;
   font-weight: 500;
-  color: #333 !important;
+  text-decoration: none;
+  color: #242222 !important;
   position: relative;
-  transition: color 0.3s ease;
+  transition: all 0.3s ease;
+  font-size: 1rem;
 }
 
+.active {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #000000 !important;
+  border-bottom: 3px solid #e44d39;
+}
+
+
+/* Hover effect */
 .navLink:hover {
   color: #5a5f19 !important;
 }
-/* Navbar active link with red underline */
-.navbar-nav .nav-link.active {
-  border-bottom: 3px solid red;
-  font-weight: bold;
-}
+
 /* Buttons */
 .customButton {
   border-radius: 25px;

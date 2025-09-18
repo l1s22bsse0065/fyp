@@ -1,3 +1,4 @@
+// src/components/RecipeGrid.js
 import { useState } from "react";
 import { Row, Col, Card, Button, Modal } from "react-bootstrap";
 import styles from "../styles/recipes.module.css";
@@ -14,8 +15,16 @@ const RecipeGrid = ({ title, recipes }) => {
 
   return (
     <>
+      {/* Section Title */}
+      {title && (
+        <h2 className={`${styles.sectionTitle} mb-4 text-center`}>
+          {title}
+        </h2>
+      )}
+
+      {/* Grid of Recipes */}
       <Row>
-        {recipes.map((recipe) => (
+        {(recipes || []).map((recipe) => (
           <Col
             key={recipe.id}
             xs={12}
@@ -52,7 +61,7 @@ const RecipeGrid = ({ title, recipes }) => {
         ))}
       </Row>
 
-      {/* Modal */}
+      {/* Modal for Recipe Details */}
       {selectedRecipe && (
         <Modal show={show} onHide={handleClose} centered size="lg">
           <Modal.Header closeButton>
@@ -62,16 +71,21 @@ const RecipeGrid = ({ title, recipes }) => {
             <img
               src={selectedRecipe.image}
               alt={selectedRecipe.title}
-            style={{ width: "100%", maxWidth: "450px", display: "block", margin: "0 auto" }}
-               className="rounded mb-3"
-              
+              style={{
+                width: "100%",
+                maxWidth: "450px",
+                display: "block",
+                margin: "0 auto",
+              }}
+              className="rounded mb-3"
             />
             <p>{selectedRecipe.description}</p>
             <p>
               <strong>Time:</strong> {selectedRecipe.time} |{" "}
               <strong>Servings:</strong> {selectedRecipe.servings}
             </p>
-            {/* If you have ingredients/steps, you can render them like this */}
+
+            {/* Ingredients */}
             {selectedRecipe.ingredients && (
               <>
                 <h5>Ingredients</h5>
@@ -82,6 +96,8 @@ const RecipeGrid = ({ title, recipes }) => {
                 </ul>
               </>
             )}
+
+            {/* Steps */}
             {selectedRecipe.steps && (
               <>
                 <h5>Steps</h5>

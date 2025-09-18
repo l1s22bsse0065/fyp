@@ -1,9 +1,16 @@
 // src/pages/CookingTips/CookingTips.js
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
+import styles from "../../styles/cookingtips.module.css";
+import { recipes } from "../../data/recipes";
+import { tips } from "../../data/cookingtips";
+import heroImg from "../../assets/images/signup.jpg";
+
+import SubscribeSection from "../../components/SubscribeSection";
 import NavbarComponent from "../../components/NavbarComponent";
 import FooterSection from "../../components/FooterSection";
-import SubscribeSection from "../../components/SubscribeSection";
-import styles from "../../styles/cookingtips.module.css";
+import FeaturedRecipes from "../../components/Featuresection";
+import TipsSection from "../../components/TipsSection"
+import SmartlyCurated from "../../components/SmartlyCurated";
 
 const CookingTips = () => {
   return (
@@ -16,9 +23,9 @@ const CookingTips = () => {
         <section className={`text-center py-5 ${styles.headerSection}`}>
           <h1 className="fw-bold display-5">OUR ESSENTIAL COOKING TIPS</h1>
           <p className="text-muted mt-3">
-            Welcome to Delicacies' treasure trove of cooking wisdom! Here, you’ll
-            discover an assortment of tips and tricks to elevate your skills,
-            save time, boost confidence, and bring joy to your cooking
+            Welcome to Delicacies' treasure trove of cooking wisdom! Here,
+            you’ll discover an assortment of tips and tricks to elevate your
+            skills, save time, boost confidence, and bring joy to your cooking
             adventures.
           </p>
 
@@ -26,7 +33,7 @@ const CookingTips = () => {
             <Col md={4}>
               <Card className={`p-3 shadow-sm ${styles.infoCard}`}>
                 <img
-                  src="/images/tools.png"
+                  src={heroImg}
                   alt="Quality Tools"
                   className={styles.iconImg}
                 />
@@ -66,109 +73,10 @@ const CookingTips = () => {
         </section>
 
         {/* FEATURED RECIPES */}
-        <section className="py-5">
-          <h2 className="fw-bold mb-4">FEATURED RECIPES</h2>
-          <Row className="g-4">
-            <Col md={4}>
-              <Card className="h-100 shadow-sm">
-                <Card.Img
-                  variant="top"
-                  src="/images/featured-chicken.jpg"
-                  alt="Savory Herb-Infused Chicken"
-                />
-                <Card.Body>
-                  <Card.Title>Savory Herb-Infused Chicken</Card.Title>
-                  <Card.Text className="text-muted small">
-                    Juicy chicken roasted with fresh herbs and garlic.
-                  </Card.Text>
-                  <Button variant="dark">View Recipe</Button>
-                </Card.Body>
-              </Card>
-            </Col>
-            <Col md={4}>
-              <Card className="h-100 shadow-sm">
-                <Card.Img
-                  variant="top"
-                  src="/images/featured-mousse.jpg"
-                  alt="Decadent Chocolate Mousse"
-                />
-                <Card.Body>
-                  <Card.Title>Decadent Chocolate Mousse</Card.Title>
-                  <Card.Text className="text-muted small">
-                    Rich, creamy, and perfect for dessert lovers.
-                  </Card.Text>
-                  <Button variant="dark">View Recipe</Button>
-                </Card.Body>
-              </Card>
-            </Col>
-            <Col md={4}>
-              <Card className="h-100 shadow-sm">
-                <Card.Img
-                  variant="top"
-                  src="/images/featured-pasta.jpg"
-                  alt="Italian Style Alfredo Fettuccine"
-                />
-                <Card.Body>
-                  <Card.Title>Italian Style Alfredo Fettuccine</Card.Title>
-                  <Card.Text className="text-muted small">
-                    Classic creamy pasta with parmesan and butter.
-                  </Card.Text>
-                  <Button variant="dark">View Recipe</Button>
-                </Card.Body>
-              </Card>
-            </Col>
-          </Row>
-        </section>
+        <FeaturedRecipes title="FEATURED RECIPES" recipes={recipes} />
 
         {/* TIPS AND TRICKS */}
-        <section className="py-5 bg-light">
-          <h2 className="fw-bold mb-4">TIPS AND TRICKS FOR YOU</h2>
-          <Row className="g-4">
-            {[
-              {
-                img: "/images/tip-knife.jpg",
-                title: "Knife Skills",
-                text: "Master chopping, slicing, and dicing with ease.",
-              },
-              {
-                img: "/images/tip-saute.jpg",
-                title: "Sautéing and Searing",
-                text: "Learn how to lock in flavors while cooking.",
-              },
-              {
-                img: "/images/tip-roast.jpg",
-                title: "Roasting Tips",
-                text: "Perfect your roasts with these easy hacks.",
-              },
-              {
-                img: "/images/tip-prep.jpg",
-                title: "Prep Workstations",
-                text: "Organize your space for smooth cooking.",
-              },
-              {
-                img: "/images/tip-clean.jpg",
-                title: "Cleaning as You Go",
-                text: "Keep your kitchen tidy while cooking meals.",
-              },
-              {
-                img: "/images/tip-modify.jpg",
-                title: "Recipe Modification",
-                text: "Adapt recipes to match your preferences.",
-              },
-            ].map((tip, i) => (
-              <Col md={4} key={i}>
-                <Card className="h-100 shadow-sm">
-                  <Card.Img variant="top" src={tip.img} alt={tip.title} />
-                  <Card.Body>
-                    <Card.Title>{tip.title}</Card.Title>
-                    <Card.Text className="text-muted small">{tip.text}</Card.Text>
-                    <Button variant="outline-dark">Read More</Button>
-                  </Card.Body>
-                </Card>
-              </Col>
-            ))}
-          </Row>
-        </section>
+        <TipsSection title="TIPS AND TRICKS FOR YOU" recipes={tips} />
 
         {/* NOURISHING EVERY PALATE */}
         <section className="py-5">
@@ -226,13 +134,7 @@ const CookingTips = () => {
         </section>
 
         {/* CURATED SECTION */}
-        <section className="py-5 text-center bg-light">
-          <h4 className="fw-bold">SMARTLY CURATED, JUST FOR YOU</h4>
-          <p className="text-muted">
-            Exclusive tips & tricks handpicked for your journey.
-          </p>
-          <Button variant="dark">See More</Button>
-        </section>
+        <SmartlyCurated />
 
         {/* SUBSCRIBE SECTION */}
         <SubscribeSection />
