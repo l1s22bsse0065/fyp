@@ -1,7 +1,15 @@
+body{
+  margin: 20px;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #f5f5f5;
+}
 .pageContainer {
-  background-color: #ffffff;
+  padding: 30px;
+  min-height: 100vh;
+  box-sizing: border-box;
+  background: #f9f6f1;
   font-family: 'Poppins', sans-serif;
-  color: #2c2c2c;
 }
 
 /* Header Section */
@@ -79,5 +87,57 @@ button, .btn {
 
 .btn-outline-dark:hover {
   background: #2c2c2c !important;
+  color: #fff !important;
+}
+/* container box */
+.nourishingSection {
+  background: #efdea6; /* light yellow/tan — tweak to match your Figma */
+  border-radius: 30px;
+  padding: 22px;
+  margin: 30px 0;
+   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* controls wrapper (keeps buttons close together) */
+.palateControls {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  border-radius: 70px;
+  padding: 6px;
+  box-shadow: 0 0px 0px rgba(0, 0, 0, 0.1);
+
+
+}
+
+/* image + card height (smaller than before) */
+.customCardImg {
+  height: 350px !important;   /* reduce card height */
+  width: 100;
+  object-fit: cover;
+  border-radius: 20px;
+}
+
+/* gradient overlay: darker at bottom, transparent at top */
+.overlayDark {
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.6) 0%,
+    rgba(0, 0, 0, 0.25) 50%,
+    rgba(0, 0, 0, 0) 100%
+  ) !important;
+  border-radius: 10px;
+}
+
+/* ensure title/text are white */
+.overlayDark h5,
+.overlayDark h4,
+.overlayDark p,
+.overlayDark .card-title,
+.overlayDark .card-text {
+  color: #ffffff !important;
+}
+
+.overlayDark h5, .overlayDark p {
   color: #fff !important;
 }

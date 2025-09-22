@@ -6,7 +6,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 const FooterSection = () => {
   return (
     <footer className={styles.footerSection}>
-      <Container fluid className="d-flex flex-column flex-md-row justify-content-between align-items-center py-3">
+      <Container fluid className="d-flex flex-column flex-md-row justify-content-between align-items-center py-3 ">
         <div className="d-flex align-items-center mb-2 mb-md-0">
           <img src={heroImg} alt="logo" height="40" className={`${styles.footerLogo} me-2`} />
           <span className="fw-bold text-white">Delicases</span>

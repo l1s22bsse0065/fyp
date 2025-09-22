@@ -9,8 +9,10 @@ import SubscribeSection from "../../components/SubscribeSection";
 import NavbarComponent from "../../components/NavbarComponent";
 import FooterSection from "../../components/FooterSection";
 import FeaturedRecipes from "../../components/Featuresection";
-import TipsSection from "../../components/TipsSection"
+import TipsSection from "../../components/TipsSection";
 import SmartlyCurated from "../../components/SmartlyCurated";
+import NourishingPalate from "../../components/NourishingPalate";
+
 
 const CookingTips = () => {
   return (
@@ -79,59 +81,7 @@ const CookingTips = () => {
         <TipsSection title="TIPS AND TRICKS FOR YOU" recipes={tips} />
 
         {/* NOURISHING EVERY PALATE */}
-        <section className="py-5">
-          <h2 className="fw-bold mb-4">NOURISHING EVERY PALATE</h2>
-          <Row className="g-4">
-            <Col md={4}>
-              <Card className="h-100 shadow-sm">
-                <Card.Img
-                  variant="top"
-                  src="/images/nourish-glutenfree.jpg"
-                  alt="Gluten-Free Alternatives"
-                />
-                <Card.Body>
-                  <Card.Title>Gluten-Free Alternatives</Card.Title>
-                  <Card.Text className="text-muted small">
-                    Tasty options without gluten restrictions.
-                  </Card.Text>
-                  <Button variant="outline-dark">Read More</Button>
-                </Card.Body>
-              </Card>
-            </Col>
-            <Col md={4}>
-              <Card className="h-100 shadow-sm">
-                <Card.Img
-                  variant="top"
-                  src="/images/nourish-plantbased.jpg"
-                  alt="Plant-Based Cooking"
-                />
-                <Card.Body>
-                  <Card.Title>Plant-Based Cooking</Card.Title>
-                  <Card.Text className="text-muted small">
-                    Delicious meals without meat or dairy.
-                  </Card.Text>
-                  <Button variant="outline-dark">Read More</Button>
-                </Card.Body>
-              </Card>
-            </Col>
-            <Col md={4}>
-              <Card className="h-100 shadow-sm">
-                <Card.Img
-                  variant="top"
-                  src="/images/nourish-allergy.jpg"
-                  alt="Allergy-Friendly Substitutions"
-                />
-                <Card.Body>
-                  <Card.Title>Allergy-Friendly Substitutions</Card.Title>
-                  <Card.Text className="text-muted small">
-                    Cook worry-free with smart ingredient swaps.
-                  </Card.Text>
-                  <Button variant="outline-dark">Read More</Button>
-                </Card.Body>
-              </Card>
-            </Col>
-          </Row>
-        </section>
+        <NourishingPalate />
 
         {/* CURATED SECTION */}
         <SmartlyCurated />

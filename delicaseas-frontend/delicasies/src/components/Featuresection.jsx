@@ -1,6 +1,6 @@
 import { Container } from "react-bootstrap";
 import styles from "../styles/homepage.module.css";
-import RecipeGrid from "./Contentgrid";
+import RecipeGrid from "./Recipegrid";
 
 const FeaturedSection = ({ title, recipes }) => {
   return (

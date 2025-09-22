@@ -16,7 +16,7 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import NavbarComponent from "../../components/NavbarComponent";
 import SubscribeSection from "../../components/SubscribeSection";
 import FooterSection from "../../components/FooterSection";
-import RecipeGrid from "../../components/Contentgrid";
+import RecipeGrid from "../../components/Recipegrid";
 import FeaturedRecipes from "../../components/Featuresection";
 import SmartlyCurated from "../../components/SmartlyCurated";
 
@@ -55,7 +55,7 @@ const Home = () => {
         <SmartlyCurated />
 
         {/* DIVERSE PALETTE SECTION */}
-        <section className={`${styles.paletteSection} border border-dark `}>
+        <section className={`${styles.paletteSection}  `}>
           <Container fluid className="py-5">
             <Row>
               <Col md={6}>
@@ -104,7 +104,7 @@ const Home = () => {
         </section>
 
         {/* WHAT DO WE HAVE SECTION */}
-        <section className={`${styles.whatWeHaveSection} border border-dark `}>
+        <section className={`${styles.whatWeHaveSection} `}>
           <Container fluid className="py-5">
             <Row>
               {/* LEFT CONTENT */}

@@ -13,7 +13,7 @@ const NavbarComponent = () => {
       bg="light"
     >
       <Container>
-        <Navbar.Brand href="/" className={styles.navbarBrand}>
+        <Navbar.Brand href="/home" className={styles.navbarBrand}>
           <img
             src={heroImg}
             alt="logo"

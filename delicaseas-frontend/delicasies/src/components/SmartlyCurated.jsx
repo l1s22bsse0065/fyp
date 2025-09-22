@@ -7,7 +7,7 @@ import heroImg from "../assets/images/signup.jpg";
 const SmartlyCurated = () => {
     return (
 
-<section className={`${styles.curatedSection} border border-dark `}>
+<section className={`${styles.curatedSection}  `}>
   <Container fluid className="py-5">
     <Row className="align-items-center">
       <Col md={6}>

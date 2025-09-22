@@ -1,25 +1,20 @@
 import { useState } from "react";
 import { Container, Button } from "react-bootstrap";
-import ContentGrid from "./Contentgrid";
-import styles from "../styles/recipes.module.css"; 
-import { tips } from "../data/cookingtips"; // your tips data
+import TipsGrid from "../components/Tipsgrid";
+import { tips } from "../data/cookingtips";
 
 const TipsSection = ({ title }) => {
-  const [visibleCount, setVisibleCount] = useState(6); // show 6 tips initially
+  const [visibleCount, setVisibleCount] = useState(4);
 
   const handleLoadMore = () => {
-    setVisibleCount((prev) => prev + 6); // load 6 more each time
+    setVisibleCount((prev) => prev + 4);
   };
 
   return (
-    <section className={`${styles.tipsSection} mb-5`}>
+    <section className="mb-5 mt-5">
       <Container>
-        <h2 className={`${styles.sectionTitle} my-4 text-center`}>{title}</h2>
+        <TipsGrid title={title} tips={tips.slice(0, visibleCount)} />
 
-        {/* Tips Grid */}
-        <ContentGrid items={tips.slice(0, visibleCount)} type="tip" />
-
-        {/* Load More Button */}
         {visibleCount < tips.length && (
           <div className="text-center mt-4">
             <Button variant="dark" onClick={handleLoadMore}>

@@ -1,5 +1,9 @@
 .pageContainer {
-  background-color: #fdfaf5; /* match design background */
+  padding: 30px;
+  min-height: 100vh;
+  box-sizing: border-box;
+  background: #f9f6f1;
+  font-family: 'Poppins', sans-serif;
 }
 
 .headerSection {

@@ -6,7 +6,7 @@ import FooterSection from "../../components/FooterSection";
 import { recipes } from "../../data/recipes";
 import styles from "../../styles/recipes.module.css";
 
-import RecipeGrid from "../../components/Contentgrid";
+import RecipeGrid from "../../components/Recipegrid";
 
 const Recipes = () => {
   const [visibleCount, setVisibleCount] = useState(12);
@@ -38,7 +38,7 @@ const Recipes = () => {
 
       <Container fluid className={styles.pageContainer}>
         {/* HEADER SECTION */}
-        <section className={`text-center py-5 ${styles.headerSection}`}>
+        <section className={`text-center py-5 mt-5 mb-5 ${styles.headerSection}`}>
           <h1 className="fw-bold display-5">HAVE A LOOK ON OUR RECIPES</h1>
           <div className={`${styles.categoryButtons} mt-4`}>
             {["All", "Vegan", "Breakfast", "Lunch", "Dinner", "Dessert", "Quick Bite"].map(
