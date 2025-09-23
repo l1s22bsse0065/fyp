@@ -13,7 +13,7 @@ const FooterSection = () => {
         </div>
 
         <div className={styles.footerLinks}>
-          <a href="/" className="text-white mx-2 text-decoration-none">Home</a>
+          <a href="/home" className="text-white mx-2 text-decoration-none">Home</a>
           <a href="/recipes" className="text-white mx-2 text-decoration-none">Recipes</a>
           <a href="/cooking-tips" className="text-white mx-2 text-decoration-none">Cooking Tips</a>
           <a href="/about" className="text-white mx-2 text-decoration-none">About Us</a>

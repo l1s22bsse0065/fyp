@@ -52,7 +52,7 @@ const NavbarComponent = () => {
             </NavLink>
 
             <NavLink
-              to="/about"
+              to="/about-us"
               className={({ isActive }) =>
                 isActive ? `${styles.navLink} ${styles.active}` : styles.navLink
               }

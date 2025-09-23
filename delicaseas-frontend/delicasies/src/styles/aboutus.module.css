@@ -1,0 +1,70 @@
+.pageContainer {
+  padding: 20px;
+  min-height: 100vh;
+  box-sizing: border-box;
+  background: #f9f6f1;
+  font-family: 'Poppins', sans-serif;
+}
+
+.headerSection {
+    background: linear-gradient(135deg, #fff9f3 0%, #ded5bf 100%);
+  border-radius: 16px;
+  padding: 3rem 1.5rem;
+  padding: 3rem 1.5rem;
+}
+
+.headerSection h1 {
+  color: #333;
+  line-height: 1.2;
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  text-align: start;
+  margin-left: 30px;
+}
+.highlightBox {
+    
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+  background-color: #f6f1dd;
+  border-radius: 12px;
+  border: none;
+}
+.borderedSection {
+  border: 2px solid #ddd; /* light gray border */
+  border-radius: 12px; /* rounded corners */
+  background-color: transparent; /* no background */
+  padding: 2rem; /* space inside */
+}
+
+.chefImg {
+  max-height: 500px; /* smaller image */
+  width: 100%;
+  object-fit: cover;
+}
+
+.highlightBox {
+  min-height: 500px; /* match image height */
+}
+/* Grid wrapper for equal gaps */
+.momentsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px; /* equal vertical + horizontal gap */
+  max-width: 1000px; /* keeps the grid centered and not too wide */
+  margin: 0 auto; /* center horizontally */
+  justify-items: center;
+}
+
+.momentWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.momentImg {
+  width: 100%;
+  max-width: 300px; /* bigger images on large screens */
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  border-radius: 20px;
+}

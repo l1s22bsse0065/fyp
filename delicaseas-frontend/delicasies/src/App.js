@@ -1,15 +1,19 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import ScrollToTop from "./components/ScrollToTop";
+
 import Signup from './screens/signup_page';
 import Signin from './screens/signin_page';
 import HomePage from './screens/home_page/home';
 import Chatbot from './screens/chatbot_page/chatbot';
 import Recipes from './screens/recipes/Recipes';
 import CookingTips from './screens/Cooking_Tips/cookingtip';
-// import Profile from './screens/Profile';
+import AboutUs from './screens/Aboutus_page/aboutus';
+
 
 function App() {
   return (
     <Router>
+      <ScrollToTop/>
       <Routes>
         <Route path="/" element={<Signup />} />
         <Route path="/signin" element={<Signin />} />
@@ -17,12 +21,7 @@ function App() {
         <Route path="/chatbot" element={<Chatbot />} />
         <Route path="/recipes" element={<Recipes />} />
         <Route path="/cooking-tips" element={<CookingTips />} />
-  
-       
-        {/* <Route path="/menu" element={<Menu />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/checkout" element={<Checkout />} />
-        <Route path="/profile" element={<Profile />} /> */}
+        <Route path="/about-us" element={<AboutUs />} />
       </Routes>
     </Router>
   );
