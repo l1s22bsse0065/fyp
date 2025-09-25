@@ -8,6 +8,7 @@ import Chatbot from './screens/chatbot_page/chatbot';
 import Recipes from './screens/recipes/Recipes';
 import CookingTips from './screens/Cooking_Tips/cookingtip';
 import AboutUs from './screens/Aboutus_page/aboutus';
+import Profile from './screens/Profile_page/profile_page';
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
         <Route path="/recipes" element={<Recipes />} />
         <Route path="/cooking-tips" element={<CookingTips />} />
         <Route path="/about-us" element={<AboutUs />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
     </Router>
   );

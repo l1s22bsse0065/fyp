@@ -16,7 +16,7 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import NavbarComponent from "../../components/NavbarComponent";
 import SubscribeSection from "../../components/SubscribeSection";
 import FooterSection from "../../components/FooterSection";
-import RecipeGrid from "../../components/Recipegrid";
+
 import FeaturedRecipes from "../../components/Featuresection";
 import SmartlyCurated from "../../components/SmartlyCurated";
 

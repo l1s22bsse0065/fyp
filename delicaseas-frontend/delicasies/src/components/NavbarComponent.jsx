@@ -71,6 +71,11 @@ const NavbarComponent = () => {
             <Button variant="dark" className={styles.subscribeButton}>
               Subscribe
             </Button>
+
+            {/* Profile Icon */}
+            <NavLink to="/profile" className={styles.profileIconWrapper}>
+              <i className="bi bi-person fs-2"></i>
+            </NavLink>
           </div>
         </Navbar.Collapse>
       </Container>

@@ -1,0 +1,127 @@
+.pageContainer {
+  padding: 10px 30px;
+  min-height: auto;
+  box-sizing: border-box;
+  background: #f9f6f1;
+  font-family: "Poppins", sans-serif;
+  overflow: hidden;
+}
+
+/* Sidebar */
+.sidebar {
+  padding: 1rem 2rem;
+  background: #f9f6f1;
+  height: 60vh;
+ 
+}
+
+/* Right content */
+.rightContent {
+  background: #f9f6f1;
+  height: 60vh;
+  padding: 2rem;
+}
+
+/* Profile header with avatar + name/email */
+.profileHeader {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem; 
+}
+
+.avatarWrapper {
+  position: relative;
+  width: 100px;
+  height: 100px;
+}
+
+.cameraBtn {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: #fff;
+  border: none;
+  border-radius: 50%;
+  padding: 5px;
+  cursor: pointer;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Sidebar menu */
+.menu {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  justify-content: center;
+}
+
+.menuItem {
+  background: #ffffff;
+  border: none;
+  text-align: left;
+  font-size: 1rem;
+  padding: 0.5rem 0;
+  cursor: pointer;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.menuItem:hover {
+  color: #007bff;
+}
+/* Divider line */
+.divider {
+  position: absolute;
+  left: 50%; /* in center of row */
+  top: 25%; /* adjust top spacing */
+  height: 50%; /* custom height (control here) */
+  width: 1px; /* thin line */
+  transform: translateX(-50%); /* center the line */
+  border-right: #000000 solid 2px; /* line style */
+  z-index: 1; /* ensure it's above other content */
+}
+
+/* Welcome box on right */
+.welcomeBox {
+  max-width: 450px;
+  background: #e0dabd;
+  border-radius: 12px;
+  height: 40vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  font-size: 1.2rem;
+  color: #333;
+  font-weight: 500;
+  line-height: 1.5;
+  margin: auto;
+}
+@media (max-width: 768px) {
+  .sidebar {
+    border-right: none;
+    border-bottom: 1px solid #ddd; /* Horizontal divider */
+    min-height: auto;
+  }
+
+  .rightContent {
+    min-height: auto;
+    padding: 2rem 1rem;
+  }
+
+  .welcomeBox {
+    max-width: 100%;
+    height: auto;
+    margin-top: 1.5rem;
+  }
+  .divider {
+    display: none;
+  }
+}

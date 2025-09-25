@@ -1,33 +1,46 @@
-import React from 'react';
-import styles from '../../styles/signin.module.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React, { useState } from "react";
+import styles from "../../styles/signin.module.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function SignIn() {
+  const [loading, setLoading] = useState(false);
+
   const handleLogin = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
 
     try {
-      const response = await fetch('http://localhost:5000/api/users/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const response = await fetch("http://localhost:5000/api/users/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
 
       const data = await response.json();
       if (response.ok) {
-        // Save JWT token
-        localStorage.setItem('token', data.token);
-        // redirect to dashboard/home
-        window.location.href = '/home'; 
+        // ✅ Save JWT token in localStorage
+        if (data.token) {
+          localStorage.setItem("token", data.token);
+        }
+
+        // ✅ Save userId in localStorage (make sure backend returns it)
+        if (data.user && data.user._id) {
+          localStorage.setItem("userId", data.user._id);
+        }
+
+        // ✅ Redirect safely after login
+        window.location.replace("/home");
       } else {
-        alert(data.message || 'Login failed');
+        alert(data.message || "Login failed");
       }
     } catch (error) {
-      alert('Error connecting to server');
-      console.error(error);
+      alert("Error connecting to server");
+      console.error("Login error:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -40,7 +53,6 @@ export default function SignIn() {
       <div className="row vh-100 justify-content-center align-items-center">
         <div className="col-11 col-sm-8 col-md-6 col-lg-4">
           <div className={`${styles.formContainer} shadow-lg`}>
-            
             {/* Brand / Logo */}
             <header className={styles.logo}>
               <h1 className="m-0">Delicacies</h1>
@@ -51,7 +63,6 @@ export default function SignIn() {
 
             {/* Sign In Form */}
             <form className={styles.signinForm} onSubmit={handleLogin}>
-              
               {/* Email */}
               <div className="mb-3">
                 <label htmlFor="email" className="form-label fw-bold">
@@ -81,24 +92,32 @@ export default function SignIn() {
               </div>
 
               {/* Remember Me + Forgot Password */}
-              <div className={`${styles.options} d-flex justify-content-between align-items-center mb-3`}>
+              <div
+                className={`${styles.options} d-flex justify-content-between align-items-center mb-3`}
+              >
                 <label className="mb-0 d-flex align-items-center">
                   <input type="checkbox" className="me-2" /> Remember me
                 </label>
-                <a href="/forgot-password" className={styles.link}>Forgot password?</a>
+                <a href="/forgot-password" className={styles.link}>
+                  Forgot password?
+                </a>
               </div>
 
               {/* Sign In Button */}
               <button
                 type="submit"
+                disabled={loading}
                 className={`${styles.signinButton} btn w-100`}
               >
-                Sign In
+                {loading ? "Signing In..." : "Sign In"}
               </button>
 
               {/* Sign Up Link */}
               <p className={`${styles.signupLink} mt-3`}>
-                Don’t have an account? <a href="/" className={styles.link}>Sign Up</a>
+                Don’t have an account?{" "}
+                <a href="/" className={styles.link}>
+                  Sign Up
+                </a>
               </p>
             </form>
           </div>
