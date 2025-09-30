@@ -75,3 +75,50 @@ exports.getMe = async (req, res) => {
     res.status(500).json({ message: 'Server error', error: err.message });
   }
 };
+// Update user data (partial update)
+exports.updateUser = async (req, res) => {
+  try {
+    const userId = req.user.id;
+
+    // Whitelist allowed fields to update
+    const allowedUpdates = [
+      'name',
+      'nickname',
+      'gender',
+      'country',
+      'language',
+      'timeZone',
+      'bio',
+      'profilePicture',
+      'extraEmails'
+    ];
+
+    // Build update object from req.body but only for allowed keys
+    const updates = {};
+    Object.keys(req.body).forEach((key) => {
+      if (allowedUpdates.includes(key)) updates[key] = req.body[key];
+    });
+
+    console.log('updateUser payload:', updates, 'for userId:', userId);
+
+    if (Object.keys(updates).length === 0) {
+      return res.status(400).json({ message: 'No valid fields provided for update.' });
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { $set: updates },
+      { new: true, runValidators: true }
+    ).select('-password');
+
+    if (!updatedUser) return res.status(404).json({ message: 'User not found' });
+
+    res.json(updatedUser);
+  } catch (err) {
+    console.error('Error updating user:', err);
+    if (err.name === 'ValidationError') {
+      return res.status(400).json({ message: err.message });
+    }
+    res.status(500).json({ message: 'Server error' });
+  }
+};
