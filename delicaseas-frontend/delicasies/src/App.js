@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import ScrollToTop from "./components/ScrollToTop";
+import ScrollToTop from "./hooks/ScrollToTop";
 
 import Signup from './screens/signup_page';
 import Signin from './screens/signin_page';

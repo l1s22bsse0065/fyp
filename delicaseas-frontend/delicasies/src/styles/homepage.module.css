@@ -17,7 +17,7 @@
   margin-top: 0;             
   padding: 0px 0px;
   transition: transform 0.3s ease-in-out;
-  max-width: 98%;           
+  max-width: 100%;           
   overflow: hidden;         
 }
 .navbarWrapper:hover {

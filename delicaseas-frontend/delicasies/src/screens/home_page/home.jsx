@@ -41,7 +41,7 @@ const Home = () => {
               Explore a world of flavors, discover handcrafted recipes, and
               experience the joy of every kitchen creation.
             </p>
-            <Button variant="danger" size="lg" className={styles.exploreBtn}>
+            <Button variant="danger" size="lg" href= "/recipes" className={styles.exploreBtn}>
               Explore Recipes
             </Button>
           </Container>
@@ -70,7 +70,7 @@ const Home = () => {
                   perfection. A collection designed for every craving and
                   occasion.
                 </p>
-                <Button variant="dark" className={styles.btnDark}>
+                <Button variant="dark" href = "/recipes" className={styles.btnDark}>
                   SEE MORE
                 </Button>
               </Col>
