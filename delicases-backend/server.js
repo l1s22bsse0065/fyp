@@ -9,7 +9,7 @@ app.use(express.json());       // parse JSON
 
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(()=>console.log('MongoDB Connected'))
-  .catch(err=>console.error(err));
+  .catch(err=>console.error('MongoDB connection error',err));
 
 app.get('/', (req, res) => res.send('API is running...'));
 
