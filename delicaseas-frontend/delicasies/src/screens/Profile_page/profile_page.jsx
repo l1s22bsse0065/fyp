@@ -5,6 +5,7 @@ import styles from "../../styles/profile.module.css"; // create this CSS module
 import NavbarComponent from "../../components/NavbarComponent";
 import FooterSection from "../../components/FooterSection";
 
+
 export default function Profile() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -83,7 +84,7 @@ export default function Profile() {
             <div className="ms-3 text-start">
               <h4 className="fw-bold mb-1">{user.name}</h4>
               <p className="text-muted mb-2">{user.email}</p>
-              <Button variant="secondary" size="sm">
+              <Button variant="secondary" size="sm" href="/edit-profile">
                 Edit Profile
               </Button>
             </div>

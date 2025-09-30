@@ -125,3 +125,66 @@
     display: none;
   }
 }
+
+/* Outer wrapper */
+.editProfileBox {
+  margin-top: 50px;
+  width: 100%;
+  max-width: 900px;
+  min-height: 70vh;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  padding: 1.5rem;
+  overflow: hidden; /* keep everything inside */
+}
+
+.avatarWrapper {
+  display: flex;
+  
+  gap: 1rem;
+  position: relative;
+  flex-wrap: wrap; /* allow wrapping on small screens */
+   flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.userInfo {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userName {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.userEmail {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+/* 📱 Mobile responsiveness */
+@media (max-width: 768px) {
+  .editProfileBox {
+    min-height: auto; /* let content define height */
+  }
+
+  .avatarWrapper {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .userInfo {
+    align-items: center;
+  }
+
+  .saveBtn {
+    width: 100%; /* full-width button on small screen */
+    margin-top: 1rem;
+  }
+}

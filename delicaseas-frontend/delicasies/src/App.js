@@ -9,7 +9,7 @@ import Recipes from './screens/recipes/Recipes';
 import CookingTips from './screens/Cooking_Tips/cookingtip';
 import AboutUs from './screens/Aboutus_page/aboutus';
 import Profile from './screens/Profile_page/profile_page';
-
+import EditProfile from './screens/Profile_page/edit_profile';
 
 function App() {
   return (
@@ -24,6 +24,7 @@ function App() {
         <Route path="/cooking-tips" element={<CookingTips />} />
         <Route path="/about-us" element={<AboutUs />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/edit-profile" element={<EditProfile />} />
       </Routes>
     </Router>
   );
