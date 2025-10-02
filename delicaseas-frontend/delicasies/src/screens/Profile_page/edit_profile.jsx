@@ -4,8 +4,14 @@ import { useNavigate } from "react-router-dom";
 import NavbarComponent from "../../components/NavbarComponent";
 import styles from "../../styles/profile.module.css";
 
+import { useDispatch, useSelector } from "react-redux";
+import { setUser, updateUser } from "../../store/userSlice";
+
 export default function EditProfile() {
-  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.user);
+
   const [formData, setFormData] = useState({
     name: "",
     nickname: "",
@@ -14,27 +20,27 @@ export default function EditProfile() {
     language: "",
     timeZone: "",
   });
-  const navigate = useNavigate();
 
-  // useEffect mapping: ensure timeZone uses data.timeZone
+  // Fetch user from backend and store in Redux
   useEffect(() => {
     const fetchUser = async () => {
       const token = localStorage.getItem("token");
       if (!token) return navigate("/signin");
+
       try {
         const res = await fetch("http://localhost:5000/api/users/me", {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();
         if (res.ok) {
-          setUser(data);
+          dispatch(setUser(data)); // 🔥 save user globally
           setFormData({
             name: data.name || "",
             nickname: data.nickname || "",
             gender: data.gender || "",
             country: data.country || "",
             language: data.language || "English",
-            timeZone: data.timeZone || "", // <-- note exact key
+            timeZone: data.timeZone || "",
           });
         } else {
           navigate("/signin");
@@ -45,14 +51,12 @@ export default function EditProfile() {
       }
     };
     fetchUser();
-  }, [navigate]);
+  }, [navigate, dispatch]);
 
-  // handleSave
+  // Save changes (PATCH + Redux update)
   const handleSave = async () => {
     const token = localStorage.getItem("token");
     if (!token) return navigate("/signin");
-
-    console.log("Sending PATCH payload:", formData);
 
     try {
       const res = await fetch("http://localhost:5000/api/users/me", {
@@ -65,15 +69,15 @@ export default function EditProfile() {
       });
 
       const data = await res.json();
-      console.log("PATCH response:", res.status, data);
 
       if (!res.ok) {
         alert(data.message || "Update failed");
         return;
       }
 
-      // success
-      setUser(data);
+      // 🔥 Update Redux with new data
+      dispatch(updateUser(formData));
+
       alert("Profile updated successfully");
       navigate("/profile");
     } catch (err) {
@@ -86,6 +90,7 @@ export default function EditProfile() {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
+
   if (!user) return null;
 
   return (

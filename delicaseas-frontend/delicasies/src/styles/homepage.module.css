@@ -7,7 +7,40 @@
   font-family: 'Poppins', sans-serif;
 
 }
+/* Dropdown Menu Styles */
+.dropdown-menu {
+  border-radius: 12px;
+  padding: 8px 0;
+  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.15);
+  background-color: #ffffff;
+  border: none;
+  min-width: 180px;
+}
 
+/* Dropdown Items */
+.dropdown-menu .dropdown-item {
+  padding: 10px 16px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #333;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.dropdown-menu .dropdown-item:hover {
+  background-color: #f5f5f5;
+  color: #5a5f19; /* match your hover brand color */
+  border-radius: 8px;
+}
+/* Fix dropdown alignment */
+#profile-dropdown {
+  display: flex;
+  align-items: center;
+  height: 100%; /* same height as navbar */
+}
+
+#profile-dropdown .dropdown-toggle::after {
+  display: none; /* hide the default caret */
+}
 /* Navbar Styles */
 .navbarWrapper {
   background-color: #DBCAA7 !important;
@@ -18,7 +51,6 @@
   padding: 0px 0px;
   transition: transform 0.3s ease-in-out;
   max-width: 100%;           
-  overflow: hidden;         
 }
 .navbarWrapper:hover {
   transform: translateY(-3px); /* subtle lift on hover */
@@ -86,6 +118,16 @@
 
 .subscribeButton:hover {
   background-color: #e63c3d;
+}
+/* Fix dropdown alignment */
+#profile-dropdown {
+  display: flex;
+  align-items: center;
+  height: 100%; /* same height as navbar */
+}
+
+#profile-dropdown .dropdown-toggle::after {
+  display: none; /* hide the default caret */
 }
 
 /* Hero Section */

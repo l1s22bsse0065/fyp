@@ -1,28 +1,36 @@
-import { Navbar, Nav, Container, Button } from "react-bootstrap";
-import { NavLink } from "react-router-dom"; // ✅ import NavLink
-import styles from "../styles/homepage.module.css";
+import { Navbar, Nav, Container, Button, NavDropdown } from "react-bootstrap";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { clearUser } from "../store/userSlice";
 import heroImg from "../assets/images/signup.jpg";
-import "bootstrap-icons/font/bootstrap-icons.css";
+import styles from "../styles/homepage.module.css";
 
 const NavbarComponent = () => {
+  const user = useSelector((state) => state.user.user);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userId");
+    dispatch(clearUser());
+    navigate("/signin");
+  };
+
   return (
-    <Navbar
-      sticky="top"
-      expand="lg"
-      className={`py-3 ${styles.navbarWrapper}`}
-      bg="light"
-    >
-      <Container>
+    <Navbar expand="lg" sticky="top" className={styles.navbarWrapper} bg="light">
+      <Container fluid>
+        {/* Brand / Logo */}
         <Navbar.Brand href="/home" className={styles.navbarBrand}>
-          <img
-            src={heroImg}
-            alt="logo"
-            height="40"
-            className={`${styles.footerLogo} me-2`}
-          />
+          <img src={heroImg} alt="logo" height="40" className="me-2" />
+          Delicacies
         </Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
+
+        {/* Mobile toggle button */}
+        <Navbar.Toggle aria-controls="navbarNavDropdown" />
+
+        {/* Collapse section for center nav links */}
+        <Navbar.Collapse id="navbarNavDropdown">
           <Nav className={`mx-auto ${styles.navLinks}`}>
             <NavLink
               to="/home"
@@ -60,24 +68,47 @@ const NavbarComponent = () => {
               About Us
             </NavLink>
           </Nav>
+
+          {/* Right side buttons */}
           <div className="d-flex gap-2">
-            <Button
-              variant="outline-dark"
-              className={styles.customButton}
-              href="/chatbot"
-            >
+            <Button variant="outline-dark" className={styles.customButton} href="/chatbot">
               CHEFBOT
             </Button>
             <Button variant="dark" className={styles.subscribeButton}>
               Subscribe
             </Button>
-
-            {/* Profile Icon */}
-            <NavLink to="/profile" className={styles.profileIconWrapper}>
-              <i className="bi bi-person fs-2"></i>
-            </NavLink>
           </div>
         </Navbar.Collapse>
+
+        {/* ✅ Profile Dropdown with icon + name (hidden on mobile) */}
+        <Nav>
+          <NavDropdown
+            align="end"
+            title={
+              <span className="d-flex align-items-center gap-2">
+                <span className={styles.profileIconWrapper}>
+                  <i className="bi bi-person fs-5"></i>
+                </span>
+                {/* Username only visible on md and above */}
+                <span className="d-none d-md-inline">
+                  {user?.name || "Guest"}
+                </span>
+              </span>
+            }
+            id="profile-dropdown"
+          >
+            <NavDropdown.Item as={NavLink} to="/profile">
+              View Profile
+            </NavDropdown.Item>
+            <NavDropdown.Item as={NavLink} to="/edit-profile">
+              Edit Profile
+            </NavDropdown.Item>
+            <NavDropdown.Divider />
+            <NavDropdown.Item onClick={handleLogout}>
+              Logout
+            </NavDropdown.Item>
+          </NavDropdown>
+        </Nav>
       </Container>
     </Navbar>
   );
