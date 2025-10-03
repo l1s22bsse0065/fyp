@@ -33,8 +33,8 @@ export default function Signup() {
 };
 
   return (
-    <div className={`container-fluid vh-100 ${styles.page} p-0`}>
-      <div className="row g-0 h-100">
+    <div className={`container-fluid  ${styles.pageContainer} p-0`}>
+      <div className="row g-0">
 
         {/* Left Column */}
         <div className={`col-12 col-md-6 d-flex justify-content-center align-items-center p-0 ${styles.formSection}`}>
@@ -133,7 +133,8 @@ export default function Signup() {
           <img 
             src={signupImage} 
             alt="Signup visual" 
-            className="img-fluid vh-100 w-100" 
+            className={` ${styles.signupimg}`}
+
             style={{ objectFit: 'cover', opacity: 0.9 }} 
           />
         </div>

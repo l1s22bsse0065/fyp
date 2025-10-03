@@ -107,7 +107,7 @@ export default function Profile() {
           <div className="mt-4 text-center ">
             <Button
               variant="danger"
-              className="w-75"
+              className="w-75 mb-5"
               onClick={() => {
                 localStorage.removeItem("token");
                 localStorage.removeItem("userId");

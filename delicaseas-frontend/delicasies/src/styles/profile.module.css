@@ -1,24 +1,23 @@
 .pageContainer {
-  padding: 10px 30px;
-  min-height: auto;
+     padding: 30px;
+  min-height: 100vh;
   box-sizing: border-box;
   background: #f9f6f1;
-  font-family: "Poppins", sans-serif;
-  overflow: hidden;
+  font-family: 'Poppins', sans-serif;
 }
 
 /* Sidebar */
 .sidebar {
   padding: 1rem 2rem;
   background: #f9f6f1;
-  height: 60vh;
+  height: 80vh;
  
 }
 
 /* Right content */
 .rightContent {
   background: #f9f6f1;
-  height: 60vh;
+  height: 80vh;
   padding: 2rem;
 }
 
@@ -78,7 +77,7 @@
 .divider {
   position: absolute;
   left: 50%; /* in center of row */
-  top: 25%; /* adjust top spacing */
+  top: 45%; /* adjust top spacing */
   height: 50%; /* custom height (control here) */
   width: 1px; /* thin line */
   transform: translateX(-50%); /* center the line */

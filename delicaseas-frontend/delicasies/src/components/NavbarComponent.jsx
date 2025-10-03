@@ -3,7 +3,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { clearUser } from "../store/userSlice";
 import heroImg from "../assets/images/signup.jpg";
-import styles from "../styles/homepage.module.css";
+import styles from "../styles/navbar.module.css";
 
 const NavbarComponent = () => {
   const user = useSelector((state) => state.user.user);
@@ -18,11 +18,21 @@ const NavbarComponent = () => {
   };
 
   return (
-    <Navbar expand="lg" sticky="top" className={styles.navbarWrapper} bg="light">
+    <Navbar
+      expand="lg"
+      sticky="top"
+      className={styles.navbarWrapper}
+      bg="light"
+    >
       <Container fluid>
         {/* Brand / Logo */}
         <Navbar.Brand href="/home" className={styles.navbarBrand}>
-          <img src={heroImg} alt="logo" height="40" className="me-2" />
+          <img
+            src={heroImg}
+            alt="logo"
+            height="40"
+            className={`me-2 ${styles.navimg}`}
+          />
           Delicacies
         </Navbar.Brand>
 
@@ -71,7 +81,11 @@ const NavbarComponent = () => {
 
           {/* Right side buttons */}
           <div className="d-flex gap-2">
-            <Button variant="outline-dark" className={styles.customButton} href="/chatbot">
+            <Button
+              variant="outline-dark"
+              className={styles.customButton}
+              href="/chatbot"
+            >
               CHEFBOT
             </Button>
             <Button variant="dark" className={styles.subscribeButton}>
@@ -80,16 +94,16 @@ const NavbarComponent = () => {
           </div>
         </Navbar.Collapse>
 
-        {/* ✅ Profile Dropdown with icon + name (hidden on mobile) */}
         <Nav>
           <NavDropdown
             align="end"
+            className={styles.profileDropdownWrapper}
+            menuClassName={styles.profileDropdownMenu}
             title={
               <span className="d-flex align-items-center gap-2">
                 <span className={styles.profileIconWrapper}>
                   <i className="bi bi-person fs-5"></i>
                 </span>
-                {/* Username only visible on md and above */}
                 <span className="d-none d-md-inline">
                   {user?.name || "Guest"}
                 </span>
@@ -97,16 +111,14 @@ const NavbarComponent = () => {
             }
             id="profile-dropdown"
           >
-            <NavDropdown.Item as={NavLink} to="/profile">
+            <NavDropdown.Item as={NavLink} to="/profile" className="bg-danger">
               View Profile
             </NavDropdown.Item>
             <NavDropdown.Item as={NavLink} to="/edit-profile">
               Edit Profile
             </NavDropdown.Item>
             <NavDropdown.Divider />
-            <NavDropdown.Item onClick={handleLogout}>
-              Logout
-            </NavDropdown.Item>
+            <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
           </NavDropdown>
         </Nav>
       </Container>
