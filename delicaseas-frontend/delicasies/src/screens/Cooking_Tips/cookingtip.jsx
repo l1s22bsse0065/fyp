@@ -1,7 +1,6 @@
-import { Container, Row, Col, Card, Button } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import { Container, Row, Col, Card } from "react-bootstrap";
 import styles from "../../styles/cookingtips.module.css";
-import { recipes } from "../../data/recipes";
-import { tips } from "../../data/cookingtips";
 
 import heroImg from "../../assets/images/signup.jpg";
 import knifeIcon from "../../assets/icons/knife.png";
@@ -15,25 +14,45 @@ import FeaturedRecipes from "../../components/Featuresection";
 import TipsSection from "../../components/TipsSection";
 import SmartlyCurated from "../../components/SmartlyCurated";
 import NourishingPalate from "../../components/NourishingPalate";
+import axios from "axios";
 
 const CookingTips = () => {
+  const [tips, setTips] = useState([]);
+  const [recipes, setRecipes] = useState([]);
+
+  // ✅ Fetch both tips and recipes from MongoDB
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [tipsRes, recipesRes] = await Promise.all([
+          axios.get("http://localhost:5000/api/tips"),
+          axios.get("http://localhost:5000/api/recipes"),
+        ]);
+
+        setTips(tipsRes.data);
+        setRecipes(recipesRes.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <>
-      {/* Navbar */}
       <NavbarComponent />
 
       <Container fluid className={styles.pageContainer}>
         {/* HEADER SECTION */}
         <section className={`py-5 ${styles.headerSection}`}>
           <Row className="align-items-center">
-            {/* LEFT COLUMN - paragraph */}
             <Col md={6}>
               <h1 className="fw-bold display-5">
                 OUR ESSENTIAL <br /> COOKING TIPS
               </h1>
             </Col>
 
-            {/* RIGHT COLUMN - heading */}
             <Col md={6} className="text-md-end text-center">
               <p className="text-muted fs-5">
                 Welcome to Delicacies' treasure trove of cooking wisdom! Here,
@@ -48,10 +67,9 @@ const CookingTips = () => {
         {/* INFO CARDS SECTION */}
         <section className="py-4">
           <Row className="g-3">
-            {/* Card 1 */}
             <Col md={4}>
               <Card
-                className={`p-3 shadow-sm d-flex flex-row align-items-center justify-content-center  ${styles.infoCard}`}
+                className={`p-3 shadow-sm d-flex flex-row align-items-center justify-content-center ${styles.infoCard}`}
               >
                 <div className={styles.iconWrapper}>
                   <img
@@ -69,10 +87,9 @@ const CookingTips = () => {
               </Card>
             </Col>
 
-            {/* Card 2 */}
             <Col md={4}>
               <Card
-                className={`p-3 shadow-sm d-flex flex-row align-items-center justify-content-center  ${styles.infoCard}`}
+                className={`p-3 shadow-sm d-flex flex-row align-items-center justify-content-center ${styles.infoCard}`}
               >
                 <div className={styles.iconWrapper}>
                   <img
@@ -82,7 +99,9 @@ const CookingTips = () => {
                   />
                 </div>
                 <div className="ms-3">
-                  <h5 className="fw-bold mb-1 text-danger">ESSENTIAL UTENSILS</h5>
+                  <h5 className="fw-bold mb-1 text-danger">
+                    ESSENTIAL UTENSILS
+                  </h5>
                   <p className="text-muted small mb-0">
                     Knives, boards, spoons, and measuring cups.
                   </p>
@@ -90,10 +109,9 @@ const CookingTips = () => {
               </Card>
             </Col>
 
-            {/* Card 3 */}
             <Col md={4}>
               <Card
-                className={`p-3 shadow-sm d-flex flex-row align-items-center justify-content-center  ${styles.infoCard}`}
+                className={`p-3 shadow-sm d-flex flex-row align-items-center justify-content-center ${styles.infoCard}`}
               >
                 <div className={styles.iconWrapper}>
                   <img
@@ -103,7 +121,9 @@ const CookingTips = () => {
                   />
                 </div>
                 <div className="ms-3">
-                  <h5 className="fw-bold mb-1  text-danger">MEASURING ACCURACY</h5>
+                  <h5 className="fw-bold mb-1 text-danger">
+                    MEASURING ACCURACY
+                  </h5>
                   <p className="text-muted small mb-0">
                     Accurate measurements for perfect recipes.
                   </p>
@@ -113,22 +133,16 @@ const CookingTips = () => {
           </Row>
         </section>
 
-        {/* FEATURED RECIPES */}
+        {/* FEATURED RECIPES (from MongoDB) */}
         <FeaturedRecipes title="FEATURED RECIPES" recipes={recipes} />
 
-        {/* TIPS AND TRICKS */}
+        {/* DYNAMIC TIPS (from MongoDB) */}
         <TipsSection title="TIPS AND TRICKS FOR YOU" recipes={tips} />
 
-        {/* NOURISHING EVERY PALATE */}
+        {/* OTHER SECTIONS */}
         <NourishingPalate />
-
-        {/* CURATED SECTION */}
         <SmartlyCurated />
-
-        {/* SUBSCRIBE SECTION */}
         <SubscribeSection />
-
-        {/* FOOTER */}
         <FooterSection />
       </Container>
     </>
