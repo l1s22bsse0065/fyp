@@ -27,9 +27,11 @@ app.get("/", (req, res) => res.send("API is running..."));
 // Routes
 const userRoutes = require("./routes/userRoutes");
 const tipsRoutes = require("./routes/tipsRoutes");
+const recipeRoutes = require("./routes/recipeRoutes");
 
 app.use("/api/users", userRoutes);
 app.use("/api/tips", tipsRoutes);
+app.use("/api/recipes", recipeRoutes);
 
 // Start Server
 const PORT = process.env.PORT || 5000;

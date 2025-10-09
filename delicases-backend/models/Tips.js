@@ -1,24 +1,14 @@
 import mongoose from "mongoose";
 
-const tipSchema = new mongoose.Schema({
-  image: {
-    type: String,
-   
+const tipSchema = new mongoose.Schema(
+  {
+    image: { type: String },
+    title: { type: String, required: true, trim: true },
+    description: { type: String, required: true },
+    details: { type: String, required: true },
+    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" }, // 👈 Optional: link tip to user
   },
-  title: {
-    type: String,
-    required: true,
-    trim: true,
-  },
-  description: {
-    type: String,
-    required: true,
-  },
-  details: {
-    type: String,
-    required: true,
-  },
-});
+  { timestamps: true } // 👈 Adds createdAt & updatedAt automatically
+);
 
-const Tip = mongoose.model("Tip", tipSchema);
-export default Tip;
+export default mongoose.model("Tip", tipSchema);
