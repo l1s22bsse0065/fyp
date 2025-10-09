@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import styles from "../../styles/cookingtips.module.css";
 
-import heroImg from "../../assets/images/signup.jpg";
 import knifeIcon from "../../assets/icons/knife.png";
 import utensilsIcon from "../../assets/icons/cutlery.png";
 import scaleIcon from "../../assets/icons/weight-scale.png";
@@ -21,23 +20,28 @@ const CookingTips = () => {
   const [recipes, setRecipes] = useState([]);
 
   // ✅ Fetch both tips and recipes from MongoDB
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const [tipsRes, recipesRes] = await Promise.all([
-          axios.get("http://localhost:5000/api/tips"),
-          axios.get("http://localhost:5000/api/recipes"),
-        ]);
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const [tipsRes, recipesRes] = await Promise.all([
+        axios.get("http://localhost:5000/api/tips"),
+        axios.get("http://localhost:5000/api/recipes")
+      ]);
 
-        setTips(tipsRes.data);
-        setRecipes(recipesRes.data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
+      console.log("Tips Response:", tipsRes.data);
+      console.log("Recipes Response:", recipesRes.data);
 
-    fetchData();
-  }, []);
+      setTips(tipsRes.data.tips || []);
+      setRecipes(recipesRes.data.recipes || []);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  fetchData();
+}, []);
+
+
 
   return (
     <>
@@ -137,7 +141,8 @@ const CookingTips = () => {
         <FeaturedRecipes title="FEATURED RECIPES" recipes={recipes} />
 
         {/* DYNAMIC TIPS (from MongoDB) */}
-        <TipsSection title="TIPS AND TRICKS FOR YOU" recipes={tips} />
+        {/* DYNAMIC TIPS (from MongoDB) */}
+        <TipsSection title="TIPS AND TRICKS FOR YOU" tips={tips} />
 
         {/* OTHER SECTIONS */}
         <NourishingPalate />

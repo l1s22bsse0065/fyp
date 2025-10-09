@@ -1,14 +1,26 @@
 import { useState } from "react";
-import { Container, Button } from "react-bootstrap";
+import { Container, Button, Spinner } from "react-bootstrap";
 import TipsGrid from "../components/Tipsgrid";
-import { tips } from "../data/cookingtips";
 
-const TipsSection = ({ title }) => {
+const TipsSection = ({ title, tips = [] }) => {
   const [visibleCount, setVisibleCount] = useState(4);
 
   const handleLoadMore = () => {
     setVisibleCount((prev) => prev + 4);
   };
+
+  // Handle empty or loading state
+  if (!tips || tips.length === 0) {
+    return (
+      <section className="mb-5 mt-5 text-center">
+        <Container>
+          <h2 className="mb-3">{title}</h2>
+          <Spinner animation="border" variant="dark" />
+          <p className="mt-3 text-muted">Fetching the latest tips...</p>
+        </Container>
+      </section>
+    );
+  }
 
   return (
     <section className="mb-5 mt-5">

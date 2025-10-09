@@ -1,11 +1,10 @@
 import {
-  Navbar,
-  Nav,
+
   Container,
   Button,
   Row,
   Col,
-  Card,
+
 } from "react-bootstrap";
 import styles from "../../styles/homepage.module.css";
 import heroImg from "../../assets/images/signup.jpg";
