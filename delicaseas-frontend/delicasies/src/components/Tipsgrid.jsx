@@ -1,15 +1,25 @@
 import { useState } from "react";
 import { Row, Col, Card, Button, Modal } from "react-bootstrap";
 import styles from "../styles/recipes.module.css";
+import defaultImage from "../assets/images/signup.jpg"; // ← add a default image in your assets
 
 const TipsGrid = ({ title, tips }) => {
   const [show, setShow] = useState(false);
   const [selectedTip, setSelectedTip] = useState(null);
 
+  const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+
   const handleClose = () => setShow(false);
   const handleShow = (tip) => {
     setSelectedTip(tip);
     setShow(true);
+  };
+
+  // Helper: resolve correct image URL
+  const getImageUrl = (imagePath) => {
+    if (!imagePath) return defaultImage;
+    if (imagePath.startsWith("http")) return imagePath; // already full URL
+    return `${API_URL}${imagePath}`;
   };
 
   return (
@@ -25,7 +35,7 @@ const TipsGrid = ({ title, tips }) => {
       <Row>
         {(tips || []).map((tip) => (
           <Col
-            key={tip.id}
+            key={tip._id || tip.id}
             xs={12}
             sm={6}
             md={4}
@@ -35,9 +45,10 @@ const TipsGrid = ({ title, tips }) => {
             <Card className={`flex-fill ${styles.recipeCard}`}>
               <Card.Img
                 variant="top"
-                src={tip.image}
+                src={getImageUrl(tip.image)}
                 alt={`Tip image for ${tip.title}`}
                 className={styles.cardImg}
+                onError={(e) => (e.target.src = defaultImage)} // fallback if image fails to load
               />
               <Card.Body>
                 <Card.Title>{tip.title}</Card.Title>
@@ -65,7 +76,7 @@ const TipsGrid = ({ title, tips }) => {
           </Modal.Header>
           <Modal.Body>
             <img
-              src={selectedTip.image}
+              src={getImageUrl(selectedTip.image)}
               alt={selectedTip.title}
               style={{
                 width: "100%",
@@ -74,6 +85,7 @@ const TipsGrid = ({ title, tips }) => {
                 margin: "0 auto",
               }}
               className="rounded mb-3"
+              onError={(e) => (e.target.src = defaultImage)}
             />
             <p>{selectedTip.description}</p>
             {selectedTip.details && (
