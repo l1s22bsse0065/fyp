@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const path = require("path");
 const cors = require("cors");
 require("dotenv").config();
 
@@ -11,6 +12,10 @@ app.use(cors({
   credentials: true
 }));
 app.use(express.json());
+
+// Serve static uploads folder (for images)
+const uploadsDir = process.env.UPLOADS_DIR || "uploads";
+app.use("/uploads", express.static(path.join(__dirname, uploadsDir)));
 
 // Connect to MongoDB
 mongoose

@@ -5,12 +5,21 @@ import Recipe from "../models/Recipe.js";
 // @access Private (requires authentication)
 export const createRecipe = async (req, res) => {
   try {
-    const { title, description, ingredients, steps, image, time, servings, category } = req.body;
+    const {
+      title,
+      description,
+      ingredients,
+      steps,
+      image,
+      time,
+      servings,
+      category,
+    } = req.body;
 
     // ✅ Validate required fields
     if (!title || !description || !ingredients || !steps) {
-      return res.status(400).json({ 
-        message: "Title, description, ingredients, and steps are required." 
+      return res.status(400).json({
+        message: "Title, description, ingredients, and steps are required.",
       });
     }
 
@@ -42,9 +51,7 @@ export const createRecipe = async (req, res) => {
 // @access Public
 export const getAllRecipes = async (req, res) => {
   try {
-    const recipes = await Recipe.find()
-      .populate("createdBy", "name email profilePicture")
-      .sort({ createdAt: -1 });
+    const recipes = await Recipe.find().sort({ createdAt: -1 });
 
     res.status(200).json({
       message: "All recipes fetched successfully",
@@ -100,14 +107,22 @@ export const updateRecipe = async (req, res) => {
     });
 
     if (Object.keys(updates).length === 0) {
-      return res.status(400).json({ message: "No valid fields provided for update." });
+      return res
+        .status(400)
+        .json({ message: "No valid fields provided for update." });
     }
 
     const recipe = await Recipe.findById(req.params.id);
     if (!recipe) return res.status(404).json({ message: "Recipe not found" });
 
-    if (req.user && recipe.createdBy && recipe.createdBy.toString() !== req.user.id) {
-      return res.status(403).json({ message: "Unauthorized to edit this recipe" });
+    if (
+      req.user &&
+      recipe.createdBy &&
+      recipe.createdBy.toString() !== req.user.id
+    ) {
+      return res
+        .status(403)
+        .json({ message: "Unauthorized to edit this recipe" });
     }
 
     const updatedRecipe = await Recipe.findByIdAndUpdate(
@@ -137,8 +152,14 @@ export const deleteRecipe = async (req, res) => {
     const recipe = await Recipe.findById(req.params.id);
     if (!recipe) return res.status(404).json({ message: "Recipe not found" });
 
-    if (req.user && recipe.createdBy && recipe.createdBy.toString() !== req.user.id) {
-      return res.status(403).json({ message: "Unauthorized to delete this recipe" });
+    if (
+      req.user &&
+      recipe.createdBy &&
+      recipe.createdBy.toString() !== req.user.id
+    ) {
+      return res
+        .status(403)
+        .json({ message: "Unauthorized to delete this recipe" });
     }
 
     await Recipe.findByIdAndDelete(req.params.id);

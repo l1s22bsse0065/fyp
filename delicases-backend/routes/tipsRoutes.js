@@ -6,13 +6,15 @@ const {
   updateTip,
   deleteTip,
 } = require("../controllers/tipsController");
+const upload = require("../middleware/upload"); // Import your upload middleware
 
 const router = express.Router();
 
-router.post("/", createTip);
+// Routes
+router.post("/", upload.single("image"), createTip);
 router.get("/", getAllTips);
 router.get("/:id", getTipById);
-router.put("/:id", updateTip);
+router.put("/:id", upload.single("image"), updateTip);
 router.delete("/:id", deleteTip);
 
 module.exports = router;
