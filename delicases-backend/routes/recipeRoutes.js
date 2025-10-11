@@ -9,11 +9,15 @@ const {
   deleteRecipe,
 } = require("../controllers/recipeController");
 
-// Routes
+const upload = require("../middleware/upload");
+
+// Public Routes
 router.get("/", getAllRecipes);
 router.get("/:id", getRecipeById);
-router.post("/", createRecipe);
-router.put("/:id", updateRecipe);
+
+// Protected Routes (for now, kept open)
+router.post("/", upload.single("image"), createRecipe);
+router.put("/:id", upload.single("image"), updateRecipe);
 router.delete("/:id", deleteRecipe);
 
 module.exports = router;
