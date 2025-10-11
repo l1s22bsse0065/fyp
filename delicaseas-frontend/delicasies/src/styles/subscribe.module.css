@@ -1,0 +1,33 @@
+/*Subscribe Section */
+.subscribeSection {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.45);
+  border-radius: 30px;
+  background-color: #B87383;
+  margin: 40px 0 0;
+  color: white;
+}
+.subButton{
+  border-radius: 20px;
+  font-weight: 600;
+  padding: 8px 20px;
+  margin-left: 10px;
+  background-color: #ab3550e8;
+  color: #ffffff;
+  border: 1px solid #c18c81;
+  transition: all 0.3s ease;
+}/* Email Input */
+.emailInput {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 25px;
+    width: 250px;
+    max-width: 100%;
+    box-sizing: border-box;
+    background-color: #dccacf;
+    
+}
+.emailInput::placeholder {
+    color: #ffffff;
+    opacity: 0.8;
+    
+}

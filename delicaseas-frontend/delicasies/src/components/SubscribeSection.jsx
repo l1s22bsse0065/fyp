@@ -1,5 +1,5 @@
 import { Container, Button } from "react-bootstrap";
-import styles from "../styles/homepage.module.css";
+import styles from "../styles/subscribe.module.css";
 
 const SubscribeSection = () => {
   return (
@@ -16,7 +16,7 @@ const SubscribeSection = () => {
             placeholder="Email Address" 
             className={styles.emailInput} 
           />
-          <Button variant="dark" className={styles.btnDark}>SUBSCRIBE</Button>
+          <Button variant="dark" className={styles.subButton}>SUBSCRIBE</Button>
         </div>
       </Container>
     </section>

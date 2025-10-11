@@ -1,28 +1,27 @@
 .pageContainer {
- padding: 20px;
+  padding: 20px;
   min-height: 100vh;
+  min-width: 100vh;
+  width: 100%;
   box-sizing: border-box;
-  background: #f9f6f1;
+  background: #F5F5F7; /* Primary Base (Light Gray) */
   font-family: 'Poppins', sans-serif;
-
 }
 
 /* Hero Section */
 .heroSection {
-  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.08);
   margin-top: 30px;
   position: relative;
   width: 100%;
   height: 80vh;
   background-size: cover;
   background-position: center;
-  
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 30px;
-   overflow: hidden;  
-  
+  overflow: hidden;
 }
 
 .overlay {
@@ -31,11 +30,11 @@
   left: 0;
   width: 100%;
   height: 100%;
-   background: linear-gradient(
+  background: linear-gradient(
     to top,
-    rgba(0, 0, 0, 0.6) 0%,
-    rgba(0, 0, 0, 0.25) 50%,
-    rgba(0, 0, 0, 0) 100%
+    rgba(44, 62, 80, 0.7) 0%,  
+    rgba(44, 62, 80, 0.3) 50%,
+    rgba(44, 62, 80, 0) 100%
   ) !important;
 }
 
@@ -48,52 +47,74 @@
   margin-top: 20px;
   border-radius: 30px;
   font-weight: bold;
+  background-color: #B87383; /* Elegant Accent (Dusty Rose) */
+  color: white;
+  border: none;
+  box-shadow: 0 4px 12px rgba(184, 115, 131, 0.4);
+  transition: all 0.3s ease;
 }
 
+.exploreBtn:hover {
+  background-color: #EFC099; /* Highlight (Soft Gold) hover */
+  color: #2C3E50; /* Deep Primary text */
+  box-shadow: 0 6px 20px rgba(184, 115, 131, 0.5);
+}
 
-
-/* Featured section */
-.featuredSection {
-  padding: 60px 0;
-  background-color: #dddbd3; /* keeps it clean, no grey overlay */
-  border-color: #333;
-  margin-top: 30px;
+/* Featured / Curated / Palette / What We Have Sections */
+.featuredSection, .curatedSection, .paletteSection, .whatWeHaveSection {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #FAF8F3; /* slightly brighter than page for contrast */
+  margin: 40px 0;
+  padding: 30px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); /* more pronounced shadow */
   border-radius: 30px;
-  box-shadow: 0 0px 0px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
 }
+.curatedimage{
+  width: 100%;
+  height: 45vh;
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); 
+  object-fit: cover;
+ 
 
+}
 .sectionTitle {
   text-align: center;
   font-size: 28px;
   font-weight: 700;
   margin-bottom: 40px;
-  position: relative;
+  color: #2C3E50; /* Deep Primary (Charcoal/Ink) */
 }
 
-/* Recipe card */
+/* Recipe Card */
 .recipeCard {
   border: none;
   border-radius: 15px;
   overflow: hidden;
-  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease-in-out;
-  background-color: #fff; /* pure white background */
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  background-color: #fff;
 }
 
 .recipeCard:hover {
   transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
-/* Card image */
+/* Card Image */
 .cardImg {
   height: 250px;
   object-fit: cover;
+  border-bottom: 2px solid #EFC099; /* Highlight (Soft Gold) */
 }
 
-/* Recipe meta info under description */
+/* Recipe Meta Info */
 .recipeMeta {
   font-size: 14px;
-  color: #777;
+  color: #2C3E50;
   margin-bottom: 10px;
 }
 
@@ -101,54 +122,25 @@
 .viewBtn {
   border-radius: 20px;
   font-weight: bold;
-  border: 1px solid #ccc;
+  border: 1px solid #98B4AA;
   padding: 8px 16px;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
+  background-color: #F5F5F7;
+  color: #B87383;
+  box-shadow: 0 2px 8px rgba(184, 115, 131, 0.3);
 }
 
 .viewBtn:hover {
-  background-color: #c9be97;
-  color: #fff;
-}
-.recipeFooter {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 10px;
+  background-color: #B87383;
+  color: white;
+  box-shadow: 0 4px 12px rgba(184, 115, 131, 0.4);
 }
 
-.curatedSection, .paletteSection , .whatWeHaveSection{
-  display: flex;
-  align-items: center;
-  justify-content: center;
- 
-  background-color: #fdf6e3; /* cream or beige */
-  margin: 40px 0;
-  padding: 20px;
-  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
-  border-radius: 30px;
-  overflow: hidden; 
-  
-}
-
-
-.curatedimage{
-  height: 40vh;
-  width: 100%;
-  object-fit: cover;
-  border-radius: 30px;
-}
-
-.subscribeSection {
-  border-radius:30px;
-  background-color: #e44d39; /* red */
-  margin: 40px 0 0;
-}
 
 .badge {
   display: inline-block;
-  background: #db5544;
-  color: white;
+  background: #EFC099;
+  color: #2C3E50;
   padding: 4px 10px;
   border-radius: 20px;
   font-size: 0.8rem;
@@ -156,48 +148,39 @@
   width: fit-content;
 }
 
+/* Buttons */
 .btnDark {
   border-radius: 20px;
   font-weight: 600;
   padding: 8px 20px;
   margin-bottom: 10px;
+  background-color: #F5F5F7;
+  color: #2C3E50;
+  border: 1px solid #98B4AA;
+  transition: all 0.3s ease;
 }
 
-.paletteList {
-  list-style: disc;        
-  padding-left: 20px;      
-  text-align: left;        
-  font-size: 1.1rem;
+.btnDark:hover {
+  background-color: #98B4AA;
+  color: white;
 }
 
+/* Palette List */
 .paletteList li {
-  display: list-item;      
+  display: list-item;
   margin-bottom: 10px;
   font-weight: 500;
+  color: #2C3E50;
 }
-
 
 .paletteList li i {
   margin-right: 10px;
   font-size: 1.2rem;
-}
-
-.subscribeForm {
-  display: inline-flex;
-  gap: 10px;
-  margin-top: 10px;
-}
-
-.emailInput {
-  padding: 8px 12px;
-  border-radius: 20px;
-  border: none;
-  min-width: 250px;
+  color: #EFC099;
 }
 
 
-
-
+/* Image Collage */
 .imageCollage {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
@@ -213,7 +196,6 @@
   border-radius: 12px;
 }
 
-/* Positioning images */
 .img1 {
   grid-column: 1 / span 2;
   grid-row: 1 / span 1;
@@ -226,7 +208,7 @@
 
 .img3 {
   grid-column: 5 / span 2;
-  grid-row: 1 / span 2; /* This one is taller */
+  grid-row: 1 / span 2;
 }
 
 .img4 {
@@ -234,45 +216,3 @@
   grid-row: 2 / span 1;
 }
 
-
-.footerSection {
-  background-color: #1b1a1a; /* dark background */
-  color: white;
-  margin: 20px ;         
-  padding: 10px;         
-  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
-  border-radius: 30px;
-  overflow: hidden; 
-  text-align: center;
-  font-size: 0.9rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  
-}
-.footerLogo {
-  width: 40px;
-  height: 40px;
-  object-fit: cover;
-  border-radius: 50%;
-  border: 2px solid #6d6d6d;  /* white border around logo */
-}
-
-.footerLinks a {
-  font-size: 0.95rem;
-  transition: color 0.3s ease;
-}
-
-.footerLinks a:hover {
-  color: #c9be97; /* matches your navbar beige */
-}
-
-.footerIcons a {
-  font-size: 1.2rem;
-  transition: color 0.3s ease;
-}
-
-.footerIcons a:hover {
-  color: #c9be97;
-}

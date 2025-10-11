@@ -2,15 +2,25 @@
 import { useState } from "react";
 import { Row, Col, Card, Button, Modal } from "react-bootstrap";
 import styles from "../styles/recipes.module.css";
+import defaultImage from "../assets/images/chef_pic.png"; // optional fallback image
 
 const RecipeGrid = ({ title, recipes }) => {
   const [show, setShow] = useState(false);
   const [selectedRecipe, setSelectedRecipe] = useState(null);
 
+  const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+
   const handleClose = () => setShow(false);
   const handleShow = (recipe) => {
     setSelectedRecipe(recipe);
     setShow(true);
+  };
+
+  // ✅ Helper: get correct image URL
+  const getImageUrl = (imagePath) => {
+    if (!imagePath) return defaultImage;
+    if (imagePath.startsWith("http")) return imagePath; // full URL already
+    return `${API_URL}${imagePath}`;
   };
 
   return (
@@ -22,11 +32,11 @@ const RecipeGrid = ({ title, recipes }) => {
         </h2>
       )}
 
-      {/* Grid of Recipes */}
+      {/* Recipe Grid */}
       <Row>
         {(recipes || []).map((recipe) => (
           <Col
-            key={recipe.id}
+            key={recipe._id}
             xs={12}
             sm={6}
             md={4}
@@ -36,7 +46,7 @@ const RecipeGrid = ({ title, recipes }) => {
             <Card className={`flex-fill ${styles.recipeCard}`}>
               <Card.Img
                 variant="top"
-                src={recipe.image}
+                src={getImageUrl(recipe.image)}
                 alt={`Recipe image for ${recipe.title}`}
                 className={styles.cardImg}
               />
@@ -61,7 +71,7 @@ const RecipeGrid = ({ title, recipes }) => {
         ))}
       </Row>
 
-      {/* Modal for Recipe Details */}
+      {/* Recipe Modal */}
       {selectedRecipe && (
         <Modal show={show} onHide={handleClose} centered size="lg">
           <Modal.Header closeButton>
@@ -69,7 +79,7 @@ const RecipeGrid = ({ title, recipes }) => {
           </Modal.Header>
           <Modal.Body>
             <img
-              src={selectedRecipe.image}
+              src={getImageUrl(selectedRecipe.image)}
               alt={selectedRecipe.title}
               style={{
                 width: "100%",
