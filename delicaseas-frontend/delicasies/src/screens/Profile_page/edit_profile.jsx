@@ -5,7 +5,7 @@ import NavbarComponent from "../../components/NavbarComponent";
 import styles from "../../styles/profile.module.css";
 
 import { useDispatch, useSelector } from "react-redux";
-import { setUser, updateUser } from "../../store/userSlice";
+import { setUser, updateUser } from "../../slices/userSlice";
 
 export default function EditProfile() {
   const navigate = useNavigate();

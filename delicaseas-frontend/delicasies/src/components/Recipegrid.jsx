@@ -1,38 +1,24 @@
 // src/components/RecipeGrid.js
-import { useState } from "react";
-import { Row, Col, Card, Button, Modal } from "react-bootstrap";
+import { Row, Col, Card } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import styles from "../styles/recipes.module.css";
-import defaultImage from "../assets/images/chef_pic.png"; // optional fallback image
+import defaultImage from "../assets/images/chef_pic.png";
 
 const RecipeGrid = ({ title, recipes }) => {
-  const [show, setShow] = useState(false);
-  const [selectedRecipe, setSelectedRecipe] = useState(null);
-
   const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
 
-  const handleClose = () => setShow(false);
-  const handleShow = (recipe) => {
-    setSelectedRecipe(recipe);
-    setShow(true);
-  };
-
-  // ✅ Helper: get correct image URL
   const getImageUrl = (imagePath) => {
     if (!imagePath) return defaultImage;
-    if (imagePath.startsWith("http")) return imagePath; // full URL already
+    if (imagePath.startsWith("http")) return imagePath;
     return `${API_URL}${imagePath}`;
   };
 
   return (
     <>
-      {/* Section Title */}
       {title && (
-        <h2 className={`${styles.sectionTitle} mb-4 text-center`}>
-          {title}
-        </h2>
+        <h2 className={`${styles.sectionTitle} mb-4 text-center`}>{title}</h2>
       )}
 
-      {/* Recipe Grid */}
       <Row>
         {(recipes || []).map((recipe) => (
           <Col
@@ -44,88 +30,42 @@ const RecipeGrid = ({ title, recipes }) => {
             className="mb-4 d-flex"
           >
             <Card className={`flex-fill ${styles.recipeCard}`}>
-              <Card.Img
-                variant="top"
-                src={getImageUrl(recipe.image)}
-                alt={`Recipe image for ${recipe.title}`}
-                className={styles.cardImg}
-              />
-              <Card.Body>
-                <Card.Title>{recipe.title}</Card.Title>
-                <Card.Text>{recipe.description}</Card.Text>
-                <div className={styles.recipeFooter}>
+              <div className={styles.imageWrapper}>
+                <Card.Img
+                  variant="top"
+                  src={getImageUrl(recipe.image)}
+                  alt={`Recipe image for ${recipe.title}`}
+                  className={styles.cardImg}
+                  onError={(e) => (e.target.src = defaultImage)} // fallback if broken
+                />
+              </div>
+
+              <Card.Body className="d-flex flex-column justify-content-between">
+                <div>
+                  <Card.Title>{recipe.title}</Card.Title>
+                  <Card.Text className="text-muted">
+                    {recipe.description}
+                  </Card.Text>
+                </div>
+
+                <div className={`${styles.recipeFooter} mt-3`}>
                   <div className={styles.recipeMeta}>
-                    <span>{recipe.time}</span> | <span>{recipe.servings}</span>
+                    <span>{recipe.time || "N/A"}</span>
+                    {recipe.servings && <span> | {recipe.servings}</span>}
                   </div>
-                  <Button
-                    variant="light"
-                    className={styles.viewBtn}
-                    onClick={() => handleShow(recipe)}
+
+                  <Link
+                    to={`/recipe/${recipe._id}`}
+                    className={`btn btn-outline-dark btn-sm mt-2 ${styles.viewBtn}`}
                   >
                     VIEW RECIPE
-                  </Button>
+                  </Link>
                 </div>
               </Card.Body>
             </Card>
           </Col>
         ))}
       </Row>
-
-      {/* Recipe Modal */}
-      {selectedRecipe && (
-        <Modal show={show} onHide={handleClose} centered size="lg">
-          <Modal.Header closeButton>
-            <Modal.Title>{selectedRecipe.title}</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <img
-              src={getImageUrl(selectedRecipe.image)}
-              alt={selectedRecipe.title}
-              style={{
-                width: "100%",
-                maxWidth: "450px",
-                display: "block",
-                margin: "0 auto",
-              }}
-              className="rounded mb-3"
-            />
-            <p>{selectedRecipe.description}</p>
-            <p>
-              <strong>Time:</strong> {selectedRecipe.time} |{" "}
-              <strong>Servings:</strong> {selectedRecipe.servings}
-            </p>
-
-            {/* Ingredients */}
-            {selectedRecipe.ingredients && (
-              <>
-                <h5>Ingredients</h5>
-                <ul>
-                  {selectedRecipe.ingredients.map((item, idx) => (
-                    <li key={idx}>{item}</li>
-                  ))}
-                </ul>
-              </>
-            )}
-
-            {/* Steps */}
-            {selectedRecipe.steps && (
-              <>
-                <h5>Steps</h5>
-                <ol>
-                  {selectedRecipe.steps.map((step, idx) => (
-                    <li key={idx}>{step}</li>
-                  ))}
-                </ol>
-              </>
-            )}
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
-              Close
-            </Button>
-          </Modal.Footer>
-        </Modal>
-      )}
     </>
   );
 };

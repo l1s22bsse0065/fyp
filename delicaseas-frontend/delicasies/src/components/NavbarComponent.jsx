@@ -1,7 +1,7 @@
 import { Navbar, Nav, Container, Button, NavDropdown } from "react-bootstrap";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { clearUser } from "../store/userSlice";
+import { clearUser } from "../slices/userSlice";
 import heroImg from "../assets/images/signup.jpg";
 import styles from "../styles/navbar.module.css";
 

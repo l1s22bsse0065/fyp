@@ -31,32 +31,44 @@
 }
 
 .recipeCard {
-  border-radius: 10px;
+  border-radius: 12px;
   overflow: hidden;
-  border: 1px solid #ddd;
-  background: #f6f4ef;
-  transition: transform 0.2s ease-in-out;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+  background: #fff;
+  min-height: 380px; /* ensures visible height */
 }
 
 .recipeCard:hover {
-  transform: translateY(-5px);
+  transform: scale(1.02);
+}
+
+.imageWrapper {
+  height: 200px;
+  overflow: hidden;
 }
 
 .cardImg {
-  height: 200px;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
 }
 
+.recipeFooter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .recipeMeta {
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   color: #777;
 }
 
 .viewBtn {
-  width: 100%;
-  margin-top: 10px;
-  border-radius: 25px;
+  margin-top: 0.5rem;
 }
+
 .activeCategory {
   background-color: #000;
   color: #fff;

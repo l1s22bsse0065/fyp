@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styles from "../../styles/signin.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useDispatch } from "react-redux";
-import { setUser } from "../../store/userSlice";
+import { setUser } from "../../slices/userSlice";
 
 export default function SignIn() {
   const [loading, setLoading] = useState(false);

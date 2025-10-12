@@ -1,0 +1,342 @@
+.pageWrapper {
+  background-color: #f9f5ef;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* ✅ Button inside container, aligned to top-left */
+.backButtonWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 1.5rem;
+}
+
+/* ✅ Back button styling */
+.backButton {
+  background: none;
+  border: none;
+  color: #3b3025;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0;
+}
+
+.backButton:hover {
+  color: #ff6b6b;
+  transform: translateX(-2px);
+}
+
+/* ✅ Main Recipe container */
+.recipeContainer {
+  background: #fff;
+  padding: 3rem 2rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  margin-top: 100px;
+}
+
+/* ✅ Hero section below back button */
+.heroSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.heroImage {
+  width: 100%;
+  max-width: 600px;
+  height: 40vh;
+  border-radius: 16px;
+  object-fit: cover;
+  margin-bottom: 1.5rem;
+}
+
+.heroText {
+  color: #3b3025;
+}
+
+.recipeTitle {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.recipeDesc {
+  font-size: 1rem;
+  color: #7a6e60;
+  margin-bottom: 0.75rem;
+}
+
+.recipeInfo {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  color: #8b7355;
+  font-weight: 500;
+}
+
+/* ✅ Main content layout */
+.mainSection {
+  margin-top: 3rem;
+}
+
+.sectionHeading {
+  color: #3b3025;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.contentCard {
+  background: #fdfbf9;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.ingredientsList,
+.instructionsList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.ingredientsList li,
+.instructionsList li {
+  margin-bottom: 0.5rem;
+  color: #4a3f35;
+  font-size: 0.95rem;
+}
+
+.instructionsList {
+  counter-reset: step;
+}
+
+.instructionsList li::before {
+  content: counter(step) ". ";
+  counter-increment: step;
+  font-weight: 600;
+  color: #d97706;
+}
+
+/* ✅ Author Section */
+.authorBox {
+  display: flex;
+  align-items: center;
+  margin-top: 3rem;
+  gap: 1rem;
+}
+
+.authorImg {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.authorName {
+  font-weight: 600;
+  color: #3b3025;
+}
+
+.authorRole {
+  font-size: 0.9rem;
+  color: #7a6e60;
+}
+
+/* ✅ Comments & Ratings */
+.commentsSection {
+  margin-top: 3rem;
+}
+
+.commentBox,
+.ratingCard {
+  background: #fdfbf9;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.avgRating {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0.5rem 0;
+}
+
+.ratingBars p {
+  margin: 0.25rem 0;
+  color: #5a4636;
+  font-size: 0.95rem;
+}
+
+.similarSectionOuter {
+  background-color: #f9f5ef;
+  padding: 4rem 0;
+  margin-top: 4rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.similarSectionOuter .sectionHeading {
+  text-align: left;
+  margin-bottom: 1.5rem;
+  color: #3b3025;
+  font-weight: 700;
+}
+
+/* Horizontal scroll container */
+.similarScroll {
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 1rem;
+  scrollbar-width: thin;
+}
+
+.similarScroll::-webkit-scrollbar {
+  height: 8px;
+}
+
+.similarScroll::-webkit-scrollbar-thumb {
+  background-color: #d0bfa3;
+  border-radius: 8px;
+}
+
+/* ===== SIMILAR RECIPES SECTION ===== */
+.similarSectionOuter {
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+}
+
+.similarHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.scrollButtons {
+  display: flex;
+  gap: 10px;
+}
+
+.scrollBtn {
+  background: #f5f5f5;
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  font-size: 1.4rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.scrollBtn:hover {
+  background: #222;
+  color: #fff;
+}
+
+.similarScroll {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding-bottom: 1rem;
+}
+
+.similarScroll::-webkit-scrollbar {
+  height: 8px;
+}
+
+.similarScroll::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 10px;
+}
+
+/* ===== CARD STYLING (MATCHES MAIN RECIPE GRID) ===== */
+.recipeCard {
+  min-width: 260px;
+  max-width: 260px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.recipeCard:hover {
+  transform: scale(1.03);
+}
+
+.cardImg {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.cardBody {
+  padding: 1rem;
+}
+
+.cardTitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+
+.cardDesc {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 0.8rem;
+  min-height: 40px;
+}
+
+.cardFooter {
+  font-size: 0.85rem;
+  color: #999;
+  margin-bottom: 0.8rem;
+}
+
+.viewBtn {
+  background: #000;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  transition: background 0.3s ease;
+}
+
+.viewBtn:hover {
+  background: #333;
+}
+
+
+/* ✅ Responsive adjustments */
+@media (max-width: 768px) {
+  .recipeContainer {
+    margin-top: 80px;
+    padding: 2rem 1rem;
+  }
+
+  .backButtonWrapper {
+    margin-bottom: 1rem;
+  }
+
+  .recipeTitle {
+    font-size: 2rem;
+  }
+
+  .recipeInfo {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
