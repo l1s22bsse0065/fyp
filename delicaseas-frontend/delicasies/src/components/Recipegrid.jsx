@@ -3,15 +3,10 @@ import { Row, Col, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import styles from "../styles/recipes.module.css";
 import defaultImage from "../assets/images/chef_pic.png";
+import { getImageUrl } from "../utils/getImageUrl";
 
 const RecipeGrid = ({ title, recipes }) => {
   const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
-
-  const getImageUrl = (imagePath) => {
-    if (!imagePath) return defaultImage;
-    if (imagePath.startsWith("http")) return imagePath;
-    return `${API_URL}${imagePath}`;
-  };
 
   return (
     <>

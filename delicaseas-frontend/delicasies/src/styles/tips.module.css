@@ -1,0 +1,103 @@
+.tipModal {
+  border-radius: 12px;
+  background: #faf8f2;
+  border: none;
+  overflow: hidden;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
+}
+
+.tipHeader {
+  background-color: #a3a07a;
+  color: #fff;
+  padding: 0.75rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.tipHeader .icon {
+  font-size: 1.2rem;
+  margin-right: 8px;
+}
+
+.tipHeader .title {
+  flex-grow: 1;
+  font-weight: 600;
+  margin: 0;
+}
+
+.closeBtn {
+  border: none;
+  background: transparent;
+  color: #fff;
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+
+.tipBody {
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.tipImage {
+  width: 100%;
+  height: 50vh;
+  border-radius: 10px;
+  object-fit: cover;
+  margin-bottom: 1rem;
+}
+
+.tipTextBox {
+  background-color: #ebe8df;
+  border-radius: 10px;
+  padding: 1rem;
+  color: #555;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+}
+
+.tipButton {
+  background-color: #79b57f;
+  border: none;
+  color: white;
+  font-weight: 600;
+  padding: 0.6rem 2rem;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.tipButton:hover {
+  background-color: #6aa56f;
+}
+/* ✨ Smooth Modal Open Animation */
+@keyframes fadeZoomIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.tipModal {
+  border-radius: 12px;
+  background: #faf8f2;
+  border: none;
+  overflow: hidden;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
+
+  /* Add animation here */
+  animation: fadeZoomIn 0.3s ease-out;
+}
+.modal-backdrop.show {
+  opacity: 0.4;
+  transition: opacity 0.3s ease-in-out;
+}
+.fadeOut {
+  animation: modalFadeOut 0.5s ease forwards;
+}
+

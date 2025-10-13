@@ -1,65 +1,68 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Container, Row, Col, Spinner } from "react-bootstrap";
+import { useSelector } from "react-redux";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
+
 import NavbarComponent from "../../components/NavbarComponent";
 import SubscribeSection from "../../components/SubscribeSection";
 import FooterSection from "../../components/FooterSection";
 import styles from "../../styles/viewRecipe.module.css";
 import defaultImage from "../../assets/images/chef_pic.png";
-import RecipeGrid from "../../components/Recipegrid";
+
 import useRecipes from "../../hooks/useRecipes";
+import { getImageUrl } from "../../utils/getImageUrl";
+import { useFavourites } from "../../hooks/useFavourites";
 
 const ViewRecipe = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { recipes, loading } = useRecipes(); // ✅ using shared hook
 
+  // ✅ Safe access to token (prevents undefined errors)
+  const user = useSelector((state) => state.user.user);
+  const userToken = localStorage.getItem("token");
+
+  // ✅ Only initialize favourites hook if logged in
+  const { favourites, toggleFavourite, isFavourite } = useFavourites(userToken);
+
+  const { recipes, loading } = useRecipes();
   const [recipe, setRecipe] = useState(null);
   const [similarRecipes, setSimilarRecipes] = useState([]);
 
-  const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+  useEffect(() => {
+    if (!loading && recipes.length > 0) {
+      const currentRecipe = recipes.find((r) => r._id === id);
 
- useEffect(() => {
-  if (!loading && recipes.length > 0) {
-    const currentRecipe = recipes.find((r) => r._id === id);
-    console.log("✅ Recipes loaded:", recipes);
-    console.log("📌 Current recipe:", currentRecipe);
+      if (currentRecipe) {
+        setRecipe(currentRecipe);
 
-    if (currentRecipe) {
-      setRecipe(currentRecipe);
-
-      const similar = recipes.filter((r) => {
-        if (!r || !r.category || !currentRecipe.category) return false;
-
-        // Convert both categories to arrays for consistency
+        // Find similar recipes by matching categories
         const currentCategories = Array.isArray(currentRecipe.category)
           ? currentRecipe.category
           : [currentRecipe.category];
 
-        const recipeCategories = Array.isArray(r.category)
-          ? r.category
-          : [r.category];
+        const similar = recipes.filter((r) => {
+          if (!r || !r.category) return false;
+          const recipeCategories = Array.isArray(r.category)
+            ? r.category
+            : [r.category];
 
-        // Check if any category overlaps (case-insensitive)
-        const sameCategory = currentCategories.some((cat1) =>
-          recipeCategories.some(
-            (cat2) =>
-              typeof cat1 === "string" &&
-              typeof cat2 === "string" &&
-              cat1.toLowerCase().trim() === cat2.toLowerCase().trim()
-          )
-        );
+          const sameCategory = currentCategories.some((cat1) =>
+            recipeCategories.some(
+              (cat2) =>
+                typeof cat1 === "string" &&
+                typeof cat2 === "string" &&
+                cat1.toLowerCase().trim() === cat2.toLowerCase().trim()
+            )
+          );
 
-        const notSameRecipe = r._id?.toString() !== currentRecipe._id?.toString();
-        return sameCategory && notSameRecipe;
-      });
+          return sameCategory && r._id !== currentRecipe._id;
+        });
 
-      setSimilarRecipes(similar.slice(0, 6));
-      console.log("🥣 Similar recipes found:", similar);
+        setSimilarRecipes(similar.slice(0, 6));
+      }
     }
-  }
-}, [loading, recipes, id]);
-
+  }, [loading, recipes, id]);
 
   if (loading || !recipe) {
     return (
@@ -70,14 +73,16 @@ const ViewRecipe = () => {
     );
   }
 
-  const getImageUrl = (imagePath) => {
-    if (!imagePath) return defaultImage;
-    if (imagePath.startsWith("http")) return imagePath;
-    return `${API_URL}${imagePath}`;
-  };
-
   const ingredients = recipe.ingredients || [];
   const steps = recipe.instructions || recipe.steps || [];
+
+  const handleFavourite = () => {
+    if (!user || !userToken) {
+      alert("Please log in to save recipes to your favourites ❤️");
+      return;
+    }
+    toggleFavourite(recipe._id);
+  };
 
   return (
     <>
@@ -111,6 +116,21 @@ const ViewRecipe = () => {
                 {recipe.cookTime && <span>⏱ {recipe.cookTime} mins</span>}
                 {recipe.servings && <span>🍽 {recipe.servings} servings</span>}
               </div>
+
+              {/* ❤️ Add to Favourite Button */}
+              <button className={styles.favButton} onClick={handleFavourite}>
+                {userToken && isFavourite(recipe._id) ? (
+                  <>
+                    <FaHeart color="red" size={22} />{" "}
+                    <span>Added to Favourites</span>
+                  </>
+                ) : (
+                  <>
+                    <FaRegHeart color="gray" size={22} />{" "}
+                    <span>Add to Favourites</span>
+                  </>
+                )}
+              </button>
             </div>
           </div>
 
@@ -185,16 +205,11 @@ const ViewRecipe = () => {
                 </div>
               </div>
 
-              {/* Scrollable Recipe Cards */}
               <div id="similarScroll" className={styles.similarScroll}>
                 {similarRecipes.map((recipe) => (
                   <div key={recipe._id} className={styles.recipeCard}>
                     <img
-                      src={
-                        recipe.image
-                          ? `${API_URL}${recipe.image}`
-                          : defaultImage
-                      }
+                      src={getImageUrl(recipe.image)}
                       alt={recipe.title}
                       className={styles.cardImg}
                     />

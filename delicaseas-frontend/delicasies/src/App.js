@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { setUser } from "./slices/userSlice";  // ✅ import action
+import { setUser } from "./slices/userSlice"; // ✅ import action
 import ScrollToTop from "./hooks/ScrollToTop";
 
 import Signup from "./screens/signup_page";
@@ -14,7 +14,7 @@ import AboutUs from "./screens/Aboutus_page/aboutus";
 import Profile from "./screens/Profile_page/profile_page";
 import EditProfile from "./screens/Profile_page/edit_profile";
 import ViewRecipe from "./screens/View_recipe/ViewRecipe";
-
+import SavedRecipes from "./screens/savedRecipe_page/SavedRecipes";
 function App() {
   const dispatch = useDispatch();
 
@@ -40,6 +40,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/edit-profile" element={<EditProfile />} />
         <Route path="/recipe/:id" element={<ViewRecipe />} />
+        <Route path="/saved-recipes" element={<SavedRecipes />} />
       </Routes>
     </Router>
   );

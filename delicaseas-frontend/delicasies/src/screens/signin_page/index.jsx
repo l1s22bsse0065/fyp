@@ -25,14 +25,13 @@ export default function SignIn() {
       const data = await response.json();
 
       if (response.ok) {
-        // ✅ Save JWT token
         if (data.token) {
           localStorage.setItem("token", data.token);
         }
 
-        // ✅ Save user globally
         if (data.user) {
-          dispatch(setUser(data.user));
+          // ✅ Pass both user + token to Redux
+          dispatch(setUser({ user: data.user, token: data.token }));
           localStorage.setItem("user", JSON.stringify(data.user));
         }
 
@@ -66,14 +65,24 @@ export default function SignIn() {
                 <label htmlFor="email" className="form-label fw-bold">
                   Enter Email
                 </label>
-                <input id="email" type="email" className="form-control" required />
+                <input
+                  id="email"
+                  type="email"
+                  className="form-control"
+                  required
+                />
               </div>
 
               <div className="mb-3">
                 <label htmlFor="password" className="form-label fw-bold">
                   Enter Password
                 </label>
-                <input id="password" type="password" className="form-control" required />
+                <input
+                  id="password"
+                  type="password"
+                  className="form-control"
+                  required
+                />
               </div>
 
               <div className="d-flex justify-content-between align-items-center mb-3">
@@ -94,7 +103,10 @@ export default function SignIn() {
               </button>
 
               <p className={`${styles.signupLink} mt-3`}>
-                Don’t have an account? <a href="/" className={styles.link}>Sign Up</a>
+                Don’t have an account?{" "}
+                <a href="/" className={styles.link}>
+                  Sign Up
+                </a>
               </p>
             </form>
           </div>

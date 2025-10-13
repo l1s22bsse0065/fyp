@@ -81,6 +81,23 @@
   color: #8b7355;
   font-weight: 500;
 }
+.favButton {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.favButton:hover {
+  background: #ffeaea;
+  transform: scale(1.03);
+}
 
 /* ✅ Main content layout */
 .mainSection {

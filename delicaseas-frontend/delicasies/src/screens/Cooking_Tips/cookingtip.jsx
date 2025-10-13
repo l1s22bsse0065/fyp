@@ -141,7 +141,6 @@ useEffect(() => {
         <FeaturedRecipes title="FEATURED RECIPES" recipes={recipes} />
 
         {/* DYNAMIC TIPS (from MongoDB) */}
-        {/* DYNAMIC TIPS (from MongoDB) */}
         <TipsSection title="TIPS AND TRICKS FOR YOU" tips={tips} />
 
         {/* OTHER SECTIONS */}

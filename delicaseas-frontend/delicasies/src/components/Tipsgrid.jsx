@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Row, Col, Card, Button, Modal } from "react-bootstrap";
 import styles from "../styles/recipes.module.css";
+import modalStyles from "../styles/tips.module.css";
 import defaultImage from "../assets/images/signup.jpg"; // ← add a default image in your assets
 
 const TipsGrid = ({ title, tips }) => {
@@ -26,9 +27,7 @@ const TipsGrid = ({ title, tips }) => {
     <>
       {/* Section Title */}
       {title && (
-        <h2 className={`${styles.sectionTitle} mb-4 text-center`}>
-          {title}
-        </h2>
+        <h2 className={`${styles.sectionTitle} mb-4 text-center`}>{title}</h2>
       )}
 
       {/* Grid of Tips */}
@@ -69,38 +68,39 @@ const TipsGrid = ({ title, tips }) => {
       </Row>
 
       {/* Modal for Tip Details */}
-      {selectedTip && (
-        <Modal show={show} onHide={handleClose} centered size="lg">
-          <Modal.Header closeButton>
-            <Modal.Title>{selectedTip.title}</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <img
-              src={getImageUrl(selectedTip.image)}
-              alt={selectedTip.title}
-              style={{
-                width: "100%",
-                maxWidth: "450px",
-                display: "block",
-                margin: "0 auto",
-              }}
-              className="rounded mb-3"
-              onError={(e) => (e.target.src = defaultImage)}
-            />
-            <p>{selectedTip.description}</p>
-            {selectedTip.details && (
-              <p>
-                <strong>Details:</strong> {selectedTip.details}
-              </p>
-            )}
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
-              Close
-            </Button>
-          </Modal.Footer>
-        </Modal>
-      )}
+     {selectedTip && (
+  <Modal
+    show={show}
+    onHide={handleClose}
+    centered
+    size="md"
+    contentClassName={`${modalStyles.tipModal} ${!show ? modalStyles.fadeOut : ""}`}
+  >
+    <div className={modalStyles.tipHeader}>
+      <span className={modalStyles.icon}>✳️</span>
+      <h5 className={modalStyles.title}>{selectedTip.title}</h5>
+      <button onClick={handleClose} className={modalStyles.closeBtn}>×</button>
+    </div>
+
+    <div className={modalStyles.tipBody}>
+      <img
+        src={getImageUrl(selectedTip.image)}
+        alt={selectedTip.title}
+        className={modalStyles.tipImage}
+        onError={(e) => (e.target.src = defaultImage)}
+      />
+
+      <div className={modalStyles.tipTextBox}>
+        <p className={modalStyles.tipDesc}>{selectedTip.description}</p>
+      </div>
+
+      <button onClick={handleClose} className={modalStyles.tipButton}>
+        got it!
+      </button>
+    </div>
+  </Modal>
+)}
+
     </>
   );
 };
