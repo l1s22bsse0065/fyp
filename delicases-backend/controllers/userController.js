@@ -122,3 +122,48 @@ exports.updateUser = async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 };
+
+// @desc Add or remove a recipe from favourites (toggle)
+// @route POST /api/users/favourites/:recipeId
+// @access Private
+exports.toggleFavourite = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const recipeId = req.params.recipeId;
+
+    const user = await User.findById(userId);
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    const isFavourite = user.favourites.includes(recipeId);
+
+    if (isFavourite) {
+      // Remove if already exists
+      user.favourites.pull(recipeId);
+      await user.save();
+      return res.json({ message: "Removed from favourites", favourites: user.favourites });
+    } else {
+      // Add to favourites
+      user.favourites.push(recipeId);
+      await user.save();
+      return res.json({ message: "Added to favourites", favourites: user.favourites });
+    }
+  } catch (err) {
+    console.error("Error toggling favourite:", err);
+    res.status(500).json({ message: "Server error", error: err.message });
+  }
+};
+
+// @desc Get all favourite recipes for logged-in user
+// @route GET /api/users/favourites
+// @access Private
+exports.getFavourites = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).populate("favourites");
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    res.json({ favourites: user.favourites });
+  } catch (err) {
+    console.error("Error fetching favourites:", err);
+    res.status(500).json({ message: "Server error", error: err.message });
+  }
+};
