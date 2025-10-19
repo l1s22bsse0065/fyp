@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setUser } from "./slices/userSlice"; // ✅ import action
 import ScrollToTop from "./hooks/ScrollToTop";
+import { ToastContainer } from "react-toastify";
 
 import Signup from "./screens/signup_page";
 import Signin from "./screens/signin_page";
@@ -15,6 +16,8 @@ import Profile from "./screens/Profile_page/profile_page";
 import EditProfile from "./screens/Profile_page/edit_profile";
 import ViewRecipe from "./screens/View_recipe/ViewRecipe";
 import SavedRecipes from "./screens/savedRecipe_page/SavedRecipes";
+import MyRecipes from "./screens/MyRecipes_page/myrecipe";
+import AddRecipe from "./screens/Add_recipe/addrecipe";
 function App() {
   const dispatch = useDispatch();
 
@@ -41,7 +44,19 @@ function App() {
         <Route path="/edit-profile" element={<EditProfile />} />
         <Route path="/recipe/:id" element={<ViewRecipe />} />
         <Route path="/saved-recipes" element={<SavedRecipes />} />
+        <Route path="/my-recipes" element={<MyRecipes />} />
+        <Route path="/add-recipe" element={<AddRecipe />} />
       </Routes>
+      <ToastContainer
+        position="top-right"
+        autoClose={2500}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        pauseOnHover
+        draggable
+        theme="colored"
+      />
     </Router>
   );
 }

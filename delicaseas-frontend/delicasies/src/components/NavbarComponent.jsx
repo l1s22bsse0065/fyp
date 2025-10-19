@@ -117,8 +117,11 @@ const NavbarComponent = () => {
             <NavDropdown.Item as={NavLink} to="/edit-profile">
               Edit Profile
             </NavDropdown.Item>
-             <NavDropdown.Item as={NavLink} to="/saved-recipes">
-               Saved Recipes
+            <NavDropdown.Item as={NavLink} to="/saved-recipes">
+              Saved Recipes
+            </NavDropdown.Item>
+            <NavDropdown.Item as={NavLink} to="/my-recipes">
+              My Recipe
             </NavDropdown.Item>
             <NavDropdown.Divider />
             <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>

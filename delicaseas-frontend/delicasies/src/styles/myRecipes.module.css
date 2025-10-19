@@ -1,0 +1,25 @@
+.myRecipesPage {
+  background-color: #fafafa;
+  min-height: 100vh;
+}
+
+.recipeCard {
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease;
+}
+
+.recipeCard:hover {
+  transform: translateY(-5px);
+}
+
+.recipeImage {
+  height: 220px;
+  object-fit: cover;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+.description {
+  min-height: 50px;
+}

@@ -1,0 +1,37 @@
+.addRecipePage {
+  background-color: #f9f8f3;
+  min-height: 100vh;
+}
+
+.headerSection {
+  text-align: center;
+  background: #f1e9c3;
+  border-radius: 16px;
+  padding: 30px;
+  margin-bottom: 30px;
+}
+
+.headerSection h1 {
+  font-weight: 700;
+  color: #333;
+}
+
+.formContainer {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  padding: 30px;
+}
+
+.submitBtn {
+  background-color: #e44d39;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 25px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.submitBtn:hover {
+  background-color: #c23c2c;
+}
