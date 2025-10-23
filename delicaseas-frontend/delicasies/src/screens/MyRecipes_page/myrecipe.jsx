@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { Container, Row, Col, Button, Spinner, Card } from "react-bootstrap";
-import axios from "axios";
+import { Container, Row, Col, Button, Spinner, Card, Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import { toast } from "react-toastify";
 import NavbarComponent from "../../components/NavbarComponent";
 import FooterSection from "../../components/FooterSection";
@@ -17,33 +17,57 @@ const MyRecipes = ({ user }) => {
   const [recipes, setRecipes] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // 🧠 Modal State
+  const [showModal, setShowModal] = useState(false);
+  const [selectedRecipe, setSelectedRecipe] = useState(null);
+
   // 🧠 Fetch user's recipes
   useEffect(() => {
-    const fetchUserRecipes = async () => {
+    const fetchRecipes = async () => {
       try {
-        const res = await axios.get(`${API_URL}/api/recipes/user/my-recipes`, {
+        const { data } = await axios.get(`${API_URL}/api/recipes/user/my-recipes`, {
           headers: { Authorization: `Bearer ${token}` },
         });
-        setRecipes(res.data.recipes || []);
+        setRecipes(data.recipes || []);
       } catch (err) {
-        console.error(err);
-        toast.error("Failed to fetch your recipes");
+        toast.error("Failed to load your recipes");
       } finally {
         setLoading(false);
       }
     };
-
-    fetchUserRecipes();
+    fetchRecipes();
   }, [token]);
+
+  // 🧹 Open delete modal
+  const confirmDelete = (recipe) => {
+    setSelectedRecipe(recipe);
+    setShowModal(true);
+  };
+
+  // 🗑️ Delete handler
+  const handleDelete = async () => {
+    if (!selectedRecipe) return;
+    try {
+      await axios.delete(`${API_URL}/api/recipes/${selectedRecipe._id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setRecipes((prev) => prev.filter((r) => r._id !== selectedRecipe._id));
+      toast.success("Recipe deleted successfully");
+    } catch {
+      toast.error("Failed to delete recipe");
+    } finally {
+      setShowModal(false);
+      setSelectedRecipe(null);
+    }
+  };
 
   return (
     <div className={styles.myRecipesPage}>
       <NavbarComponent />
-
       <Container className="py-5">
         <div className="d-flex justify-content-between align-items-center mb-4">
-          <h2 className="fw-bold">🍳 My Recipes</h2>
-          <Button variant="primary" onClick={() => navigate("/add-recipe")}>
+          <h2 className="fw-bold">👨‍🍳 My Recipes</h2>
+          <Button variant="success" onClick={() => navigate("/add-recipe")}>
             + Add Recipe
           </Button>
         </div>
@@ -51,41 +75,62 @@ const MyRecipes = ({ user }) => {
         {loading ? (
           <div className="text-center py-5">
             <Spinner animation="border" variant="primary" />
-            <p className="mt-3">Loading your recipes...</p>
+            <p>Loading your recipes...</p>
           </div>
         ) : recipes.length === 0 ? (
           <div className="text-center py-5">
-            <h4>You haven’t added any recipes yet 😋</h4>
-            <p>Start sharing your delicious creations with the world!</p>
-            <Button onClick={() => navigate("/add-recipe")} variant="success">
+            <h4>No recipes yet 😋</h4>
+            <p>Start sharing your own dishes with the world!</p>
+            <Button variant="primary" onClick={() => navigate("/add-recipe")}>
               Add Your First Recipe
             </Button>
           </div>
         ) : (
           <Row>
             {recipes.map((recipe) => (
-              <Col key={recipe._id} md={4} className="mb-4">
-                <Card className={styles.recipeCard}>
+              <Col md={4} key={recipe._id} className="mb-4">
+                <Card className="shadow-sm border-0 h-100">
                   <Card.Img
                     variant="top"
                     src={recipe.image || "/default-recipe.jpg"}
                     className={styles.recipeImage}
                   />
                   <Card.Body>
-                    <Card.Title>{recipe.title}</Card.Title>
+                    <Card.Title className="fw-bold">{recipe.title}</Card.Title>
                     <Card.Text className="text-muted small">
-                      {recipe.category || "Uncategorized"} • {recipe.time || 0} mins
+                      {recipe.category?.join(", ") || "Uncategorized"} • {recipe.time || 0} mins
                     </Card.Text>
-                    <Card.Text className={styles.description}>
-                      {recipe.description?.slice(0, 80)}...
+                    <Card.Text className="small">
+                      {recipe.description?.slice(0, 100)}...
                     </Card.Text>
-                    <Button
-                      variant="outline-primary"
-                      size="sm"
-                      onClick={() => navigate(`/recipe/${recipe._id}`)}
-                    >
-                      View Recipe
-                    </Button>
+
+                    <div className="d-flex justify-content-between mt-3">
+                      <Button
+                        variant="outline-primary"
+                        size="sm"
+                        onClick={() =>
+                          navigate(`/recipe/${recipe._id}`, {
+                            state: { from: "my-recipes" },
+                          })
+                        }
+                      >
+                        View
+                      </Button>
+                      <Button
+                        variant="outline-secondary"
+                        size="sm"
+                        onClick={() => navigate(`/edit-recipe/${recipe._id}`)}
+                      >
+                        Edit
+                      </Button>
+                      <Button
+                        variant="outline-danger"
+                        size="sm"
+                        onClick={() => confirmDelete(recipe)}
+                      >
+                        Delete
+                      </Button>
+                    </div>
                   </Card.Body>
                 </Card>
               </Col>
@@ -93,6 +138,25 @@ const MyRecipes = ({ user }) => {
           </Row>
         )}
       </Container>
+
+      {/* 🧾 Delete Confirmation Modal */}
+      <Modal show={showModal} onHide={() => setShowModal(false)} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Confirm Delete</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Are you sure you want to delete{" "}
+          <strong>{selectedRecipe?.title}</strong>? This action cannot be undone.
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowModal(false)}>
+            Cancel
+          </Button>
+          <Button variant="danger" onClick={handleDelete}>
+            Delete
+          </Button>
+        </Modal.Footer>
+      </Modal>
 
       <SubscribeSection />
       <FooterSection />

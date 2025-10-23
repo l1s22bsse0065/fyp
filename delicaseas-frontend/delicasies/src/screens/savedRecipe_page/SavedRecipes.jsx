@@ -6,20 +6,25 @@ import styles from "../../styles/savedRecipes.module.css";
 import illustration from "../../assets/images/illustration.png";
 
 import NavbarComponent from "../../components/NavbarComponent";
-import SubscribeSection from "../../components/SubscribeSection";
 import FooterSection from "../../components/FooterSection";
 
 const SavedRecipes = ({ user }) => {
   const token = user?.token || localStorage.getItem("token");
-  const { favourites, toggleFavourite, loading } = useFavourites(token);
+  const { favourites, toggleFavourite, loading, refresh } = useFavourites(token);
 
   if (loading)
     return <p className="text-center mt-5">Loading your saved recipes...</p>;
 
+  // 🧹 Handle removal with smooth UI refresh
+  const handleRemove = async (recipeId) => {
+    await toggleFavourite(recipeId); // remove recipe
+    await refresh(); // re-fetch latest favourites
+  };
+
   return (
     <div className={styles.savedRecipesPage}>
+      <NavbarComponent />
       <Container>
-        <NavbarComponent />
         {/* ===== Header Section ===== */}
         <div className={styles.headerSection}>
           <h1>
@@ -68,7 +73,7 @@ const SavedRecipes = ({ user }) => {
                     <Button
                       variant="outline-danger"
                       className={styles.removeBtn}
-                      onClick={() => toggleFavourite(recipe._id || recipe.id)}
+                      onClick={() => handleRemove(recipe._id || recipe.id)}
                     >
                       <i className="bi bi-trash3 me-2"></i> Remove
                     </Button>
@@ -94,7 +99,7 @@ const SavedRecipes = ({ user }) => {
           </div>
         )}
 
-        <SubscribeSection />
+        
         <FooterSection />
       </Container>
     </div>

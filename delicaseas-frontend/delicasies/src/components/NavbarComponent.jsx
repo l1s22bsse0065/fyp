@@ -98,7 +98,6 @@ const NavbarComponent = () => {
           <NavDropdown
             align="end"
             className={styles.profileDropdownWrapper}
-            menuClassName={styles.profileDropdownMenu}
             title={
               <span className="d-flex align-items-center gap-2">
                 <span className={styles.profileIconWrapper}>
@@ -111,7 +110,7 @@ const NavbarComponent = () => {
             }
             id="profile-dropdown"
           >
-            <NavDropdown.Item as={NavLink} to="/profile" className="bg-danger">
+            <NavDropdown.Item as={NavLink} to="/profile">
               View Profile
             </NavDropdown.Item>
             <NavDropdown.Item as={NavLink} to="/edit-profile">

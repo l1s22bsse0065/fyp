@@ -5,6 +5,6 @@ import recipeReducer from "../slices/recipesSlice";
 export const store = configureStore({
   reducer: {
     user: userReducer,
-    recipe: recipeReducer,
+    recipes: recipeReducer,
   },
 });

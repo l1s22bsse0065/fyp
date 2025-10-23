@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation  } from "react-router-dom";
 import { Container, Row, Col, Spinner } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
@@ -17,13 +17,14 @@ import { useFavourites } from "../../hooks/useFavourites";
 const ViewRecipe = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
 
   // ✅ Safe access to token (prevents undefined errors)
   const user = useSelector((state) => state.user.user);
   const userToken = localStorage.getItem("token");
 
   // ✅ Only initialize favourites hook if logged in
-  const { favourites, toggleFavourite, isFavourite } = useFavourites(userToken);
+  const {  toggleFavourite, isFavourite } = useFavourites(userToken);
 
   const { recipes, loading } = useRecipes();
   const [recipe, setRecipe] = useState(null);
@@ -94,9 +95,16 @@ const ViewRecipe = () => {
           <div className={styles.backButtonWrapper}>
             <button
               className={styles.backButton}
-              onClick={() => navigate("/recipes")}
+              onClick={() =>
+                navigate(
+                  location.state?.from === "my-recipes"
+                    ? "/my-recipes"
+                    : "/recipes"
+                )
+              }
             >
-              ← Back to Recipes
+              ← Back to{" "}
+              {location.state?.from === "my-recipes" ? "My Recipes" : "Recipes"}
             </button>
           </div>
 
