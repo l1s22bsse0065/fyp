@@ -1,23 +1,39 @@
+/* Make sure html and body take full height */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Page wrapper that covers the full screen */
 .pageContainer {
-     padding: 30px;
-  min-height: 100vh;
+  min-height: 100vh; /* ✅ full viewport height */
+  width: 100vw;       /* ✅ full viewport width */
+  background: #f1f1f1;
   box-sizing: border-box;
-  background: #f9f6f1;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
+  overflow-x: hidden; /* prevent side scroll */
+  padding: 30px;
+}
+
+/* Optional: fix Bootstrap Container width */
+.fullWidthContainer {
+  max-width: 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;
 }
 
 /* Sidebar */
 .sidebar {
   padding: 1rem 2rem;
-  background: #f9f6f1;
-  height: 80vh;
- 
+  background: #f1f1f1;
+  height: 55vh;
 }
 
 /* Right content */
 .rightContent {
-  background: #f9f6f1;
-  height: 80vh;
+  background: #f1f1f1;
+  height: 55vh;
   padding: 2rem;
 }
 
@@ -25,7 +41,7 @@
 .profileHeader {
   display: flex;
   align-items: center;
-  margin-bottom: 1.5rem; 
+  margin-bottom: 1.5rem;
 }
 
 .avatarWrapper {
@@ -77,8 +93,8 @@
 .divider {
   position: absolute;
   left: 50%; /* in center of row */
-  top: 45%; /* adjust top spacing */
-  height: 50%; /* custom height (control here) */
+  top: 23%; /* adjust top spacing */
+  height: 40%; /* custom height (control here) */
   width: 1px; /* thin line */
   transform: translateX(-50%); /* center the line */
   border-right: #000000 solid 2px; /* line style */
@@ -90,7 +106,7 @@
   max-width: 450px;
   background: #e0dabd;
   border-radius: 12px;
-  height: 40vh;
+  height: 35vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -125,28 +141,76 @@
   }
 }
 
-/* Outer wrapper */
+/* ===========================
+   🌐 Page Layout
+=========================== */
+.pagecontainer {
+  background-color: #ffffff;
+}
+
 .editProfileBox {
   margin-top: 50px;
   width: 100%;
   max-width: 900px;
   min-height: 70vh;
-  background: #ffffff;
+  background: #e8e9ec;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   padding: 1.5rem;
-  overflow: hidden; /* keep everything inside */
+  overflow: hidden;
+  color: #3a2f1b;
 }
 
+/* ===========================
+   🔹 Header Bar (Back + Save)
+=========================== */
+.headerBar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  margin-bottom: 1.8rem;
+  background: transparent;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Unified action buttons (Back + Save) */
+.actionBtn {
+  background-color: #1a2d69;
+  border: none;
+  color: white;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 10px 20px;
+  min-width: 150px;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.actionBtn:hover {
+  background-color: #3a497a;
+  transform: translateY(-1px);
+}
+
+/* ===========================
+   👤 Avatar + User Info
+=========================== */
 .avatarWrapper {
   display: flex;
-  
   gap: 1rem;
   position: relative;
-  flex-wrap: wrap; /* allow wrapping on small screens */
-   flex-direction: column;
-    align-items: center;
-    text-align: center;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
 .userInfo {
@@ -163,13 +227,84 @@
 
 .userEmail {
   font-size: 0.9rem;
-  color: #666;
+  color: #4169e1;
 }
 
-/* 📱 Mobile responsiveness */
+/* ===========================
+   📧 Email Section
+=========================== */
+.emailSection {
+  margin-top: 1.5rem;
+  padding: 1rem 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.emailTitle {
+  color: #333;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+}
+
+.emailText {
+  color: #555;
+  font-size: 0.95rem;
+  margin-bottom: 0.6rem;
+}
+
+.addEmailBtn {
+  border: 2px solid #4169e1;
+  color: #4169e1;
+  font-weight: 600;
+  border-radius: 5px;
+  background-color: transparent;
+  padding: 6px 12px;
+  transition: all 0.3s ease;
+}
+
+.addEmailBtn:hover {
+  background-color: #6c82b8;
+  color: white;
+}
+
+/* ===========================
+   🧾 Form Styling
+=========================== */
+:global(.form-control),
+:global(.form-select) {
+  background-color: #f9fafc;
+  border: 1.5px solid #ccc;
+  border-radius: 8px;
+  padding: 10px 12px;
+  color: #333;
+  transition: all 0.3s ease;
+  box-shadow: none;
+}
+
+:global(.form-control:hover),
+:global(.form-select:hover) {
+  border-color: #8da2e3;
+}
+
+:global(.form-control:focus),
+:global(.form-select:focus) {
+  border-color: #4169e1;
+  box-shadow: 0 0 6px rgba(65, 105, 225, 0.25);
+  background-color: #ffffff;
+  outline: none;
+}
+
+:global(.form-label) {
+  color: #222;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+/* ===========================
+   📱 Responsive Design
+=========================== */
 @media (max-width: 768px) {
   .editProfileBox {
-    min-height: auto; /* let content define height */
+    min-height: auto;
   }
 
   .avatarWrapper {
@@ -182,8 +317,14 @@
     align-items: center;
   }
 
-  .saveBtn {
-    width: 100%; /* full-width button on small screen */
-    margin-top: 1rem;
+  .buttonGroup {
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+  }
+
+  .actionBtn {
+    width: 80%;
+    min-width: unset;
   }
 }

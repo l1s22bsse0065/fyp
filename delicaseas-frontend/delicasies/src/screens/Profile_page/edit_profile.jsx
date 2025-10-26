@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Container, Row, Col, Button, Form, Image } from "react-bootstrap";
+import { Row, Col, Button, Form, Image } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import NavbarComponent from "../../components/NavbarComponent";
 import styles from "../../styles/profile.module.css";
@@ -94,7 +94,7 @@ export default function EditProfile() {
   if (!user) return null;
 
   return (
-    <Container fluid className="py-5">
+    <div className={styles.pagecontainer}>
       <NavbarComponent />
 
       <div className={`d-flex justify-content-center ${styles.mainbox}`}>
@@ -119,14 +119,21 @@ export default function EditProfile() {
               </button>
             </div>
 
-            {/* Save Button */}
-            <Button
-              variant="primary"
-              className={`${styles.saveBtn} mt-3 mt-md-0`}
-              onClick={handleSave}
-            >
-              Save Changes
-            </Button>
+            {/* Header Bar */}
+            <div className={styles.headerBar}>
+              <div className={styles.buttonGroup}>
+                <Button
+                  className={styles.actionBtn}
+                  onClick={() => navigate("/profile")}
+                >
+                  <i className="bi bi-arrow-left me-2"></i> Back
+                </Button>
+
+                <Button className={styles.actionBtn} onClick={handleSave}>
+                  Save Changes
+                </Button>
+              </div>
+            </div>
           </div>
 
           {/* Form */}
@@ -207,16 +214,15 @@ export default function EditProfile() {
               </Form.Group>
             </Col>
           </Row>
-
-          <div className="mt-3">
-            <h6>My Email Address</h6>
-            <p className="text-muted">{user.email}</p>
-            <Button variant="outline-secondary" size="sm">
+          <div className={`mt-3 ${styles.emailSection}`}>
+            <h6 className={styles.emailTitle}>My Email Address</h6>
+            <p className={styles.emailText}>{user.email}</p>
+            <Button className={styles.addEmailBtn} size="sm">
               + Add Email Address
             </Button>
           </div>
         </div>
       </div>
-    </Container>
+    </div>
   );
 }

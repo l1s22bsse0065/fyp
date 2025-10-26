@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Container, Row, Col, Image, Card, Button } from "react-bootstrap";
+import { Container, Row, Col, Image, Button } from "react-bootstrap";
 import styles from "../../styles/profile.module.css"; // create this CSS module
 
 import NavbarComponent from "../../components/NavbarComponent";
@@ -56,7 +56,9 @@ export default function Profile() {
   if (!user) return null;
 
   return (
-    <Container fluid className={`${styles.pageContainer} py-5`}>
+    <div className={styles.pageContainer}>
+      <Container fluid className={styles.fullWidthContainer}>
+
       <NavbarComponent />
       <Row>
         {/* LEFT SIDEBAR */}
@@ -137,5 +139,6 @@ export default function Profile() {
       </Row>
       <FooterSection />
     </Container>
+    </div>
   );
 }

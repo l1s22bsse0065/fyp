@@ -1,0 +1,136 @@
+/* ===== Overall Wrapper ===== */
+.welcomeWrapper {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  background: linear-gradient(120deg, #6c8367 0%, #a2b59f 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(5px);
+}
+
+/* ===== Content Box ===== */
+.contentBox {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
+  padding: 2rem 3rem;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  max-width: 1000px;
+  width: 90%;
+}
+
+/* ===== Hero Image ===== */
+.heroImage {
+  width: 380px;
+  height: 380px;
+  object-fit: cover;
+  border-radius: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+/* ===== Text Section ===== */
+.textSection {
+  max-width: 450px;
+  color: #fff;
+  text-align: left;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.6rem;
+}
+
+.title span {
+  color: #ffb347;
+}
+
+.subtitle {
+  font-size: 1rem;
+  margin-bottom: 1.8rem;
+  line-height: 1.6;
+  color: #f2f2f2;
+}
+
+/* ===== Buttons ===== */
+.btnGroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.guestBtn,
+.loginBtn {
+  border: none;
+  padding: 0.8rem 1.6rem;
+  border-radius: 25px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.guestBtn {
+  background-color: #ffb347;
+  color: #2b2b2b;
+}
+
+.guestBtn:hover {
+  background-color: #ff9f1c;
+  transform: translateY(-2px);
+}
+
+.loginBtn {
+  background-color: transparent;
+  border: 2px solid #fff;
+  color: #fff;
+}
+
+.loginBtn:hover {
+  background-color: #ffffff;
+  color: #6c8367;
+  transform: translateY(-2px);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  .contentBox {
+    flex-direction: column;
+    text-align: center;
+    padding: 2rem;
+  }
+
+  .heroImage {
+    width: 280px;
+    height: 280px;
+  }
+
+  .textSection {
+    text-align: center;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .btnGroup {
+    justify-content: center;
+  }
+}
