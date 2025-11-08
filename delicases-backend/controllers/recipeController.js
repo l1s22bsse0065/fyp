@@ -5,15 +5,8 @@ import Recipe from "../models/Recipe.js";
    ============================================================ */
 export const createRecipe = async (req, res) => {
   try {
-    const {
-      title,
-      description,
-      ingredients,
-      steps,
-      time,
-      servings,
-      category,
-    } = req.body;
+    const { title, description, ingredients, steps, time, servings, category } =
+      req.body;
 
     if (!title || !description || !ingredients || !steps) {
       return res.status(400).json({
@@ -21,7 +14,7 @@ export const createRecipe = async (req, res) => {
       });
     }
 
-    // ✅ Safe parser for arrays or strings
+    // ✅ Safe parse for arrays or strings
     const safeParse = (value) => {
       if (!value) return [];
       try {
@@ -32,28 +25,19 @@ export const createRecipe = async (req, res) => {
       }
     };
 
-    const parsedIngredients = safeParse(ingredients);
-    const parsedSteps = safeParse(steps);
-    const parsedCategory = safeParse(category);
-
-    const imagePath = req.file ? `/uploads/${req.file.filename}` : "";
-
     const recipe = await Recipe.create({
       title,
       description,
-      ingredients: parsedIngredients,
-      steps: parsedSteps,
+      ingredients: safeParse(ingredients),
+      steps: safeParse(steps),
       time,
       servings,
-      category: parsedCategory,
-      image: imagePath,
+      category: safeParse(category),
+      image: req.file ? `/uploads/${req.file.filename}` : "",
       createdBy: req.user ? req.user.id : null,
     });
 
-    res.status(201).json({
-      message: "Recipe created successfully",
-      recipe,
-    });
+    res.status(201).json({ message: "Recipe created successfully", recipe });
   } catch (err) {
     console.error("❌ Error creating recipe:", err);
     res.status(500).json({ message: "Server error", error: err.message });
@@ -66,21 +50,16 @@ export const createRecipe = async (req, res) => {
 export const getAllRecipes = async (req, res) => {
   try {
     const recipes = await Recipe.find().sort({ createdAt: -1 });
-
-    // ✅ Add full image URLs
-    const updatedRecipes = recipes.map((recipe) => {
-      const obj = recipe.toObject();
+    const updatedRecipes = recipes.map((r) => {
+      const obj = r.toObject();
       if (obj.image && !obj.image.startsWith("http")) {
         obj.image = `${req.protocol}://${req.get("host")}${obj.image}`;
       }
       return obj;
     });
-
-    res.status(200).json({
-      message: "All recipes fetched successfully",
-      count: updatedRecipes.length,
-      recipes: updatedRecipes,
-    });
+    res
+      .status(200)
+      .json({ message: "All recipes fetched successfully", recipes: updatedRecipes });
   } catch (err) {
     console.error("❌ Error fetching recipes:", err);
     res.status(500).json({ message: "Server error", error: err.message });
@@ -94,10 +73,9 @@ export const getRecipeById = async (req, res) => {
   try {
     const recipe = await Recipe.findById(req.params.id).populate(
       "createdBy",
-      "name email profilePicture"
+      "name email"
     );
     if (!recipe) return res.status(404).json({ message: "Recipe not found" });
-
     res.status(200).json({ message: "Recipe fetched successfully", recipe });
   } catch (err) {
     console.error("❌ Error fetching recipe:", err);
@@ -113,7 +91,6 @@ export const updateRecipe = async (req, res) => {
     const recipe = await Recipe.findById(req.params.id);
     if (!recipe) return res.status(404).json({ message: "Recipe not found" });
 
-    // ✅ Safe parser
     const safeParse = (value) => {
       if (!value) return [];
       try {
@@ -124,7 +101,6 @@ export const updateRecipe = async (req, res) => {
       }
     };
 
-    // Handle updated fields safely
     const updateData = {
       ...req.body,
       ingredients: safeParse(req.body.ingredients),
@@ -134,16 +110,11 @@ export const updateRecipe = async (req, res) => {
 
     if (req.file) updateData.image = `/uploads/${req.file.filename}`;
 
-    const updatedRecipe = await Recipe.findByIdAndUpdate(
-      req.params.id,
-      updateData,
-      { new: true }
-    );
-
-    res.status(200).json({
-      message: "Recipe updated successfully",
-      recipe: updatedRecipe,
+    const updatedRecipe = await Recipe.findByIdAndUpdate(req.params.id, updateData, {
+      new: true,
     });
+
+    res.status(200).json({ message: "Recipe updated successfully", recipe: updatedRecipe });
   } catch (err) {
     console.error("❌ Error updating recipe:", err);
     res.status(500).json({ message: "Server error", error: err.message });
@@ -157,7 +128,6 @@ export const deleteRecipe = async (req, res) => {
   try {
     const recipe = await Recipe.findById(req.params.id);
     if (!recipe) return res.status(404).json({ message: "Recipe not found" });
-
     await recipe.deleteOne();
     res.status(200).json({ message: "Recipe deleted successfully" });
   } catch (err) {
@@ -167,7 +137,7 @@ export const deleteRecipe = async (req, res) => {
 };
 
 /* ============================================================
-   📌 GET RECIPES BY LOGGED-IN USER
+   📌 GET USER RECIPES
    ============================================================ */
 export const getUserRecipes = async (req, res) => {
   try {
@@ -175,25 +145,81 @@ export const getUserRecipes = async (req, res) => {
       return res.status(401).json({ message: "Unauthorized: login required." });
     }
 
-    const userRecipes = await Recipe.find({ createdBy: req.user.id }).sort({
-      createdAt: -1,
-    });
-
-    const updatedRecipes = userRecipes.map((r) => {
-      const obj = r.toObject();
-      if (obj.image && !obj.image.startsWith("http")) {
-        obj.image = `${req.protocol}://${req.get("host")}${obj.image}`;
-      }
-      return obj;
-    });
-
+    const recipes = await Recipe.find({ createdBy: req.user.id }).sort({ createdAt: -1 });
     res.status(200).json({
       message: "User recipes fetched successfully",
-      count: updatedRecipes.length,
-      recipes: updatedRecipes,
+      count: recipes.length,
+      recipes,
     });
   } catch (err) {
     console.error("❌ Error fetching user recipes:", err);
+    res.status(500).json({ message: "Server error", error: err.message });
+  }
+};
+
+/* ============================================================
+   📌 ADD REVIEW TO RECIPE
+   ============================================================ */
+export const addReview = async (req, res) => {
+  try {
+    const { rating, comment } = req.body;
+    const recipeId = req.params.id;
+
+    if (!req.user) {
+      return res.status(401).json({ message: "Unauthorized: Login required." });
+    }
+
+    const recipe = await Recipe.findById(recipeId);
+    if (!recipe) return res.status(404).json({ message: "Recipe not found." });
+
+    // ✅ Prevent duplicate reviews by same user
+    const alreadyReviewed = recipe.reviews.find(
+      (r) => r.user.toString() === req.user.id.toString()
+    );
+    if (alreadyReviewed) {
+      return res.status(400).json({ message: "You already reviewed this recipe." });
+    }
+
+    const newReview = {
+      user: req.user.id, // ✅ matches your auth middleware
+      username: req.user.name || "Anonymous",
+      rating: Number(rating),
+      comment,
+    };
+
+    recipe.reviews.push(newReview);
+    await recipe.save();
+    await recipe.updateAverageRating();
+
+    res.status(201).json({
+      message: "Review added successfully",
+      reviews: recipe.reviews,
+      averageRating: recipe.averageRating,
+    });
+  } catch (err) {
+    console.error("❌ Error adding review:", err);
+    res.status(500).json({ message: "Server error", error: err.message });
+  }
+};
+
+/* ============================================================
+   📌 GET REVIEWS FOR A SPECIFIC RECIPE
+   ============================================================ */
+export const getRecipeReviews = async (req, res) => {
+  try {
+    const recipe = await Recipe.findById(req.params.id).populate(
+      "reviews.user",
+      "name"
+    );
+    if (!recipe) return res.status(404).json({ message: "Recipe not found." });
+
+    res.status(200).json({
+      message: "Reviews fetched successfully",
+      reviews: recipe.reviews,
+      averageRating: recipe.averageRating,
+    });
+  } catch (err) {
+    console.error("❌ Error fetching reviews:", err);
     res.status(500).json({ message: "Server error", error: err.message });
   }
 };
