@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
-import { useParams, useNavigate, useLocation  } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { Container, Row, Col, Spinner } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
+import { StarFill, Star } from "react-bootstrap-icons";
+import axios from "axios";
 
 import NavbarComponent from "../../components/NavbarComponent";
 import SubscribeSection from "../../components/SubscribeSection";
@@ -19,53 +21,152 @@ const ViewRecipe = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // ✅ Safe access to token (prevents undefined errors)
   const user = useSelector((state) => state.user.user);
   const userToken = localStorage.getItem("token");
 
-  // ✅ Only initialize favourites hook if logged in
-  const {  toggleFavourite, isFavourite } = useFavourites(userToken);
-
+  const { toggleFavourite, isFavourite } = useFavourites(userToken);
   const { recipes, loading } = useRecipes();
+
   const [recipe, setRecipe] = useState(null);
   const [similarRecipes, setSimilarRecipes] = useState([]);
 
+  // ⭐ Review states
+  const [reviews, setReviews] = useState([]);
+  const [rating, setRating] = useState(0);
+  const [comment, setComment] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+
+  // ==============================
+  // Debug logs
+  // ==============================
+  console.log("✅ ID from URL:", id);
+  console.log("✅ Recipes from hook:", recipes);
+  console.log("✅ Loading:", loading);
+
+  // ==============================
+  // Fetch recipe & similar recipes
+  // ==============================
   useEffect(() => {
-    if (!loading && recipes.length > 0) {
-      const currentRecipe = recipes.find((r) => r._id === id);
+    if (recipes.length === 0) return; // No recipes yet
 
-      if (currentRecipe) {
-        setRecipe(currentRecipe);
+    const currentRecipe = recipes.find((r) => String(r._id) === String(id));
+    console.log("🔍 Found recipe:", currentRecipe);
 
-        // Find similar recipes by matching categories
-        const currentCategories = Array.isArray(currentRecipe.category)
-          ? currentRecipe.category
-          : [currentRecipe.category];
+    if (currentRecipe) {
+      setRecipe(currentRecipe);
+      fetchReviews(currentRecipe._id);
 
-        const similar = recipes.filter((r) => {
-          if (!r || !r.category) return false;
-          const recipeCategories = Array.isArray(r.category)
-            ? r.category
-            : [r.category];
+      // ✅ Handle similar recipes
+      const currentCategories = Array.isArray(currentRecipe.category)
+        ? currentRecipe.category
+        : [currentRecipe.category];
 
-          const sameCategory = currentCategories.some((cat1) =>
+      const similar = recipes.filter((r) => {
+        if (!r || !r.category) return false;
+
+        const recipeCategories = Array.isArray(r.category)
+          ? r.category
+          : [r.category];
+
+        return (
+          String(r._id) !== String(currentRecipe._id) &&
+          currentCategories.some((cat1) =>
             recipeCategories.some(
               (cat2) =>
                 typeof cat1 === "string" &&
                 typeof cat2 === "string" &&
                 cat1.toLowerCase().trim() === cat2.toLowerCase().trim()
             )
-          );
+          )
+        );
+      });
 
-          return sameCategory && r._id !== currentRecipe._id;
-        });
-
-        setSimilarRecipes(similar.slice(0, 6));
-      }
+      setSimilarRecipes(similar.slice(0, 6));
+    } else {
+      console.warn("⚠️ No recipe found with ID:", id);
     }
-  }, [loading, recipes, id]);
+  }, [recipes, id]);
 
-  if (loading || !recipe) {
+  // ==============================
+  // Fetch reviews from backend
+  // ==============================
+  const fetchReviews = async (recipeId) => {
+    try {
+      const { data } = await axios.get(
+        `${import.meta.env.VITE_API_URL}/api/recipes/${recipeId}/reviews`
+      );
+      setReviews(data.reviews || []);
+    } catch (err) {
+      console.error("Error fetching reviews:", err);
+    }
+  };
+
+  // ==============================
+  // Handle review submission
+  // ==============================
+  const handleSubmitReview = async (e) => {
+    e.preventDefault();
+
+    if (!userToken) {
+      alert("Please log in to submit a review.");
+      return;
+    }
+
+    if (rating === 0) {
+      alert("Please select a rating before submitting.");
+      return;
+    }
+
+    const API_BASE =
+      (typeof import.meta !== "undefined" &&
+        import.meta.env &&
+        import.meta.env.VITE_API_URL) ||
+      "http://localhost:5000/api";
+
+    try {
+      setSubmitting(true);
+
+      const payload = {
+        rating: Number(rating),
+        comment: comment.trim(),
+      };
+
+      const { data } = await axios.post(
+        `${API_BASE}/api/recipes/${id}/reviews`,
+        payload,
+        {
+          headers: {
+            Authorization: `Bearer ${userToken}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      console.log("✅ Review added:", data);
+      setComment("");
+      setRating(0);
+      fetchReviews(id);
+    } catch (err) {
+      console.error("❌ Error submitting review:", err.response?.data || err);
+      alert(err.response?.data?.message || "Failed to submit review");
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  // ==============================
+  // Favourite handler
+  // ==============================
+  const handleFavourite = () => {
+    if (!user || !userToken)
+      return alert("Please log in to save recipes to your favourites ❤️");
+    toggleFavourite(recipe._id);
+  };
+
+  // ==============================
+  // Loading / Not Found State
+  // ==============================
+  if (loading && !recipe) {
     return (
       <div className="text-center mt-5">
         <Spinner animation="border" variant="dark" />
@@ -74,24 +175,30 @@ const ViewRecipe = () => {
     );
   }
 
+  if (!recipe) {
+    return (
+      <div className="text-center mt-5">
+        <p>No recipe found with this ID.</p>
+      </div>
+    );
+  }
+
+  // ==============================
+  // Destructure content
+  // ==============================
   const ingredients = recipe.ingredients || [];
   const steps = recipe.instructions || recipe.steps || [];
 
-  const handleFavourite = () => {
-    if (!user || !userToken) {
-      alert("Please log in to save recipes to your favourites ❤️");
-      return;
-    }
-    toggleFavourite(recipe._id);
-  };
-
+  // ==============================
+  // Render UI
+  // ==============================
   return (
     <>
       <NavbarComponent />
 
       <div className={styles.pageWrapper}>
         <Container className={styles.recipeContainer}>
-          {/* 🔙 Back Button */}
+          {/* Back Button */}
           <div className={styles.backButtonWrapper}>
             <button
               className={styles.backButton}
@@ -108,7 +215,7 @@ const ViewRecipe = () => {
             </button>
           </div>
 
-          {/* 🧁 HERO SECTION */}
+          {/* Hero Section */}
           <div className={styles.heroSection}>
             <img
               src={getImageUrl(recipe.image)}
@@ -125,7 +232,7 @@ const ViewRecipe = () => {
                 {recipe.servings && <span>🍽 {recipe.servings} servings</span>}
               </div>
 
-              {/* ❤️ Add to Favourite Button */}
+              {/* Favourite Button */}
               <button className={styles.favButton} onClick={handleFavourite}>
                 {userToken && isFavourite(recipe._id) ? (
                   <>
@@ -142,7 +249,7 @@ const ViewRecipe = () => {
             </div>
           </div>
 
-          {/* 🍴 MAIN CONTENT */}
+          {/* Ingredients & Instructions */}
           <Row className={styles.mainSection}>
             <Col md={6} className={styles.contentCard}>
               <h4 className={styles.sectionHeading}>Ingredients</h4>
@@ -171,7 +278,69 @@ const ViewRecipe = () => {
             </Col>
           </Row>
 
-          {/* 🧑‍🍳 AUTHOR INFO */}
+          {/* Reviews Section */}
+          <div className={styles.reviewSection}>
+            <h4 className={styles.sectionHeading}>Reviews & Ratings</h4>
+
+            <form onSubmit={handleSubmitReview} className={styles.reviewForm}>
+              <div className={styles.ratingStars}>
+                {[1, 2, 3, 4, 5].map((num) => (
+                  <span
+                    key={num}
+                    onClick={() => setRating(num)}
+                    style={{ cursor: "pointer" }}
+                  >
+                    {num <= rating ? (
+                      <StarFill color="#ffc107" size={22} />
+                    ) : (
+                      <Star color="#ccc" size={22} />
+                    )}
+                  </span>
+                ))}
+              </div>
+
+              <textarea
+                placeholder="Write your review..."
+                className={styles.commentBox}
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+                required
+              />
+
+              <button
+                type="submit"
+                className={styles.submitBtn}
+                disabled={submitting}
+              >
+                {submitting ? "Submitting..." : "Post Review"}
+              </button>
+            </form>
+
+            {/* Display Reviews */}
+            <div className={styles.reviewList}>
+              {reviews.length > 0 ? (
+                reviews.map((rev, i) => (
+                  <div key={i} className={styles.reviewCard}>
+                    <div className={styles.reviewHeader}>
+                      <strong>
+                        {rev.user?.name || rev.username || "Anonymous"}
+                      </strong>
+                      <div>
+                        {[...Array(rev.rating)].map((_, idx) => (
+                          <StarFill key={idx} color="#ffc107" size={18} />
+                        ))}
+                      </div>
+                    </div>
+                    <p className={styles.reviewText}>{rev.comment}</p>
+                  </div>
+                ))
+              ) : (
+                <p className="text-muted">No reviews yet. Be the first!</p>
+              )}
+            </div>
+          </div>
+
+          {/* Author Info */}
           <div className={styles.authorBox}>
             <img src={defaultImage} alt="Chef" className={styles.authorImg} />
             <div>
@@ -183,7 +352,7 @@ const ViewRecipe = () => {
           </div>
         </Container>
 
-        {/* 🍲 Similar Recipes Section */}
+        {/* Similar Recipes */}
         {similarRecipes.length > 0 && (
           <section className={styles.similarSectionOuter}>
             <Container>
@@ -193,9 +362,10 @@ const ViewRecipe = () => {
                   <button
                     className={styles.scrollBtn}
                     onClick={() =>
-                      document
-                        .getElementById("similarScroll")
-                        .scrollBy({ left: -300, behavior: "smooth" })
+                      document.getElementById("similarScroll").scrollBy({
+                        left: -300,
+                        behavior: "smooth",
+                      })
                     }
                   >
                     ‹
@@ -203,9 +373,10 @@ const ViewRecipe = () => {
                   <button
                     className={styles.scrollBtn}
                     onClick={() =>
-                      document
-                        .getElementById("similarScroll")
-                        .scrollBy({ left: 300, behavior: "smooth" })
+                      document.getElementById("similarScroll").scrollBy({
+                        left: 300,
+                        behavior: "smooth",
+                      })
                     }
                   >
                     ›

@@ -1,0 +1,48 @@
+.reviewSection {
+  margin-top: 3rem;
+  padding: 1.5rem;
+  background: #fffdf9;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.reviewCard {
+  background: #f7f3eb;
+  border-radius: 8px;
+  padding: 10px 15px;
+  margin-bottom: 12px;
+}
+
+.reviewCard strong {
+  color: #333;
+}
+
+.reviewForm {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.select,
+.textarea {
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  padding: 8px;
+  font-size: 0.95rem;
+}
+
+.submitBtn {
+  align-self: flex-start;
+  background: #f56c6c;
+  border: none;
+  color: white;
+  padding: 8px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.submitBtn:hover {
+  background: #e65a5a;
+}

@@ -357,3 +357,119 @@
     gap: 0.5rem;
   }
 }
+/* ===== REVIEW & COMMENT SECTION ===== */
+.reviewSection {
+  margin-top: 3rem;
+  padding: 2rem;
+  background: #fffaf4;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  max-height: 450px;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+  transition: all 0.3s ease;
+}
+
+/* Custom Scrollbar (Soft and Subtle) */
+.reviewSection::-webkit-scrollbar {
+  width: 8px;
+}
+
+.reviewSection::-webkit-scrollbar-thumb {
+  background-color: #d6bfa3;
+  border-radius: 10px;
+}
+
+.reviewSection::-webkit-scrollbar-thumb:hover {
+  background-color: #c9a97d;
+}
+
+/* Individual Review Card */
+.reviewCard {
+  background: #fdf9f4;
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.reviewCard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.reviewCard strong {
+  color: #3b3025;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.reviewRating {
+  color: #e3a857;
+  font-size: 0.95rem;
+  margin-left: 6px;
+}
+
+.reviewText {
+  color: #5a4636;
+  font-size: 0.95rem;
+  margin-top: 6px;
+  line-height: 1.5;
+}
+
+/* Add Review Form */
+.reviewForm {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 1rem;
+  background: #fffdf9;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.reviewForm h5 {
+  color: #3b3025;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.select,
+.textarea {
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  padding: 10px;
+  font-size: 0.95rem;
+  font-family: "Poppins", sans-serif;
+  background: #fff;
+  color: #3b3025;
+  resize: none;
+}
+
+.textarea:focus,
+.select:focus {
+  outline: none;
+  border-color: #e3a857;
+  box-shadow: 0 0 4px rgba(227, 168, 87, 0.4);
+}
+
+/* Submit Button */
+.submitBtn {
+  align-self: flex-start;
+  background: linear-gradient(135deg, #e3a857, #ff8a5b);
+  border: none;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.submitBtn:hover {
+  transform: scale(1.03);
+  background: linear-gradient(135deg, #d69848, #f07149);
+}
