@@ -7,6 +7,10 @@
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   transition: transform 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
 }
 
 .recipeCard:hover {
@@ -20,6 +24,61 @@
   border-top-right-radius: 12px;
 }
 
-.description {
-  min-height: 50px;
+.cardBody {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+  padding: 1rem;
+}
+
+.buttonGroup {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: auto;
+}
+
+.buttonGroup button {
+  flex: 1;
+  min-width: 85px;
+  white-space: nowrap;
+  font-size: 0.85rem;
+}
+
+/* Medium screens: 2 buttons per row if needed */
+@media (max-width: 1200px) {
+  .buttonGroup button {
+    flex: 1 1 45%;
+  }
+}
+
+/* Small screens (<576px): vertical cards, buttons stacked */
+@media (max-width: 575px) {
+  .recipeCard {
+    flex-direction: column;
+  }
+
+  .recipeImage {
+    height: 180px;
+  }
+
+  .cardBody {
+    padding: 0.75rem;
+  }
+
+  .buttonGroup {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 6px;
+  }
+
+  .buttonGroup button {
+    width: 100%;
+  }
+
+  .recipeCard + .recipeCard {
+    margin-top: 16px; /* spacing between stacked cards */
+  }
 }
