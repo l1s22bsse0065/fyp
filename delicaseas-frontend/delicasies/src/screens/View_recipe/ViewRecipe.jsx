@@ -16,6 +16,8 @@ import useRecipes from "../../hooks/useRecipes";
 import { getImageUrl } from "../../utils/getImageUrl";
 import { useFavourites } from "../../hooks/useFavourites";
 
+const API_BASE = process.env.REACT_APP_API_URL || "http://localhost:5000";
+
 const ViewRecipe = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -37,26 +39,17 @@ const ViewRecipe = () => {
   const [submitting, setSubmitting] = useState(false);
 
   // ==============================
-  // Debug logs
-  // ==============================
-  console.log("✅ ID from URL:", id);
-  console.log("✅ Recipes from hook:", recipes);
-  console.log("✅ Loading:", loading);
-
-  // ==============================
   // Fetch recipe & similar recipes
   // ==============================
   useEffect(() => {
-    if (recipes.length === 0) return; // No recipes yet
+    if (recipes.length === 0) return;
 
     const currentRecipe = recipes.find((r) => String(r._id) === String(id));
-    console.log("🔍 Found recipe:", currentRecipe);
 
     if (currentRecipe) {
       setRecipe(currentRecipe);
       fetchReviews(currentRecipe._id);
 
-      // ✅ Handle similar recipes
       const currentCategories = Array.isArray(currentRecipe.category)
         ? currentRecipe.category
         : [currentRecipe.category];
@@ -83,7 +76,7 @@ const ViewRecipe = () => {
 
       setSimilarRecipes(similar.slice(0, 6));
     } else {
-      console.warn("⚠️ No recipe found with ID:", id);
+      console.warn("No recipe found with ID:", id);
     }
   }, [recipes, id]);
 
@@ -93,11 +86,11 @@ const ViewRecipe = () => {
   const fetchReviews = async (recipeId) => {
     try {
       const { data } = await axios.get(
-        `${import.meta.env.VITE_API_URL}/api/recipes/${recipeId}/reviews`
+        `${API_BASE}/api/recipes/${recipeId}/reviews`
       );
       setReviews(data.reviews || []);
     } catch (err) {
-      console.error("Error fetching reviews:", err);
+      console.error("Error fetching reviews:", err.response || err);
     }
   };
 
@@ -117,38 +110,26 @@ const ViewRecipe = () => {
       return;
     }
 
-    const API_BASE =
-      (typeof import.meta !== "undefined" &&
-        import.meta.env &&
-        import.meta.env.VITE_API_URL) ||
-      "http://localhost:5000/api";
-
     try {
       setSubmitting(true);
 
-      const payload = {
-        rating: Number(rating),
-        comment: comment.trim(),
-      };
+      const payload = { rating: Number(rating), comment: comment.trim() };
 
-      const { data } = await axios.post(
-        `${API_BASE}/api/recipes/${id}/reviews`,
-        payload,
-        {
-          headers: {
-            Authorization: `Bearer ${userToken}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      await axios.post(`${API_BASE}/api/recipes/${id}/reviews`, payload, {
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+          "Content-Type": "application/json",
+        },
+      });
 
-      console.log("✅ Review added:", data);
       setComment("");
       setRating(0);
       fetchReviews(id);
     } catch (err) {
-      console.error("❌ Error submitting review:", err.response?.data || err);
-      alert(err.response?.data?.message || "Failed to submit review");
+      console.error("Failed to submit review:", err.response || err);
+      alert(
+        err.response?.data?.message || "Failed to submit review. Please try again."
+      );
     } finally {
       setSubmitting(false);
     }
@@ -158,8 +139,10 @@ const ViewRecipe = () => {
   // Favourite handler
   // ==============================
   const handleFavourite = () => {
-    if (!user || !userToken)
-      return alert("Please log in to save recipes to your favourites ❤️");
+    if (!user || !userToken) {
+      alert("Please log in to save recipes to your favourites ❤️");
+      return;
+    }
     toggleFavourite(recipe._id);
   };
 
@@ -183,9 +166,6 @@ const ViewRecipe = () => {
     );
   }
 
-  // ==============================
-  // Destructure content
-  // ==============================
   const ingredients = recipe.ingredients || [];
   const steps = recipe.instructions || recipe.steps || [];
 
@@ -195,7 +175,6 @@ const ViewRecipe = () => {
   return (
     <>
       <NavbarComponent />
-
       <div className={styles.pageWrapper}>
         <Container className={styles.recipeContainer}>
           {/* Back Button */}
@@ -316,15 +295,12 @@ const ViewRecipe = () => {
               </button>
             </form>
 
-            {/* Display Reviews */}
             <div className={styles.reviewList}>
               {reviews.length > 0 ? (
                 reviews.map((rev, i) => (
                   <div key={i} className={styles.reviewCard}>
                     <div className={styles.reviewHeader}>
-                      <strong>
-                        {rev.user?.name || rev.username || "Anonymous"}
-                      </strong>
+                      <strong>{rev.user?.name || rev.username || "Anonymous"}</strong>
                       <div>
                         {[...Array(rev.rating)].map((_, idx) => (
                           <StarFill key={idx} color="#ffc107" size={18} />
@@ -344,9 +320,7 @@ const ViewRecipe = () => {
           <div className={styles.authorBox}>
             <img src={defaultImage} alt="Chef" className={styles.authorImg} />
             <div>
-              <p className={styles.authorName}>
-                {recipe.author || "Chef John Doe"}
-              </p>
+              <p className={styles.authorName}>{recipe.author || "Chef John Doe"}</p>
               <p className={styles.authorRole}>Recipe Creator</p>
             </div>
           </div>
@@ -397,9 +371,7 @@ const ViewRecipe = () => {
                       <p className={styles.cardDesc}>{recipe.description}</p>
                       <div className={styles.cardFooter}>
                         <span>{recipe.time || "—"}</span>
-                        <span>
-                          {recipe.servings ? ` | ${recipe.servings}` : ""}
-                        </span>
+                        <span>{recipe.servings ? ` | ${recipe.servings}` : ""}</span>
                       </div>
                       <button
                         onClick={() => navigate(`/recipe/${recipe._id}`)}
