@@ -1,43 +1,74 @@
+// server.js
+require("dotenv").config(); // ✅ must be at the very top
+
 const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
 const cors = require("cors");
-require("dotenv").config();
 
 const app = express();
 
+// ---------------------------
 // Middleware
-app.use(cors({
-  origin: "http://localhost:3000", // frontend URL
-  credentials: true
-}));
+// ---------------------------
+app.use(
+  cors({
+    origin: "http://localhost:3000", // your frontend URL
+    credentials: true,
+  })
+);
 app.use(express.json());
 
-// Serve static uploads folder (for images)
+// Serve static uploads folder
 const uploadsDir = process.env.UPLOADS_DIR || "uploads";
 app.use("/uploads", express.static(path.join(__dirname, uploadsDir)));
 
-// Connect to MongoDB
-mongoose
-  .connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => console.log("MongoDB Connected"))
-  .catch((err) => console.error("MongoDB connection error:", err));
+// ---------------------------
+// MongoDB Connection
+// ---------------------------
+const mongoURI = process.env.MONGO_URI;
+if (!mongoURI) {
+  console.error("❌ Error: MONGO_URI not found in .env file");
+  process.exit(1);
+}
 
+console.log("Connecting to MongoDB:", mongoURI);
+
+mongoose
+  .connect(mongoURI)
+  .then(() => console.log("✅ MongoDB Connected"))
+  .catch((err) => console.error("❌ MongoDB connection error:", err));
+
+// ---------------------------
 // Base route
+// ---------------------------
 app.get("/", (req, res) => res.send("API is running..."));
 
-// Routes
-const userRoutes = require("./routes/userRoutes");
-const tipsRoutes = require("./routes/tipsRoutes");
-const recipeRoutes = require("./routes/recipeRoutes");
+// ---------------------------
+// API Routes
+// ---------------------------
+try {
+  const userRoutes = require("./routes/userRoutes");
+  const tipsRoutes = require("./routes/tipsRoutes");
+  const recipeRoutes = require("./routes/recipeRoutes");
 
-app.use("/api/users", userRoutes);
-app.use("/api/tips", tipsRoutes);
-app.use("/api/recipes", recipeRoutes);
+  app.use("/api/users", userRoutes);
+  app.use("/api/tips", tipsRoutes);
+  app.use("/api/recipes", recipeRoutes);
+} catch (err) {
+  console.error("❌ Error loading routes:", err);
+}
 
-// Start Server
+// ---------------------------
+// Error handling middleware
+// ---------------------------
+app.use((err, req, res, next) => {
+  console.error("❌ Server error:", err);
+  res.status(500).json({ message: "Server error", error: err.message });
+});
+
+// ---------------------------
+// Start server
+// ---------------------------
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
