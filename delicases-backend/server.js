@@ -13,7 +13,7 @@ const app = express();
 // ---------------------------
 app.use(
   cors({
-    origin: "http://localhost:3000", // your frontend URL
+   origin: ["http://localhost:3000", "http://localhost:5173"], // your frontend URL
     credentials: true,
   })
 );
@@ -35,7 +35,10 @@ if (!mongoURI) {
 console.log("Connecting to MongoDB:", mongoURI);
 
 mongoose
-  .connect(mongoURI)
+  .connect(mongoURI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => console.log("✅ MongoDB Connected"))
   .catch((err) => console.error("❌ MongoDB connection error:", err));
 
@@ -51,10 +54,13 @@ try {
   const userRoutes = require("./routes/userRoutes");
   const tipsRoutes = require("./routes/tipsRoutes");
   const recipeRoutes = require("./routes/recipeRoutes");
+  const authRoutes = require("./routes/authRoutes");
 
   app.use("/api/users", userRoutes);
   app.use("/api/tips", tipsRoutes);
   app.use("/api/recipes", recipeRoutes);
+  app.use("/api/auth", authRoutes);
+
 } catch (err) {
   console.error("❌ Error loading routes:", err);
 }

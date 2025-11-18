@@ -7,7 +7,11 @@ const userSchema = new mongoose.Schema(
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
 
-    gender: { type: String, enum: ["", "Male", "Female", "Other"], default: null },
+    gender: {
+      type: String,
+      enum: ["", "Male", "Female", "Other"],
+      default: null,
+    },
     country: { type: String, default: "" },
     language: { type: String, default: "English" },
 
@@ -26,6 +30,8 @@ const userSchema = new mongoose.Schema(
         ref: "Recipe", // assumes you already have a Recipe model
       },
     ],
+    resetPasswordOTP: { type: String },
+    resetPasswordOTPExpires: { type: Date },
   },
   { timestamps: true }
 );
