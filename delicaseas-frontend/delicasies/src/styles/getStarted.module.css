@@ -1,0 +1,65 @@
+.getStartedWrapper {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #ece9de, #e0e0e0); /* simple light gradient */
+}
+
+.contentBox {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  color: #333;
+}
+
+.textSection {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.title span {
+  color: #9bd24c; /* brand color */
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+  line-height: 1.5;
+}
+
+/* Button styling */
+.btnGroup {
+  display: flex;
+  justify-content: center;
+}
+
+.startBtn {
+  padding: 12px 25px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border-radius: 30px;
+  border: none;
+  background-color: #9bd24c;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.5s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Slide animation class */
+.startBtn.slide {
+  transform: translateX(150vw);
+  opacity: 0;
+}

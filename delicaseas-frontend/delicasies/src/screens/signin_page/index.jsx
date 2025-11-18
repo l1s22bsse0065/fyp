@@ -104,7 +104,7 @@ export default function SignIn() {
 
               <p className={`${styles.signupLink} mt-3`}>
                 Don’t have an account?{" "}
-                <a href="/" className={styles.link}>
+                <a href="/signup" className={styles.link}>
                   Sign Up
                 </a>
               </p>

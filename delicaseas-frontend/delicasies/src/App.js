@@ -6,6 +6,7 @@ import ScrollToTop from "./hooks/ScrollToTop";
 import { ToastContainer } from "react-toastify";
 
 // Screens
+import GetStartedPage from "./screens/GetStartedPage";
 import WelcomePage from "./screens/Welcome_page/WelcomePage";
 import Signup from "./screens/signup_page";
 import Signin from "./screens/signin_page";
@@ -20,7 +21,9 @@ import ViewRecipe from "./screens/View_recipe/ViewRecipe";
 import SavedRecipes from "./screens/savedRecipe_page/SavedRecipes";
 import MyRecipes from "./screens/MyRecipes_page/myrecipe";
 import AddRecipe from "./screens/Add_recipe/addrecipe";
-
+import ResetPassword from "./screens/ForgotPassword_page/ResetPassword";
+import ForgotPassword from "./screens/ForgotPassword_page/ForgotPassword";
+import VerifyOTP from "./screens/ForgotPassword_page/VerifyOTP";
 // ✅ Protected Route Component
 import ProtectedRoute from "./components/ProtectedRoute";
 
@@ -39,9 +42,10 @@ function App() {
       <ScrollToTop />
       <Routes>
         {/* Default redirect */}
-        <Route path="/" element={<Navigate to="/welcome" replace />} />
+        <Route path="/" element={<Navigate to="/get-started" replace />} />
 
         {/* Public routes */}
+        <Route path="/get-started" element={<GetStartedPage />} />
         <Route path="/welcome" element={<WelcomePage />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/signin" element={<Signin />} />
@@ -51,6 +55,9 @@ function App() {
         <Route path="/cooking-tips" element={<CookingTips />} />
         <Route path="/about-us" element={<AboutUs />} />
         <Route path="/chatbot" element={<Chatbot />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password/:token" element={<ResetPassword />} />
+        <Route path="/verify-otp" element={<VerifyOTP />} />
 
         {/* ✅ Protected Routes */}
         <Route element={<ProtectedRoute />}>
