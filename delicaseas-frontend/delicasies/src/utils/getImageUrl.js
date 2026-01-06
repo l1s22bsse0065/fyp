@@ -1,4 +1,4 @@
-import defaultImage from "../assets/images/chef_pic.png";
+import defaultImage from "../assets/images/chef.jpg";
 
 const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
 

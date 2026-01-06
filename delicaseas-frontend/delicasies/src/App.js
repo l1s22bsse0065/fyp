@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { setUser } from "./slices/userSlice";
+import { fetchMe } from "./slices/userSlice";
 import ScrollToTop from "./hooks/ScrollToTop";
 import { ToastContainer } from "react-toastify";
 
@@ -24,18 +24,14 @@ import AddRecipe from "./screens/Add_recipe/addrecipe";
 import ResetPassword from "./screens/ForgotPassword_page/ResetPassword";
 import ForgotPassword from "./screens/ForgotPassword_page/ForgotPassword";
 import VerifyOTP from "./screens/ForgotPassword_page/VerifyOTP";
+import Subscribe from "./screens/Subscribe/subscription_page";
 // ✅ Protected Route Component
 import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      dispatch(setUser(JSON.parse(storedUser)));
-    }
-  }, [dispatch]);
+   useEffect(() => {    const token = localStorage.getItem("token");    if (token) {      dispatch(fetchMe()); }  }, [dispatch]);
 
   return (
     <Router>
@@ -58,6 +54,7 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password/:token" element={<ResetPassword />} />
         <Route path="/verify-otp" element={<VerifyOTP />} />
+        <Route path="/subscribe" element={<Subscribe />} />
 
         {/* ✅ Protected Routes */}
         <Route element={<ProtectedRoute />}>

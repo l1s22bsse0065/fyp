@@ -1,0 +1,587 @@
+/* ============================================
+   DESIGN SYSTEM VARIABLES 
+   ============================================ */
+:root {
+  --primary-base: #F5F5F7;
+  --deep-primary: #2C3E50;
+  --elegant-accent: #B87383;
+  --highlight: #EFC099;
+  --secondary: #98B4AA;
+  --warm-white: #FAF8F3;
+  --border-radius-lg: 30px;
+  --border-radius-md: 20px;
+  --border-radius-sm: 15px;
+  --shadow-soft: 0px 4px 20px rgba(0, 0, 0, 0.08);
+  --shadow-medium: 0 8px 25px rgba(0, 0, 0, 0.15);
+  --shadow-hover: 0 12px 35px rgba(0, 0, 0, 0.18);
+  --transition: all 0.3s ease;
+}
+
+/* ============================================
+   MAIN PAGE CONTAINER
+   ============================================ */
+.subscriptionPage {
+  background: var(--primary-base);
+  font-family: 'Poppins', sans-serif;
+}
+
+/* ============================================
+   HERO SECTION
+   ============================================ */
+.heroSection {
+  background: linear-gradient(135deg, var(--deep-primary) 0%, #34495e 100%);
+  color: white;
+  padding: 5rem 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.heroSection::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  
+  opacity: 0.1;
+  pointer-events: none;
+}
+
+.heroContent {
+  position: relative;
+  z-index: 2;
+}
+
+.heroTitle {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+}
+
+.highlight {
+  color: var(--highlight);
+  position: relative;
+}
+
+.highlight::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--elegant-accent), var(--highlight));
+  border-radius: 2px;
+}
+
+.heroSubtitle {
+  font-size: 1.3rem;
+  opacity: 0.9;
+  max-width: 600px;
+  margin: 0 auto 3rem auto;
+  line-height: 1.6;
+}
+
+.heroStats {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+}
+
+.statItem {
+  text-align: center;
+}
+
+.statNumber {
+  display: block;
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--highlight);
+  line-height: 1;
+}
+
+.statLabel {
+  font-size: 1rem;
+  opacity: 0.8;
+}
+
+.heroBtn {
+  background: linear-gradient(45deg, var(--elegant-accent), var(--secondary));
+  border: none;
+  padding: 1rem 2.5rem;
+  border-radius: var(--border-radius-md);
+  font-weight: 700;
+  font-size: 1.1rem;
+  transition: var(--transition);
+  box-shadow: var(--shadow-medium);
+}
+
+.heroBtn:hover {
+  background: linear-gradient(45deg, var(--secondary), var(--elegant-accent));
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-hover);
+}
+
+/* ============================================
+   PRICING SECTION
+   ============================================ */
+.pricingSection {
+  padding: 6rem 0;
+  background: white;
+}
+
+.sectionHeader {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.sectionTitle {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  color: var(--deep-primary);
+  margin-bottom: 1rem;
+}
+
+.sectionSubtitle {
+  font-size: 1.2rem;
+  color: var(--deep-primary);
+  opacity: 0.7;
+  max-width: 600px;
+  margin: 0 auto 2rem auto;
+}
+
+/* Billing Toggle */
+.billingToggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  background: var(--primary-base);
+  padding: 0.5rem;
+  border-radius: var(--border-radius-lg);
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.billingToggle span {
+  font-weight: 600;
+  color: var(--deep-primary);
+  opacity: 0.6;
+  transition: var(--transition);
+}
+
+.billingToggle span.active {
+  opacity: 1;
+  color: var(--elegant-accent);
+}
+
+.toggleSwitch {
+  position: relative;
+  width: 60px;
+  height: 30px;
+  background: var(--secondary);
+  border-radius: 15px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.toggleSlider {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 24px;
+  height: 24px;
+  background: white;
+  border-radius: 50%;
+  transition: var(--transition);
+  box-shadow: var(--shadow-soft);
+}
+
+.toggleSlider.yearly {
+  transform: translateX(30px);
+}
+
+.savings {
+  background: var(--highlight);
+  color: var(--deep-primary);
+  padding: 0.2rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-left: 0.5rem;
+}
+
+/* Pricing Cards */
+.pricingCard {
+  border: 2px solid transparent;
+  border-radius: var(--border-radius-md);
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+  box-shadow: var(--shadow-soft);
+}
+
+.pricingCard:hover {
+  transform: translateY(-10px);
+  box-shadow: var(--shadow-hover);
+  border-color: var(--elegant-accent);
+}
+
+.pricingCard.selected {
+  border-color: var(--elegant-accent);
+  transform: scale(1.02);
+}
+
+.planBadge {
+  position: absolute;
+  top: -1px;
+  right: 20px;
+  padding: 0.4rem 1rem;
+  border-radius: 0 0 var(--border-radius-sm) var(--border-radius-sm);
+  font-size: 0.8rem;
+  font-weight: 700;
+  z-index: 2;
+}
+
+.freeBadge {
+  background: var(--secondary);
+  color: white;
+}
+
+.popularBadge {
+  background: linear-gradient(45deg, var(--elegant-accent), var(--highlight));
+  color: white;
+}
+
+.proBadge {
+  background: linear-gradient(45deg, var(--deep-primary), var(--elegant-accent));
+  color: white;
+}
+
+.cardBody {
+  padding: 2.5rem 2rem;
+  text-align: center;
+}
+
+.planName {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--deep-primary);
+  margin-bottom: 1.5rem;
+}
+
+.priceWrapper {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.currency {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--elegant-accent);
+  margin-right: 0.2rem;
+}
+
+.price {
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: var(--deep-primary);
+  line-height: 1;
+}
+
+.period {
+  font-size: 1rem;
+  color: var(--deep-primary);
+  opacity: 0.7;
+  margin-left: 0.2rem;
+}
+
+.yearlyInfo {
+  font-size: 0.9rem;
+  color: var(--elegant-accent);
+  font-weight: 500;
+  margin-bottom: 2rem;
+}
+
+.featuresList {
+  list-style: none;
+  padding: 0;
+  margin: 2rem 0;
+  text-align: left;
+}
+
+.featureItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0;
+  color: var(--deep-primary);
+  font-weight: 500;
+}
+
+.featureItem i {
+  color: var(--secondary);
+  font-size: 1.1rem;
+}
+
+.selectBtn {
+  width: 100%;
+  padding: 0.9rem;
+  border-radius: var(--border-radius-sm);
+  font-weight: 700;
+  font-size: 1rem;
+  transition: var(--transition);
+  border: none;
+}
+
+.primaryBtn {
+  background: linear-gradient(45deg, var(--elegant-accent), var(--secondary));
+  color: white;
+  box-shadow: var(--shadow-soft);
+}
+
+.primaryBtn:hover {
+  background: linear-gradient(45deg, var(--secondary), var(--elegant-accent));
+  transform: translateY(-2px);
+}
+
+.secondaryBtn {
+  background: var(--primary-base);
+  color: var(--deep-primary);
+  border: 2px solid var(--secondary);
+}
+
+.secondaryBtn:hover {
+  background: var(--secondary);
+  color: white;
+}
+
+/* ============================================
+   FEATURES COMPARISON
+   ============================================ */
+.featuresSection {
+  padding: 6rem 0;
+  background: var(--primary-base);
+}
+
+.tableWrapper {
+  background: white;
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-medium);
+  overflow: hidden;
+}
+
+.comparisonTable {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.comparisonTable th {
+  background: var(--deep-primary);
+  color: white;
+  font-weight: 700;
+  text-align: center;
+  padding: 1.5rem 1rem;
+  border: none;
+}
+
+.comparisonTable td {
+  text-align: center;
+  padding: 1.2rem 1rem;
+  font-weight: 600;
+  color: var(--deep-primary);
+  border-color: var(--primary-base);
+}
+
+.comparisonTable tbody tr:hover {
+  background: var(--warm-white);
+}
+
+/* ============================================
+   TESTIMONIALS
+   ============================================ */
+.testimonialsSection {
+  padding: 6rem 0;
+  background: white;
+}
+
+.testimonialCard {
+  border: none;
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-soft);
+  transition: var(--transition);
+  height: 100%;
+}
+
+.testimonialCard:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-hover);
+}
+
+.testimonialHeader {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.testimonialAvatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--highlight);
+}
+
+.testimonialName {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--deep-primary);
+  margin-bottom: 0.25rem;
+}
+
+.testimonialRole {
+  font-size: 0.9rem;
+  color: var(--elegant-accent);
+  margin-bottom: 0.5rem;
+}
+
+.testimonialRating {
+  color: var(--highlight);
+}
+
+.testimonialReview {
+  font-style: italic;
+  color: var(--deep-primary);
+  opacity: 0.8;
+  line-height: 1.6;
+}
+
+/* ============================================
+   FAQ SECTION
+   ============================================ */
+.faqSection {
+  padding: 6rem 0;
+  background: var(--primary-base);
+}
+
+.faqAccordion .accordion-item {
+  border: none;
+  border-radius: var(--border-radius-sm) !important;
+  margin-bottom: 1rem;
+  box-shadow: var(--shadow-soft);
+}
+
+.faqAccordion .accordion-header button {
+  background: white;
+  color: var(--deep-primary);
+  font-weight: 600;
+  font-size: 1rem;
+  border-radius: var(--border-radius-sm) !important;
+  border: none;
+  box-shadow: none;
+}
+
+.faqAccordion .accordion-header button:focus {
+  box-shadow: 0 0 0 0.25rem rgba(184, 115, 131, 0.25);
+}
+
+.faqAccordion .accordion-header button:not(.collapsed) {
+  background: linear-gradient(135deg, var(--elegant-accent) 0%, var(--secondary) 100%);
+  color: white;
+}
+
+.faqAccordion .accordion-body {
+  background: var(--warm-white);
+  color: var(--deep-primary);
+  line-height: 1.6;
+}
+
+/* ============================================
+   FINAL CTA SECTION
+   ============================================ */
+.ctaSection {
+  background: linear-gradient(135deg, var(--deep-primary) 0%, #34495e 100%);
+  color: white;
+  padding: 6rem 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.ctaSection::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  opacity: 0.1;
+}
+
+.ctaContent {
+  position: relative;
+  z-index: 2;
+}
+
+.ctaTitle {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+
+.ctaSubtitle {
+  font-size: 1.2rem;
+  opacity: 0.9;
+  max-width: 600px;
+  margin: 0 auto 3rem auto;
+}
+
+.ctaButtons {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.ctaPrimaryBtn {
+  background: linear-gradient(45deg, var(--elegant-accent), var(--secondary));
+  border: none;
+  padding: 1rem 2.5rem;
+  border-radius: var(--border-radius-md);
+  font-weight: 700;
+  font-size: 1.1rem;
+  transition: var(--transition);
+  box-shadow: var(--shadow-medium);
+}
+
+.ctaPrimaryBtn:hover {
+  background: linear-gradient(45deg, var(--secondary), var(--elegant-accent));
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-hover);
+}
+
+.ctaSecondaryBtn {
+  background: transparent;
+  border: 2px solid white;
+  color: white;
+  padding: 1rem 2.5rem;
+  border-radius: var(--border-radius-md);
+  font-weight: 700;
+  font-size: 1.1rem;
+  transition: var(--transition);
+}
+
+.ctaSecondaryBtn:hover {
+  background: white;
+  color: var(--deep-primary);
+}

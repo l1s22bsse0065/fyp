@@ -29,7 +29,7 @@ const WelcomePage = () => {
 
             <button
               className={styles.loginBtn}
-              onClick={() => navigate("/signup")}
+              onClick={() => navigate("/signin")}
             >
               Sign In / Sign Up 🔐
             </button>

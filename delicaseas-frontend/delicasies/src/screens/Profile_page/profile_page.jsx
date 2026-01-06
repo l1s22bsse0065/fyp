@@ -12,18 +12,21 @@ export default function Profile() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // ✅ Small Auth Check Improvement
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!user && !token) {
-      navigate("/welcome"); // redirect guest users to welcome page
+      navigate("/welcome");
     }
   }, [user, navigate]);
 
   if (!user) {
     return (
-      <div className="d-flex vh-100 justify-content-center align-items-center">
-        <div className="spinner-border" role="status"></div>
+      <div
+        className={`d-flex vh-100 justify-content-center align-items-center ${styles.loadingContainer}`}
+      >
+        <div className={styles.modernSpinner}>
+          <div className={styles.spinnerInner}></div>
+        </div>
       </div>
     );
   }
@@ -32,93 +35,147 @@ export default function Profile() {
     localStorage.removeItem("token");
     localStorage.removeItem("userId");
     dispatch(clearUser());
-    navigate("/"); // Redirect to welcome page
+    navigate("/");
   };
 
   return (
     <div className={styles.pageContainer}>
       <Container fluid className={styles.fullWidthContainer}>
         <NavbarComponent />
-        <Row>
-          {/* LEFT SIDEBAR */}
-          <Col
-            className={`${styles.sidebar} d-flex flex-column justify-content-start mt-3`}
-          >
-            <div
-              className={`d-flex align-items-center mb-4 ${styles.profileHeader}`}
-            >
-              <div className={styles.avatarWrapper}>
-                <Image
-                  src={user.profilePicture || "/default-profile.png"}
-                  roundedCircle
-                  width={100}
-                  height={100}
-                  style={{ objectFit: "cover" }}
-                />
-                <button className={styles.cameraBtn}>
-                  <i className="bi bi-camera-fill"></i>
-                </button>
+
+        <div className={styles.modernProfileWrapper}>
+          <Row className="g-0">
+            {/* LEFT SIDEBAR */}
+            <Col lg={5} className={styles.modernSidebar}>
+              <div className={styles.profileCard}>
+                {/* Profile Header */}
+                <div className={styles.modernProfileHeader}>
+                  <div className={styles.modernAvatarWrapper}>
+                    <Image
+                      src={user.profilePicture || "/default-profile.png"}
+                      className={styles.modernAvatar}
+                    />
+                    <button className={styles.modernCameraBtn}>
+                      <i className="bi bi-camera-fill"></i>
+                    </button>
+                    <div className={styles.avatarGlow}></div>
+                  </div>
+
+                  <div className={styles.modernUserInfo}>
+                    <h3 className={styles.modernUserName}>{user.name}</h3>
+                    <p className={styles.modernUserEmail}>{user.email}</p>
+                    <Button
+                      className={styles.modernEditBtn}
+                      onClick={() => navigate("/edit-profile")}
+                    >
+                      <i className="bi bi-pencil-square me-2"></i>
+                      Edit Profile
+                    </Button>
+                  </div>
+                </div>
+
+                {/* Navigation Menu */}
+                <div className={styles.modernMenu}>
+                  <button
+                    className={styles.modernMenuItem}
+                    onClick={() => navigate("/saved-recipes")}
+                  >
+                    <div className={styles.menuIcon}>
+                      <i className="bi bi-heart-fill"></i>
+                    </div>
+                    <span className={styles.menuText}>Your Favourites</span>
+                    <i className="bi bi-chevron-right ms-auto"></i>
+                  </button>
+
+                  <button
+                    className={styles.modernMenuItem}
+                    onClick={() => navigate("/subscribe")}
+                  >
+                    <div className={styles.menuIcon}>
+                      <i className="bi bi-star-fill"></i>
+                    </div>
+                    <span className={styles.menuText}>Subscription</span>
+                    <i className="bi bi-chevron-right ms-auto"></i>
+                  </button>
+
+                  <button className={styles.modernMenuItem}>
+                    <div className={styles.menuIcon}>
+                      <i className="bi bi-globe2"></i>
+                    </div>
+                    <span className={styles.menuText}>Languages</span>
+                    <i className="bi bi-chevron-right ms-auto"></i>
+                  </button>
+                </div>
+
+                {/* Logout Button */}
+                <div className={styles.modernLogoutSection}>
+                  <Button
+                    className={styles.modernLogoutBtn}
+                    onClick={handleLogout}
+                  >
+                    <i className="bi bi-box-arrow-right me-2"></i>
+                    Sign Out
+                  </Button>
+                </div>
               </div>
+            </Col>
 
-              <div className="ms-3 text-start">
-                <h4 className="fw-bold mb-1">{user.name}</h4>
-                <p className="text-muted mb-2">{user.email}</p>
-                <Button
-                  variant="secondary"
-                  size="sm"
-                  onClick={() => navigate("/edit-profile")}
-                >
-                  Edit Profile
-                </Button>
+            {/* RIGHT CONTENT */}
+            <Col lg={7} className={styles.modernRightContent}>
+              <div className={styles.modernWelcomeCard}>
+                <div className={styles.welcomeHeader}>
+                  <div className={styles.welcomeIcon}>
+                    <i className="bi bi-person-circle"></i>
+                  </div>
+                  <h2 className={styles.welcomeTitle}>
+                    Hello, {user.name}! 👋
+                  </h2>
+                </div>
+
+                <div className={styles.welcomeContent}>
+                  <p className={styles.welcomeText}>
+                    Welcome to your personal dashboard. Here, you can manage
+                    your profile, track your cooking journey, and discover
+                    amazing recipes tailored just for you.
+                  </p>
+
+                  <div className={styles.quickStats}>
+                    <div className={styles.statItem}>
+                      <div className={styles.statIcon}>
+                        <i className="bi bi-heart-fill"></i>
+                      </div>
+                      <div className={styles.statInfo}>
+                        <span className={styles.statNumber}>12</span>
+                        <span className={styles.statLabel}>Favorites</span>
+                      </div>
+                    </div>
+
+                    <div className={styles.statItem}>
+                      <div className={styles.statIcon}>
+                        <i className="bi bi-clock-history"></i>
+                      </div>
+                      <div className={styles.statInfo}>
+                        <span className={styles.statNumber}>8</span>
+                        <span className={styles.statLabel}>Recent</span>
+                      </div>
+                    </div>
+
+                    <div className={styles.statItem}>
+                      <div className={styles.statIcon}>
+                        <i className="bi bi-trophy-fill"></i>
+                      </div>
+                      <div className={styles.statInfo}>
+                        <span className={styles.statNumber}>3</span>
+                        <span className={styles.statLabel}>Achievements</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
+            </Col>
+          </Row>
+        </div>
 
-            {/* Sidebar Options */}
-            <div className={styles.menu}>
-              <button
-                className={styles.menuItem}
-                onClick={() => navigate("/saved-recipes")}
-              >
-                <i className="bi bi-heart"></i> Here’s your Favourites
-              </button>
-              <button className={styles.menuItem}>
-                <i className="bi bi-box-seam"></i> Subscription
-              </button>
-              <button className={styles.menuItem}>
-                <i className="bi bi-globe"></i> Languages
-              </button>
-            </div>
-
-            {/* Logout Button */}
-            <div className="mt-4 text-center">
-              <Button
-                variant="danger"
-                className="w-75 mb-5"
-                onClick={handleLogout}
-              >
-                LOGOUT
-              </Button>
-            </div>
-          </Col>
-
-          {/* Divider */}
-          <div className={styles.divider}></div>
-
-          {/* RIGHT CONTENT */}
-          <Col
-            xs={12}
-            md={6}
-            className={`${styles.rightContent} d-flex align-items-center mt-3`}
-          >
-            <div className={`${styles.welcomeBox} p-4`}>
-              <h4>Hello {user.name},</h4>
-              <p className="text-muted ">
-                Welcome to your dashboard. Here, you’ll find everything you need
-                to manage your profile, track your progress, and stay productive.
-              </p>
-            </div>
-          </Col>
-        </Row>
         <FooterSection />
       </Container>
     </div>

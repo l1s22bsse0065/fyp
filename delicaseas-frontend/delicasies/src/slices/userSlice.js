@@ -1,5 +1,23 @@
-import { createSlice } from "@reduxjs/toolkit";
-import {jwtDecode} from "jwt-decode";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { jwtDecode } from "jwt-decode";
+import axios from "axios";
+
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+
+export const fetchMe = createAsyncThunk("user/fetchMe", async (_, { rejectWithValue }) => {
+  try {
+    const token = localStorage.getItem("token");
+    if (!token) return rejectWithValue("No token");
+
+    const res = await axios.get(`${API_URL}/api/users/me`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    return res.data; // MUST include profilePicture
+  } catch (err) {
+    return rejectWithValue(err.response?.data || err.message);
+  }
+});
 
 const getValidUserFromStorage = () => {
   const token = localStorage.getItem("token");
@@ -23,7 +41,9 @@ const getValidUserFromStorage = () => {
 };
 
 const initialState = {
-  user: getValidUserFromStorage(), // Restore if valid
+  user: getValidUserFromStorage(),
+  status: "idle",
+  error: null,
 };
 
 const userSlice = createSlice({
@@ -40,9 +60,26 @@ const userSlice = createSlice({
     },
     clearUser: (state) => {
       state.user = null;
+      state.status = "idle";
+      state.error = null;
       localStorage.removeItem("token");
       localStorage.removeItem("user");
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchMe.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(fetchMe.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.user = action.payload;
+        localStorage.setItem("user", JSON.stringify(action.payload));
+      })
+      .addCase(fetchMe.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload;
+      });
   },
 });
 

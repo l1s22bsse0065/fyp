@@ -1,49 +1,65 @@
+/* ================================
+   LAYOUT WRAPPER
+================================ */
 .chatPage {
   height: 100vh;
   width: 100%;
-  margin: 0;
-    /* Ensure horizontal layout */
-}
-/* Sidebar */
-.sidebar {
-  background-color: #c8c1a1;
-  transition: width 0.3s ease, padding 0.3s ease;
   display: flex;
-  flex-direction: column;
-  height: 100vh;
-  padding: 15px;
-  transition: all 0.3s ease;
+  background: #f4f3ef;
   overflow: hidden;
 }
 
-.sidebarTop {
+/* ================================
+   SIDEBAR
+================================ */
+.sidebar {
+  background: #f7f6f2;
+  border-right: 1px solid #e2dfd4;
+  height: 100vh;
+  transition: width 0.3s ease;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin-top: 20px; /* reduce if needed */
-  flex-grow: 1;  /* <-- this lets it expand and take available space */
-  overflow-y: auto; /* <-- this makes recent chats scroll instead of pushing down user card */
-  scrollbar-width: thin; /* optional: nice thin scrollbar */
+  padding: 18px 14px;
+  position: relative;
+  overflow: hidden;
+}
+
+.sidebar.open {
+  width: 270px;
 }
 
 .sidebar.closed {
-  width: 60px !important; /* shrink to icons only */
-  padding: 10px 5px;
+  width: 70px !important;
 }
 
-.sidebar.closed .chatButton,
-.sidebar.closed .recentChats,
-.sidebar.closed .userCard span {
-  display: none; /* hide labels */
-}
-
-.sidebar.closed .userImage {
-  margin: 0 auto;
-}
-
-.menuButton {
-  margin-bottom: 8px;
+/* Sidebar buttons */
+.chatButton {
+  padding: 12px 15px;
+  border-radius: 10px;
+  background: #e5e1d4;
+  border: none;
+  font-weight: 600;
+  font-size: 14px;
   cursor: pointer;
+  transition: 0.2s ease;
+  display: block;
+  text-align: left;
+}
+
+.chatButton:hover {
+  background: #d7d2c1;
+  transform: translateY(-1px);
+}
+
+/* Recent chats section */
+.sidebarTop {
+  margin-top: 20px;
+  flex-grow: 1;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .recentChats {
@@ -52,188 +68,165 @@
   gap: 10px;
 }
 
-.chatButton {
-  background-color: #b6ad8e;
-   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
-  border: none;
-  padding: 10px;
-  text-align: left;
-  cursor: pointer;
+/* Active chat button highlight */
+.activeChat {
+  background: #c9c4b2 !important;
   color: #fff;
-  font-weight: 500;
-  border-radius: 5px;
 }
 
-.chatButton:hover {
-  background-color: #a89d7d;
+/* Collapsed Sidebar — Hide Text */
+.sidebar.closed .chatButton,
+.sidebar.closed .recentChats,
+.sidebar.closed span {
+  opacity: 0;
+  pointer-events: none;
 }
 
-.userCard {
-  margin-top: auto; /* Push to bottom */
-  background-color: #fff;
-  border-radius: 10px;
+.menuButton {
+  cursor: pointer;
   padding: 10px;
+  border-radius: 8px;
+  background: #e7e4da;
+  width: fit-content;
+  margin-bottom: 10px;
+}
+
+.menuButton:hover {
+  background: #d8d4c8;
+}
+
+/* User card */
+.userCard {
+  background: #ffffffb8;
+  backdrop-filter: blur(12px);
+  border: 1px solid #eceae2;
+  border-radius: 16px;
+  padding: 12px;
   display: flex;
   align-items: center;
-  gap: 10px;
-  flex-shrink: 0;
+  gap: 12px;
+  margin-top: auto;
+  margin-bottom: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
 
 .userImage {
-  width: 40px;
-  height: 40px;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
 }
 
-/* Chat section */
+/* ================================
+   CHAT SECTION
+================================ */
 .chatSection {
   flex: 1;
   display: flex;
   flex-direction: column;
   height: 100vh;
-  padding: 0;
-  background-color: #dbd7c2;
+  background: #faf9f5;
 }
 
-.topBar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-  background-color: transparent;
-}
-
+/* Top Back Button */
 .backButton {
-  display: inline-flex;
-  width: 20vh;
-  margin-top: 10px;
-  margin-left: 10px;
-  align-items: center;
-  gap: 8px;                 
-  background-color: #c8c1a1;
-  color: #ffffff;
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 14px;
+  width: fit-content;
+  margin: 18px;
+  background: #e5e1d4;
   padding: 8px 16px;
-  border-radius: 6px;
-  transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
-  cursor: pointer;
+  border-radius: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  color: #444;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: 0.2s ease;
 }
 
 .backButton:hover {
-  background-color: #a89d7d;
-  text-decoration: none;
-  color: #ffffff;
-  transform: translateY(-1px);
+  background: #d8d4c6;
+  color: #222;
 }
 
-.backButton:active {
-  transform: translateY(0);
-}
-
-.topIcons {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
-.icon {
-  cursor: pointer;
-  font-size: 18px;
-}
-
-.searchBar {
-  border-radius: 20px;
-  padding-left: 15px;
-  height: 35px;
-}
-
-/* Chat messages */
+/* ================================
+   CHAT MESSAGES
+================================ */
 .chatBody {
   flex: 1;
-  padding: 20px;
+  padding: 25px;
   overflow-y: auto;
 }
 
 .chatMessageLeft,
 .chatMessageRight {
   display: flex;
-  align-items: flex-end;
   margin-bottom: 20px;
-}
-
-.chatMessageLeft {
-  justify-content: flex-start;
+  gap: 12px;
 }
 
 .chatMessageRight {
   justify-content: flex-end;
-  
 }
 
 .messageBox {
-  background-color: #fff;
-   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
-  padding: 12px 15px;
-  border-radius: 10px;
-  max-width: 60%;
-  font-size: 14px;
+  padding: 14px 18px;
+  border-radius: 14px;
+  max-width: 65%;
+  font-size: 15px;
   line-height: 1.5;
-  
+  white-space: pre-wrap;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
+
 .chatMessageRight .messageBox {
-  background-color: #ece8d9; /* subtle tint */
+  background: #dcd7c7;
 }
 
 .chatMessageLeft .messageBox {
-  background-color: #fff; /* clean white for received */
+  background: #ffffff;
 }
 
-
+/* avatar */
 .avatar {
-  width: 35px;
-  height: 35px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  margin-left: 10px;
-  margin-right: 10px;
 }
 
-/* Input bar */
+/* ================================
+   INPUT BAR
+================================ */
 .inputBar {
+  padding: 14px 20px;
+  background: #f1efe9;
+  border-top: 1px solid #dedad0;
   display: flex;
   align-items: center;
-  padding: 10px 20px;
-  border-top: 1px solid #ddd;
-   background-color: #f7f5ee;
+  gap: 15px;
 }
 
 .inputBar input {
   flex: 1;
   border-radius: 20px;
-  padding-left: 15px;
-  height: 40px;
-  border: 1px solid #ccc;
+  padding: 12px 16px;
+  border: 1px solid #d5d2c8;
+  background: #fff;
 }
 
 .inputIcons {
   display: flex;
-  align-items: center;
   gap: 12px;
-  margin-left: 15px;
 }
 
-.inputIcons .icon {
+.icon {
+  font-size: 35px;
   cursor: pointer;
-  font-size: 18px;
-}
-.icon:hover {
-  transform: scale(1.1);
-  transition: transform 0.2s ease;
+  padding: 6px;
+  border-radius: 10px;
+  transition: 0.2s ease;
 }
 
-.inputIcons .icon:hover {
-  background-color: rgba(0,0,0,0.05);
-  border-radius: 50%;
-  padding: 5px;
+.icon:hover {
+  background: #e2dfd6;
+  transform: scale(1.1);
 }
